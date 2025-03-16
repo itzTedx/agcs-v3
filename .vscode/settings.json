@@ -1,0 +1,22 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": [
+    "Bento",
+    "Cobe",
+    "Plaiceholder",
+    "tabler",
+    "tiktok",
+    "uploadthing",
+    "valverde",
+    "webm",
+    "webp",
+    "Ziron"
+  ]
+}
