@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-navbar: var(--navbar);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -45,8 +46,9 @@
 }
 
 :root {
+  --navbar: oklch(92.33% 0.011 234.83);
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(93.79% 0.0095 222.06);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -80,7 +82,8 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --navbar: oklch(93.79% 0.0095 222.06);
+  --background: oklch(93.79% 0.0095 222.06);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -120,4 +123,9 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
 }
