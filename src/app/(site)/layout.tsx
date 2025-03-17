@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
+import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import "@/styles/globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${roboto.className} scroll-smooth antialiased`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
