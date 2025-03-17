@@ -33,6 +33,13 @@ export const structure: StructureResolver = (S, context) =>
         title: "Products Category",
         S,
         context,
+      }),  
+      orderableDocumentListDeskItem({
+        type: "projects",
+        title: "Projects",
+        S,
+        context,
+
       }),
     ], );
 

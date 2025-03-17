@@ -1,8 +1,9 @@
+import { orderRankField } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
-    name: 'featuredProject',
-    title: 'Featured Project',
+    name: 'projects',
+    title: 'Projects',
     type: 'document',
     fields: [
       defineField({
@@ -10,22 +11,15 @@ export default defineType({
         title: 'Project Title',
         type: 'string',
         validation: (Rule) => Rule.required(),
+      
       }),
       defineField({
         name: 'isFeatured',
-        title: 'Featured',
-        type: '',
-        validation: (Rule) => Rule.required(),
+        description: 'Enable this option to mark the item as featured',
+        title: 'Mark as Featured',
+        type: 'boolean',
       }),
       
-
-      defineField({
-        name: 'description',
-        title: 'Project Description',
-        type: 'text',
-        validation: (Rule) => Rule.required(),
-      }),
-
       defineField({
         name: 'image',
         title: 'Project Image:',
@@ -34,8 +28,22 @@ export default defineType({
           hotspot: true,
         },
       }),
+      defineField({
+        name: 'description',
+        title: 'Project Description',
+        type: 'text',
+      }),
 
-    
+      defineField({
+        name: 'tags',
+        title: 'Tags',
+        type: 'array',
+       of: [{
+        type: "string",
+       }]
+      }),
+
+      orderRankField({ type: "projects" }),
 
     ],
     preview: {
