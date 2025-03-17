@@ -14,10 +14,10 @@ import { Button } from "../ui/button";
 
 export const Footer = () => {
   return (
-    <footer className="text-muted-foreground bg-navbar mt-16 py-20">
+    <footer className="mt-12 rounded-t-4xl bg-gradient-to-b from-sky-700 to-sky-500/90 py-12 pt-16 text-sky-100">
       <div className="container grid grid-cols-5 gap-12">
         <div className="col-span-2">
-          <h5 className="mb-4 text-2xl font-bold text-sky-700">
+          <h5 className="mb-4 text-2xl font-bold text-white">
             Allied Gulf Construction Services W.L.L
           </h5>
 
@@ -29,42 +29,38 @@ export const Footer = () => {
         </div>
 
         <div>
-          <h6 className="mb-4 text-xl font-semibold text-sky-700/80">
-            Follow Us
-          </h6>
+          <h6 className="mb-4 text-xl font-semibold">Follow Us</h6>
 
           <ul className="flex gap-2">
             <li>
-              <Link href="/" className="transition-colors hover:text-sky-600">
+              <Link href="/" className="transition-colors hover:text-sky-200">
                 <IconBrandLinkedin className="size-7" />
               </Link>
             </li>
             <li>
-              <Link href="/" className="transition-colors hover:text-sky-600">
+              <Link href="/" className="transition-colors hover:text-sky-200">
                 <IconBrandFacebook className="size-7" />
               </Link>
             </li>
             <li>
-              <Link href="/" className="transition-colors hover:text-sky-600">
+              <Link href="/" className="transition-colors hover:text-sky-200">
                 <IconBrandX className="size-7" />
               </Link>
             </li>
             <li>
-              <Link href="/" className="transition-colors hover:text-sky-600">
+              <Link href="/" className="transition-colors hover:text-sky-200">
                 <IconBrandInstagram className="size-7" />
               </Link>
             </li>
             <li>
-              <Link href="/" className="transition-colors hover:text-sky-600">
+              <Link href="/" className="transition-colors hover:text-sky-200">
                 <IconBrandYoutube className="size-7" />
               </Link>
             </li>
           </ul>
         </div>
         <div>
-          <h6 className="mb-4 text-xl font-semibold text-sky-700/80">
-            Quick links
-          </h6>
+          <h6 className="mb-4 text-xl font-semibold">Quick links</h6>
 
           <ul className="space-y-2">
             {NAVLINKS.map((nav) => (
@@ -76,9 +72,7 @@ export const Footer = () => {
         </div>
 
         <div>
-          <h6 className="mb-4 text-xl font-semibold text-sky-700/80">
-            Contact Information
-          </h6>
+          <h6 className="mb-4 text-xl font-semibold">Contact Information</h6>
 
           <ul>
             {NAVLINKS.map((nav) => (
@@ -88,7 +82,10 @@ export const Footer = () => {
             ))}
           </ul>
         </div>
-        <Button variant="link">
+        <p className="col-span-2">
+          Copyright © {new Date().getFullYear()}. All Rights Reserved
+        </p>
+        <Button variant="link" className="col-start-5 w-fit px-0" asChild>
           <Link href="/policies">Terms of Service and Privacy Policy</Link>
         </Button>
       </div>
