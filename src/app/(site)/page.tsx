@@ -1,24 +1,92 @@
-import { Cta } from "@/components/global/cta";
-import { LogoStrip } from "@/components/global/logo-stripe";
-import { Header } from "@/features/home/components/header";
-import { About } from "@/features/home/sections/about";
-import { Hero } from "@/features/home/sections/hero";
-import { Products } from "@/features/home/sections/products";
-import { Projects } from "@/features/home/sections/projects";
-import { Services } from "@/features/home/sections/services";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
-export default async function Home() {
+import { SectionLoader } from "@/components/ui/section-loader";
+import { Header } from "@/features/home/components/header";
+import { Hero } from "@/features/home/sections/hero";
+
+// Dynamic imports
+const About = dynamic(
+  () =>
+    import("@/features/home/sections/about").then((mod) => ({
+      default: mod.About,
+    })),
+  {
+    loading: () => <SectionLoader height="400px" />,
+  }
+);
+
+const Services = dynamic(
+  () =>
+    import("@/features/home/sections/services").then((mod) => ({
+      default: mod.Services,
+    })),
+  {
+    loading: () => <SectionLoader height="600px" />,
+  }
+);
+
+const Products = dynamic(
+  () =>
+    import("@/features/home/sections/products").then((mod) => ({
+      default: mod.Products,
+    })),
+  {
+    loading: () => <SectionLoader height="600px" />,
+  }
+);
+
+const Projects = dynamic(
+  () =>
+    import("@/features/home/sections/projects").then((mod) => ({
+      default: mod.Projects,
+    })),
+  {
+    loading: () => <SectionLoader height="400px" />,
+  }
+);
+
+const LogoStrip = dynamic(
+  () =>
+    import("@/components/global/logo-stripe").then((mod) => ({
+      default: mod.LogoStrip,
+    })),
+  {
+    loading: () => <SectionLoader height="100px" />,
+  }
+);
+
+const Cta = dynamic(
+  () => import("@/components/global/cta").then((mod) => ({ default: mod.Cta })),
+  {
+    loading: () => <SectionLoader height="200px" />,
+  }
+);
+
+export default function Home() {
   return (
     <main>
       <Hero />
-      <About />
+      <Suspense fallback={<SectionLoader height="400px" />}>
+        <About />
+      </Suspense>
       <Header>Services</Header>
-      <Services />
+      <Suspense fallback={<SectionLoader height="600px" />}>
+        <Services />
+      </Suspense>
       <Header>Products</Header>
-      <Products />
-      <LogoStrip />
-      <Projects />
-      <Cta />
+      <Suspense fallback={<SectionLoader height="600px" />}>
+        <Products />
+      </Suspense>
+      <Suspense fallback={<SectionLoader height="100px" />}>
+        <LogoStrip />
+      </Suspense>
+      <Suspense fallback={<SectionLoader height="400px" />}>
+        <Projects />
+      </Suspense>
+      <Suspense fallback={<SectionLoader height="200px" />}>
+        <Cta />
+      </Suspense>
     </main>
   );
 }
