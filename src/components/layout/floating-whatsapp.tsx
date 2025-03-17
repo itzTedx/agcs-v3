@@ -155,7 +155,7 @@ export default function FloatingWhatsapp({
               </Button>
             </CardHeader>
 
-            <CardContent className="bg-[url('/whatsapp-bg.jpg')] bg-cover px-6 py-0 pb-1.5">
+            <CardContent className="bg-[url('/whatsapp-bg.webp')] bg-cover px-6 py-0 pb-1.5">
               <div className="relative h-[12rem] border-0 pt-4">
                 <div className="whatsapp-clip absolute top-4 -left-3 z-[999] inline-block h-0 w-0" />
                 <motion.div

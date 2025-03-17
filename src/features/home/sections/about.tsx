@@ -9,7 +9,7 @@ export const About = () => {
     >
       <div className="relative aspect-square">
         <Image
-          src="/images/about.png"
+          src="/images/about.webp"
           fill
           alt="Allied Gulf Construction Services office building"
           priority
