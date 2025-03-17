@@ -72,7 +72,14 @@ export const structure: StructureResolver = (S, context) =>
           .title("Certification")
           .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
       ),
-      
+      S.listItem()
+      .title("Posts")
+      .schemaType("post")
+      .child(
+        S.documentTypeList("post")
+          .title("post")
+          .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
+      ),
     ]
   )
 

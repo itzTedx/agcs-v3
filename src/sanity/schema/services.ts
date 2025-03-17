@@ -17,6 +17,7 @@ export default defineType({
         type: "image",
         description: 'Size must be 1280x720',
         validation: (Rule) => Rule.required(),
+        
       }),
       defineField({
         name: "servicesImage",
@@ -27,7 +28,20 @@ export default defineType({
             type: "image",
             options: {
                 hotspot: true,
+                metadata: [
+                  'blurhash',   
+                  'lqip',       
+                  'palette',   
+                  'image',      
+                ]
               },
+              fields: [
+                {
+                  name: "alt",
+                  type: "string",
+                  title: "Alternative Text",
+                },
+              ],
           },
         ],
         description: 'Recommended size width:534px, height: 262px',

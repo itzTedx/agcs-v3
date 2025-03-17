@@ -7,13 +7,15 @@ interface Props {
 
 export const Header = ({ children, className }: Props) => {
   return (
-    <h3
-      className={cn(
-        "py-12 text-center text-4xl font-bold dark:bg-neutral-800",
-        className
-      )}
-    >
-      {children}
-    </h3>
+    <div className="dark:bg-neutral w-full overflow-hidden bg-sky-500 py-9">
+      <h3
+        className={cn(
+          "text-center text-4xl leading-none font-bold text-white uppercase md:text-[4rem]",
+          className
+        )}
+      >
+        {children}
+      </h3>
+    </div>
   );
 };

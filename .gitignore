@@ -24,6 +24,7 @@
 .DS_Store
 *.pem
 production.tar.gz
+/backup
 
 # debug
 npm-debug.log*

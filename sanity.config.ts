@@ -15,6 +15,7 @@ import { structure } from './src/sanity/structure'
 
 export default defineConfig({
   basePath: '/studio',
+  title: 'Allied Gulf Construction Services W.L.L',
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
