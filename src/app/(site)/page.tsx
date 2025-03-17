@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 import { SectionLoader } from "@/components/ui/section-loader";
-import { Header } from "@/features/home/components/header";
 import { Hero } from "@/features/home/sections/hero";
 
 // Dynamic imports
@@ -70,11 +69,11 @@ export default function Home() {
       <Suspense fallback={<SectionLoader height="400px" />}>
         <About />
       </Suspense>
-      <Header>Services</Header>
+
       <Suspense fallback={<SectionLoader height="600px" />}>
         <Services />
       </Suspense>
-      <Header>Products</Header>
+
       <Suspense fallback={<SectionLoader height="600px" />}>
         <Products />
       </Suspense>

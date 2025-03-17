@@ -7,7 +7,6 @@ import { Navbar } from "@/components/layout/navbar";
 import "@/styles/globals.css";
 
 const roboto = Roboto({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 

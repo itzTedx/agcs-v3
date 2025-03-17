@@ -2,10 +2,15 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section
+      className="relative overflow-hidden"
+      aria-label="Hero Section with Company Showcase Video"
+    >
+      <h1 className="sr-only">Welcome to AGCS - Creative Solutions</h1>
       <Link
-        className="scroll-down z-50 hidden hover:cursor-pointer md:block"
+        className="scroll-down bottom-3 z-50 hidden hover:cursor-pointer md:block"
         href={"#about"}
+        aria-label="Scroll to About section"
       ></Link>
       <div className="pointer-events-none relative w-full touch-none object-cover lg:h-svh">
         <video
@@ -15,10 +20,30 @@ export function Hero() {
           playsInline
           loop
           autoPlay
-          className=""
+          poster="/images/video-poster.jpg"
+          className="h-full w-full object-cover"
           crossOrigin="anonymous"
-        />
+          aria-label="AGCS Company Showreel"
+        >
+          <track
+            kind="descriptions"
+            src="/video/agcs-Showreel-descriptions.vtt"
+            default
+          />
+        </video>
       </div>
+
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          name: "AGCS Company Showreel",
+          description:
+            "Showcase video highlighting AGCS creative solutions and services",
+          thumbnailUrl: "/images/video-poster.jpg",
+          uploadDate: "2024-01-01T08:00:00+08:00",
+        })}
+      </script>
     </section>
   );
 }
