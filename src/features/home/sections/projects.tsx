@@ -1,9 +1,9 @@
 import { AuroraText } from "@/components/animations/aurora-text";
 import { Card } from "@/components/global/card";
-import { getProjects } from "@/sanity/lib/fetch";
+import { getHomeProjects } from "@/sanity/lib/fetch";
 
 export async function Projects() {
-  const projects = await getProjects();
+  const projects = await getHomeProjects();
 
   return (
     <section className="container py-12">
