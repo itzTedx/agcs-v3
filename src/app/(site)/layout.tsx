@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
 import BreakpointIndicator from "@/components/dev/breakpoint-indicator";
+import FloatingWhatsapp from "@/components/layout/floating-whatsapp";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import "@/styles/globals.css";
@@ -27,6 +28,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <FloatingWhatsapp />
           <BreakpointIndicator />
         </div>
       </body>

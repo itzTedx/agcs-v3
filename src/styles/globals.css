@@ -327,3 +327,9 @@
     opacity: 0;
   }
 }
+
+.whatsapp-clip {
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent var(--color-sky-600) transparent transparent;
+}
