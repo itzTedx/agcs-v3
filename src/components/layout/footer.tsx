@@ -9,67 +9,75 @@ import {
 } from "@tabler/icons-react";
 
 import { NAVLINKS } from "@/data/navbar";
+import { SOCIAL_LINKS } from "@/data/social-links";
 
 import { Button } from "../ui/button";
 
-export const Footer = () => {
-  return (
-    <footer className="mt-12 rounded-t-4xl bg-gradient-to-b from-sky-700 to-sky-500/90 py-12 pt-16 text-sky-100">
-      <div className="container grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-12 lg:grid-cols-5">
-        <div className="col-span-2">
-          <h5 className="mb-4 text-2xl font-bold text-white">
-            Allied Gulf Construction Services W.L.L
-          </h5>
+const iconMap = {
+  IconBrandLinkedin,
+  IconBrandFacebook,
+  IconBrandX,
+  IconBrandInstagram,
+  IconBrandYoutube,
+};
 
+export const Footer = () => {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer
+      className="mt-12 rounded-t-4xl bg-gradient-to-b from-sky-700 to-sky-500/90 py-12 pt-16 text-sky-100"
+      role="contentinfo"
+    >
+      <div className="container grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-12 lg:grid-cols-5">
+        <section className="col-span-2">
+          <h2 className="mb-4 text-2xl font-bold text-white">
+            Allied Gulf Construction Services W.L.L
+          </h2>
           <p className="text-lg font-light">
             For the best construction solution services and specialty materials,
             look no further than us! We have everything you need to get the job
             done right, and we're always here to help.
           </p>
-        </div>
+        </section>
 
-        <div className="col-span-2">
-          <h6 className="mb-4 text-xl font-semibold">Follow Us</h6>
-
-          <ul className="flex gap-2">
-            <li>
-              <Link href="/" className="transition-colors hover:text-sky-200">
-                <IconBrandLinkedin className="size-7" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="transition-colors hover:text-sky-200">
-                <IconBrandFacebook className="size-7" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="transition-colors hover:text-sky-200">
-                <IconBrandX className="size-7" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="transition-colors hover:text-sky-200">
-                <IconBrandInstagram className="size-7" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="transition-colors hover:text-sky-200">
-                <IconBrandYoutube className="size-7" />
-              </Link>
-            </li>
+        <section className="max-sm:col-span-2">
+          <h2 className="mb-4 text-xl font-semibold">Follow Us</h2>
+          <ul className="flex gap-2" aria-label="Social media links">
+            {SOCIAL_LINKS.map(({ name, href, icon }) => {
+              const Icon = iconMap[icon as keyof typeof iconMap];
+              return (
+                <li key={name}>
+                  <Link
+                    href={href}
+                    className="inline-flex size-10 items-center justify-center rounded-full transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-200 focus:outline-none"
+                    aria-label={`Visit our ${name} page`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon className="size-7" aria-hidden="true" />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
-        </div>
-        <div>
-          <h6 className="mb-4 text-xl font-semibold">Quick links</h6>
+        </section>
 
+        <nav aria-label="Quick links">
+          <h2 className="mb-4 text-xl font-semibold">Quick links</h2>
           <ul className="space-y-2">
             {NAVLINKS.map((nav) => (
               <li key={nav.href}>
-                <Link href={nav.href}>{nav.title}</Link>
+                <Link
+                  href={nav.href}
+                  className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+                >
+                  {nav.title}
+                </Link>
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
         <div>
           <h6 className="mb-4 text-xl font-semibold">Contact Information</h6>
@@ -82,13 +90,18 @@ export const Footer = () => {
             ))}
           </ul>
         </div>
-        <p className="col-span-2">
-          Copyright © {new Date().getFullYear()}. All Rights Reserved
-        </p>
 
-        <Button variant="link" className="w-fit px-0 md:col-start-5" asChild>
-          <Link href="/policies">Terms of Service and Privacy Policy</Link>
-        </Button>
+        <div className="col-span-full mt-8 flex flex-wrap items-center justify-between gap-4">
+          <p className="text-sm">Copyright © {year}. All Rights Reserved</p>
+          <Button variant="link" className="w-fit px-0" asChild>
+            <Link
+              href="/policies"
+              className="rounded-sm text-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+            >
+              Terms of Service and Privacy Policy
+            </Link>
+          </Button>
+        </div>
       </div>
     </footer>
   );
