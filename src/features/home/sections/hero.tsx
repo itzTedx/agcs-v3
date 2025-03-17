@@ -20,17 +20,11 @@ export function Hero() {
           playsInline
           loop
           autoPlay
-          poster="/images/video-poster.jpg"
+          poster="/images/video-poster.webp"
           className="h-full w-full object-cover"
           crossOrigin="anonymous"
           aria-label="AGCS Company Showreel"
-        >
-          <track
-            kind="descriptions"
-            src="/video/agcs-Showreel-descriptions.vtt"
-            default
-          />
-        </video>
+        ></video>
       </div>
 
       <script type="application/ld+json">
