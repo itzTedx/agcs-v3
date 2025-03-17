@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
+import BreakpointIndicator from "@/components/dev/breakpoint-indicator";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import "@/styles/globals.css";
@@ -22,10 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} scroll-smooth antialiased`}>
-        <Navbar />
-        {children}
-        <Footer />
+      <body className={`${roboto.className} antialiased`}>
+        <div data-vaul-drawer-wrapper className="bg-background">
+          <Navbar />
+          {children}
+          <Footer />
+          <BreakpointIndicator />
+        </div>
       </body>
     </html>
   );

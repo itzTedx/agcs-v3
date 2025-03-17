@@ -15,7 +15,7 @@ import { Button } from "../ui/button";
 export const Footer = () => {
   return (
     <footer className="mt-12 rounded-t-4xl bg-gradient-to-b from-sky-700 to-sky-500/90 py-12 pt-16 text-sky-100">
-      <div className="container grid grid-cols-5 gap-12">
+      <div className="container grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-12 lg:grid-cols-5">
         <div className="col-span-2">
           <h5 className="mb-4 text-2xl font-bold text-white">
             Allied Gulf Construction Services W.L.L
@@ -28,7 +28,7 @@ export const Footer = () => {
           </p>
         </div>
 
-        <div>
+        <div className="col-span-2">
           <h6 className="mb-4 text-xl font-semibold">Follow Us</h6>
 
           <ul className="flex gap-2">
@@ -85,7 +85,8 @@ export const Footer = () => {
         <p className="col-span-2">
           Copyright © {new Date().getFullYear()}. All Rights Reserved
         </p>
-        <Button variant="link" className="col-start-5 w-fit px-0" asChild>
+
+        <Button variant="link" className="w-fit px-0 md:col-start-5" asChild>
           <Link href="/policies">Terms of Service and Privacy Policy</Link>
         </Button>
       </div>

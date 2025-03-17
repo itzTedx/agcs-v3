@@ -7,7 +7,7 @@ export function Hero() {
         className="scroll-down z-50 hidden hover:cursor-pointer md:block"
         href={"#about"}
       ></Link>
-      <div className="pointer-events-none relative h-svh w-full touch-none object-cover">
+      <div className="pointer-events-none relative w-full touch-none object-cover lg:h-svh">
         <video
           muted
           slot="media"

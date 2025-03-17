@@ -11,7 +11,7 @@ export async function Projects() {
       <h3 className="text-5xl font-light">
         Recent <AuroraText className="font-bold">Projects</AuroraText>
       </h3>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid gap-6 md:grid-cols-2">
         {projects.map((project) => (
           <Card
             className="aspect-[16/7] text-sm"

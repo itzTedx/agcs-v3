@@ -4,7 +4,7 @@ export const About = () => {
   return (
     <section
       id="about"
-      className="container grid max-w-7xl grid-cols-2 gap-12 py-20"
+      className="container grid max-w-7xl gap-12 py-20 md:grid-cols-2"
     >
       <div className="relative aspect-square">
         <Image src="/images/about.png" fill alt="" />

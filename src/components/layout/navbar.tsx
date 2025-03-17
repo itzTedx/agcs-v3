@@ -1,7 +1,19 @@
 import Link from "next/link";
-import * as React from "react";
+import React from "react";
+
+import { IconMenu3 } from "@tabler/icons-react";
 
 import { Logo } from "@/assets/logo";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -12,10 +24,55 @@ import {
 import { NAVLINKS } from "@/data/navbar";
 import { cn } from "@/lib/utils";
 
+import { Button } from "../ui/button";
+
 export function Navbar() {
   return (
     <NavigationMenu className="bg-navbar sticky top-0 z-50 w-full max-w-full items-center">
-      <div className="container flex w-full items-center justify-between py-2">
+      <div className="container flex w-full items-center gap-4 px-4 py-2 md:justify-between">
+        <Drawer>
+          <DrawerTrigger className="sm:hidden">
+            <IconMenu3 />
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader className="flex-row items-center">
+              <Logo className="h-20 w-auto shrink-0" />
+              <div className="">
+                <DrawerTitle className="text-sm font-bold text-gray-700 dark:text-gray-300 [&_span]:text-sky-600 dark:[&_span]:text-sky-500">
+                  <span>ALLIED</span> GULF <span>CONSTRUCTION</span> SERVICES{" "}
+                  <span>W.L.L</span>
+                </DrawerTitle>
+                <DrawerDescription className="text-xs font-light">
+                  For top construction solutions and materials, count on us!
+                  We&apos;ve got what you need.
+                </DrawerDescription>
+              </div>
+            </DrawerHeader>
+            <NavigationMenuList className="flex-col items-start">
+              {NAVLINKS.filter((nav) => nav.title !== "Contact").map((nav) => (
+                <NavigationMenuItem className="w-full" key={nav.href}>
+                  <NavigationMenuLink
+                    className={navigationMenuTriggerStyle()}
+                    asChild
+                  >
+                    <Link
+                      href={nav.href}
+                      className="max-sm:!w-full max-sm:items-start"
+                    >
+                      {nav.title}
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+            <DrawerFooter>
+              <DrawerClose asChild>
+                <Button>Contact</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+
         <Link href="/" className="flex items-center gap-2">
           <Logo className="h-11 w-auto" />
           <p className="pt-1.5 text-sm font-bold text-gray-700 dark:text-gray-300 [&_span]:text-sky-600 dark:[&_span]:text-sky-500">
@@ -23,7 +80,7 @@ export function Navbar() {
             <span>W.L.L</span>
           </p>
         </Link>
-        <div className="hidden md:block">
+        <div className="hidden sm:block">
           <NavigationMenuList>
             {NAVLINKS.map((nav) => (
               <NavigationMenuItem key={nav.href}>
