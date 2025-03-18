@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const LETTER_DELAY = 0.025;
 const BOX_FADE_DURATION = 0.125;

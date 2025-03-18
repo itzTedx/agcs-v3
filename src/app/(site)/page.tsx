@@ -64,7 +64,7 @@ const Cta = dynamic(
 
 export default function Home() {
   return (
-    <main>
+    <div>
       <Hero />
       <Suspense fallback={<SectionLoader height="400px" />}>
         <About />
@@ -86,6 +86,6 @@ export default function Home() {
       <Suspense fallback={<SectionLoader height="200px" />}>
         <Cta />
       </Suspense>
-    </main>
+    </div>
   );
 }
