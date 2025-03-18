@@ -12,6 +12,8 @@ export const About = () => {
           src="/images/about.webp"
           fill
           alt="Allied Gulf Construction Services office building"
+          title="Allied Gulf Construction Services office building"
+          className="object-contain"
           priority
           sizes="(max-width: 768px) 100vw, 50vw"
         />

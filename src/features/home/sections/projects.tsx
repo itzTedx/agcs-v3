@@ -10,7 +10,7 @@ export async function Projects() {
   return (
     <section className="container py-12" aria-labelledby="projects-heading">
       <div className="mb-8">
-        <p className="text-gray-500 uppercase" role="doc-subtitle">
+        <p className="text-gray-600 uppercase" role="doc-subtitle">
           Top projects in bahrain
         </p>
         <h2 id="projects-heading" className="text-5xl font-light">

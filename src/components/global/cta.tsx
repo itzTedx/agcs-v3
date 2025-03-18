@@ -12,12 +12,12 @@ export const Cta = () => {
         aria-labelledby="cta-heading"
         className="question text-foreground relative mx-auto w-4/5 rounded-lg bg-gradient-to-r from-[#5ebce6] to-[#3aaee3] px-10 py-7 duration-300 ease-out md:w-[38em] md:shadow-xl"
       >
-        <h5
+        <h4
           id="cta-heading"
           className="max-w-[12em] pb-1 text-4xl font-bold md:max-w-[100%]"
         >
           Have any Questions on Mind?
-        </h5>
+        </h4>
         <p className="arrow mb-8 font-light">
           Let{`'`}s talk about your project
         </p>

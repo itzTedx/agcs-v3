@@ -62,6 +62,7 @@ export const ParallaxLogo = memo(function ParallaxLogo({
             height={81}
             width={1077}
             alt={alt}
+            title={alt}
             className="h-full w-full object-contain"
             loading={priority ? "eager" : "lazy"}
             priority={priority}

@@ -9,10 +9,10 @@ export const LogoStrip = memo(function LogoStrip() {
       className="space-y-3 overflow-hidden text-center md:py-6"
       aria-label="Our Brand Partners"
     >
-      <h5 className="text-4xl font-light">
-        Meet Our{" "}
+      <h4 className="text-4xl font-light">
+        Meet Our <span className="sr-only">Brands</span>
         <AuroraText className="font-medium text-sky-500">Brands</AuroraText>
-      </h5>
+      </h4>
       <p className="text-sm font-light">
         We collaborate with leading brands to provide high-quality products
         throughout the Kingdom of Bahrain.

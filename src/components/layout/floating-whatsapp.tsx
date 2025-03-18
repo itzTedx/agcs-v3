@@ -104,41 +104,51 @@ export default function FloatingWhatsapp({
 
   return (
     <div
-      className={cn(
-        "z-[99999999] transition-all md:fixed md:right-3",
-        className
-      )}
+      className={cn("fixed right-3 z-[99999999] transition-all", className)}
       style={{
         bottom:
           typeof window !== "undefined" && viewportHeight < window.innerHeight
             ? "30vh"
             : "3vh",
       }}
+      role="complementary"
     >
       <Popover open={isPopupVisible} onOpenChange={setIsPopupVisible}>
         <PopoverTrigger
           onClick={handleClick}
           className="cursor-pointer overflow-hidden rounded-full border shadow-lg"
+          aria-label="Open WhatsApp Chat"
         >
           <div className="flex size-14 items-center justify-center bg-sky-700">
-            <Icons.whatsapp className="size-7" />
+            <Icons.whatsapp className="size-7" aria-hidden="true" />
           </div>
         </PopoverTrigger>
         <PopoverContent
           align="end"
           className="w-[24rem] overflow-hidden rounded-xl border-sky-600 p-0 shadow-sky-800/10"
+          role="dialog"
+          aria-label="WhatsApp Chat Window"
         >
           <Card className="gap-0 border-0 pt-0">
             <CardHeader className="text-background flex flex-row items-center gap-3 space-y-0 bg-sky-600 p-4">
-              <div className="relative flex size-12 items-center justify-center rounded-full bg-gray-50">
+              <div
+                className="relative flex size-12 items-center justify-center rounded-full bg-gray-50"
+                aria-hidden="true"
+              >
                 <Logo className="p-2" />
-                <span className="absolute right-0 bottom-0 flex size-3">
+                <span
+                  className="absolute right-0 bottom-0 flex size-3"
+                  aria-label="Online Status Indicator"
+                >
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
                 </span>
               </div>
               <div>
-                <CardTitle className="text-background mt-0 text-sm font-bold">
+                <CardTitle
+                  className="text-background mt-0 text-sm font-bold"
+                  role="heading"
+                >
                   {siteConfig.shortName}
                 </CardTitle>
                 <CardDescription className="text-muted text-xs font-light">
@@ -150,8 +160,9 @@ export default function FloatingWhatsapp({
                 className="absolute -top-2 -right-2 size-6 rounded-full"
                 size="icon"
                 variant="outline"
+                aria-label="Close Chat Window"
               >
-                <IconX />
+                <IconX aria-hidden="true" />
               </Button>
             </CardHeader>
 
@@ -197,6 +208,7 @@ export default function FloatingWhatsapp({
                 onKeyDown={handleInputChange}
                 placeholder="Type your message..."
                 className="rounded-full py-2 placeholder:text-sm"
+                aria-label="Message Input"
               />
               <Button
                 onClick={() => sendMessageToWhatsApp(message)}
@@ -204,8 +216,12 @@ export default function FloatingWhatsapp({
                 variant={"ghost"}
                 size={"icon"}
                 className="px-1.5"
+                aria-label="Send Message"
               >
-                <Icons.send className="fill-muted-foreground" />
+                <Icons.send
+                  className="fill-muted-foreground"
+                  aria-hidden="true"
+                />
               </Button>
             </CardFooter>
           </Card>

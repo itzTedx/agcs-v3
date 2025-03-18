@@ -41,6 +41,9 @@ export const Services = async () => {
             </div>
           ))}
         </Suspense>
+        <h4 className="sr-only">
+          Explore our services more in the services section
+        </h4>
         <Button
           asChild
           className="md:col-span-2 lg:col-span-1 lg:col-start-2"

@@ -147,6 +147,7 @@ export function AuroraText({
   return (
     <span
       ref={containerRef}
+      role="presentation"
       className={`relative inline-block align-middle ${className}`}
       style={{
         width: dimensions.width || "auto",

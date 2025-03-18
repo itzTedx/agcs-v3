@@ -29,7 +29,7 @@ import { Button } from "../ui/button";
 const LogoText = React.memo(({ className }: { className?: string }) => (
   <p
     className={cn(
-      "text-sm font-bold text-gray-700 dark:text-gray-300 [&_span]:text-sky-600 dark:[&_span]:text-sky-500",
+      "text-sm font-bold text-gray-700 dark:text-gray-300 [&_span]:text-sky-700 dark:[&_span]:text-sky-500",
       className
     )}
   >
