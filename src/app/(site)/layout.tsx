@@ -21,16 +21,6 @@ export const metadata: Metadata = {
   title: "AGCS - Your Business Solutions Partner",
   description:
     "Professional business consulting and solutions services. We help companies optimize their operations and achieve sustainable growth.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
-  themeColor: "#ffffff",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://your-domain.com",
-    title: "AGCS - Your Business Solutions Partner",
-    description: "Professional business consulting and solutions services",
-    siteName: "AGCS",
-  },
 };
 
 export default function RootLayout({
@@ -40,10 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${roboto.className} antialiased`}
-        suppressHydrationWarning={true}
-      >
+      <body className={`${roboto.className} antialiased`}>
         <div data-vaul-drawer-wrapper className="bg-background min-h-screen">
           <Navbar />
           <main>{children}</main>
