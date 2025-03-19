@@ -22,11 +22,6 @@ const nextConfig: NextConfig = {
 
   experimental: {
     optimizePackageImports: [
-      "@radix-ui/react-dialog",
-      "@radix-ui/react-navigation-menu",
-      "@radix-ui/react-popover",
-      "@radix-ui/react-slot",
-      "@sanity/image-url",
       "@sanity/orderable-document-list",
       "@sanity/vision",
       "@tabler/icons-react",
