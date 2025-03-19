@@ -8,8 +8,7 @@ import { Navbar } from "@/components/layout/navbar";
 import "@/styles/globals.css";
 
 const FloatingWhatsapp = dynamic(
-  () => import("@/components/layout/floating-whatsapp"),
-  { ssr: false }
+  () => import("@/components/layout/floating-whatsapp")
 );
 
 const roboto = Roboto({
@@ -41,14 +40,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body
         className={`${roboto.className} antialiased`}
         suppressHydrationWarning={true}
