@@ -1,4 +1,5 @@
 import { Icons } from "@/assets/icons";
+import { MultiStepLoader } from "@/components/animations/multi-step-loader";
 import { SocialLinks } from "@/components/global/social-links";
 import {
   Card,
@@ -9,7 +10,23 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ContactForm } from "@/features/contact/contact-form";
-import { NextSteps } from "@/features/contact/next-steps";
+
+const steps = [
+  {
+    title: "We'll prepare a proposal",
+    description: "Required scope, timeline and aprox. price will be included",
+  },
+  {
+    title: "Together we discuss it",
+    description:
+      "Let's get acquainted and discuss all the possible variants and options.",
+  },
+  {
+    title: "Let's start building",
+    description:
+      "When the contract is signed and all goals are set we can start the first sprint.",
+  },
+];
 
 export default function ContactPage() {
   return (
@@ -28,11 +45,14 @@ export default function ContactPage() {
       </header>
       <section className="container grid max-w-7xl grid-cols-2 py-12">
         <div className="max-w-sm">
-          <h2 className="text-4xl font-medium">What will be next step?</h2>
-          <p className="pt-3 text-lg font-light">
+          <h2 className="relative z-20 text-4xl font-medium">
+            What will be next step?
+          </h2>
+          <p className="relative z-20 pt-3 text-lg font-light">
             You are one step closer to build or renovate your perfect building
           </p>
-          <NextSteps />
+
+          <MultiStepLoader data={steps} />
         </div>
         <Card className="-mt-44 rounded-md border border-sky-600 p-9">
           <CardContent className="space-y-9 px-0">

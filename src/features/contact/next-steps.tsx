@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+
+import { MultiStepLoader } from "@/components/animations/multi-step-loader";
 
 const steps = [
   {
@@ -23,6 +25,7 @@ const steps = [
 
 export const NextSteps = () => {
   const [activeSteps, setActiveSteps] = useState<number[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     steps.forEach((_, index) => {
@@ -34,14 +37,16 @@ export const NextSteps = () => {
 
   return (
     <div className="relative flex gap-8 py-12">
-      <div className="h-full w-1 shrink-0 bg-gray-300"></div>
+      <MultiStepLoader data={steps} loading={true} duration={2000} />
+
+      <div className="relative h-full w-1 shrink-0 bg-gray-300"></div>
       <ul className="h-full space-y-6">
         {steps.map((step, index) => (
           <motion.li
             key={index}
-            initial={{ opacity: 0.5 }}
+            initial={{ opacity: 0.3 }}
             animate={{
-              opacity: activeSteps.includes(index) ? 1 : 0,
+              opacity: activeSteps.includes(index) ? 1 : 0.3,
             }}
             transition={{ duration: 0.5 }}
             className="relative flex items-start gap-4"
