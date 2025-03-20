@@ -8,11 +8,15 @@ import {
   HOME_PRODUCTS_QUERYResult,
   HOME_PROJECTS_QUERYResult,
   HOME_SERVICES_QUERYResult,
+  PRODUCT_QUERYResult,
+  PRODUCTS_BY_CATEGORY_QUERYResult,
+  PRODUCTS_CATEGORIES_QUERYResult,
+  PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult,
   PROJECTS_CAROUSEL_QUERYResult,
-  PROJECTS_QUERYResult,
+  PROJECTS_QUERYResult
 } from "../../../sanity.types";
 import { CERTIFICASTES_QUERY } from "../queries/certifications";
-import { HOME_PRODUCTS_QUERY } from "../queries/products";
+import { HOME_PRODUCTS_QUERY, PRODUCT_QUERY, PRODUCTS_BY_CATEGORY_QUERY, PRODUCTS_CATEGORIES_QUERY, PRODUCTS_CATEGORY_BY_CATEGORY_QUERY } from "../queries/products";
 import { FEATURED_PROJECTS_QUERY, HOME_PROJECTS_QUERY, PROJECTS_CAROUSEL_QUERY, PROJECTS_QUERY } from "../queries/projects";
 import { HOME_SERVICES_QUERY } from "../queries/services";
 import { sanityFetch } from "./live";
@@ -93,6 +97,62 @@ export const getHomeProducts = async (): Promise<HOME_PRODUCTS_QUERYResult> => {
       return data;
     },
     ["home-products"],
+    cacheOptions
+  )();
+};
+
+export const getProduct = async (slug: string): Promise<PRODUCT_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: PRODUCT_QUERY,
+        params: {slug}
+      });
+      return data;
+    },
+    ["product"],
+    cacheOptions
+  )();
+};
+
+export const getCategories = async (): Promise<PRODUCTS_CATEGORIES_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: PRODUCTS_CATEGORIES_QUERY,
+      });
+      return data;
+    },
+    ["categories"],
+    cacheOptions
+  )();
+};
+
+export const getProductsBySlug = async (slug: string): Promise<PRODUCTS_BY_CATEGORY_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: PRODUCTS_BY_CATEGORY_QUERY,
+        params: {slug}
+        
+      });
+      return data;
+    },
+    ["products-by-slug"],
+    cacheOptions
+  )();
+};
+export const getProductCategoryBySlug = async (slug: string): Promise<PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: PRODUCTS_CATEGORY_BY_CATEGORY_QUERY,
+        params: {slug}
+        
+      });
+      return data;
+    },
+    ["product-category-by-slug"],
     cacheOptions
   )();
 };

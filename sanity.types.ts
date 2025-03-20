@@ -475,6 +475,91 @@ export type HOME_PRODUCTS_QUERYResult = Array<{
   category: string | null;
   slug: Slug | null;
 }>;
+// Variable: PRODUCT_QUERY
+// Query: *[_type == "products" && slug.current == $slug][0] {    _id,    title,    description,    image,    slug,    metaTagTitle,    metaTagKeywords,    body  }
+export type PRODUCT_QUERYResult = {
+  _id: string;
+  title: string | null;
+  description: string | null;
+  image: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }> | null;
+  slug: Slug | null;
+  metaTagTitle: string | null;
+  metaTagKeywords: null;
+  body: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+} | null;
+// Variable: PRODUCTS_CATEGORIES_QUERY
+// Query: *[_type == "productsCategory"]{    _id,    slug,    image,    description,    category,  }
+export type PRODUCTS_CATEGORIES_QUERYResult = Array<{
+  _id: string;
+  slug: Slug | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  description: string | null;
+  category: string | null;
+}>;
+// Variable: PRODUCTS_BY_CATEGORY_QUERY
+// Query: *[_type == "products" && category._ref in *[_type=='productsCategory' && slug.current == $slug]._id] | order(_createdAt asc){    _id,    title,    slug,    thumbnail}
+export type PRODUCTS_BY_CATEGORY_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  thumbnail: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+}>;
+// Variable: PRODUCTS_CATEGORY_BY_CATEGORY_QUERY
+// Query: *[_type == "productsCategory" && slug.current == $slug][0]{    _id,    category,    description,    "brochure": file.asset->url,  }
+export type PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult = {
+  _id: string;
+  category: string | null;
+  description: string | null;
+  brochure: string | null;
+} | null;
 
 // Source: ./src/sanity/queries/projects.ts
 // Variable: HOME_PROJECTS_QUERY
@@ -590,6 +675,10 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "certifications"] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    "certificate": certificate.asset->url,\n  }': CERTIFICASTES_QUERYResult;
     '*[_type == "productsCategory"] | order(_createdAt asc)[0..8] {\n    _id,\n    image,\n    category,\n    slug,\n  }': HOME_PRODUCTS_QUERYResult;
+    '*[_type == "products" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    image,\n    slug,\n    metaTagTitle,\n    metaTagKeywords,\n    body\n  }': PRODUCT_QUERYResult;
+    '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n  }': PRODUCTS_CATEGORIES_QUERYResult;
+    "*[_type == \"products\" && category._ref in *[_type=='productsCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    title,\n    slug,\n    thumbnail\n}": PRODUCTS_BY_CATEGORY_QUERYResult;
+    '*[_type == "productsCategory" && slug.current == $slug][0]{\n    _id,\n    category,\n    description,\n    "brochure": file.asset->url,\n  }': PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult;
     '*[_type == "projects"] | order(_createdAt asc)[0..3] {\n    _id,\n    title,\n    image,\n    description,\n  }': HOME_PROJECTS_QUERYResult;
     '*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': FEATURED_PROJECTS_QUERYResult;
     '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;

@@ -16,6 +16,7 @@ const ProductCard = memo(({ product }: { product: any }) => (
       title={product.category}
       image={product.image}
       alt={product.category}
+      link={`/products/${product.slug?.current}`}
     />
   </div>
 ));

@@ -10,6 +10,7 @@ import servicesCategory from './services-category'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
+    
     // documents
     services,
     servicesCategory,

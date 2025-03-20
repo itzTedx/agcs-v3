@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
@@ -12,37 +13,40 @@ interface Props {
   title: string | null;
   image?: SanityImageSource | null;
   className?: string;
+  link?: string;
 }
 
-export const Card = ({ image, title, alt, className }: Props) => {
+export const Card = ({ image, title, alt, className, link }: Props) => {
   return (
     <CardUi>
-      <CardContent className={cn("relative")}>
-        {image ? (
-          <div
-            className={cn(
-              "relative aspect-video overflow-hidden rounded-lg",
-              className
-            )}
-          >
+      <Link href={link ?? "#"}>
+        <CardContent className={cn("relative")}>
+          {image ? (
+            <div
+              className={cn(
+                "relative aspect-video overflow-hidden rounded-lg",
+                className
+              )}
+            >
+              <Title>{title}</Title>
+              <Image
+                src={urlFor(image).url()}
+                alt={alt ?? ""}
+                title={alt ?? ""}
+                fill
+                style={{
+                  objectFit: "cover",
+                }}
+                sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+                quality={100}
+                className="transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          ) : (
             <Title>{title}</Title>
-            <Image
-              src={urlFor(image).url()}
-              alt={alt ?? ""}
-              title={alt ?? ""}
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-              sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-              quality={100}
-              className="transition-transform duration-300 hover:scale-105"
-            />
-          </div>
-        ) : (
-          <Title>{title}</Title>
-        )}
-      </CardContent>
+          )}
+        </CardContent>
+      </Link>
     </CardUi>
   );
 };

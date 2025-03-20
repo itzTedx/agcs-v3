@@ -37,6 +37,7 @@ export const Services = async () => {
                 title={service.servicesTitle}
                 image={service.thumbnail}
                 alt={service.metaTagTitle}
+                link={`/services/${service.servicesSlug?.current}`}
               />
             </div>
           ))}
