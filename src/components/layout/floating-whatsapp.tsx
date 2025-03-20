@@ -31,28 +31,6 @@ export default function FloatingWhatsapp({
 }) {
   const [showMessage, setShowMessage] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [viewportHeight, setViewportHeight] = useState(
-    typeof window !== "undefined" ? window.innerHeight : 0
-  );
-
-  const updateViewportHeight = useCallback(() => {
-    const newHeight = window.visualViewport?.height || window.innerHeight; // Use optional chaining
-    if (window.innerWidth < 768) {
-      setViewportHeight(newHeight);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.visualViewport?.addEventListener("resize", updateViewportHeight);
-
-    // Cleanup event listener
-    return () => {
-      window.visualViewport?.removeEventListener(
-        "resize",
-        updateViewportHeight
-      );
-    };
-  }, [updateViewportHeight]);
 
   useEffect(() => {
     const delay = 1 * 1000;
@@ -63,14 +41,12 @@ export default function FloatingWhatsapp({
         setShowMessage(true);
       }, delay);
     }
-    // Cleanup the timer on component unmount
     return () => clearTimeout(timer);
   }, [isPopupVisible]);
 
   const handleClick = useCallback(() => {
     setIsPopupVisible(true);
-    updateViewportHeight(); // Update height on click
-  }, [updateViewportHeight]);
+  }, []);
 
   const sendMessageToWhatsApp = useCallback((messageToSend: string) => {
     if (!messageToSend.trim()) return;
@@ -83,7 +59,7 @@ export default function FloatingWhatsapp({
     <div
       className={cn("fixed right-3 z-[99999999] transition-all", className)}
       style={{
-        bottom: viewportHeight < window.innerHeight ? "30vh" : "3vh",
+        bottom: "3vh",
       }}
     >
       <Popover open={isPopupVisible} onOpenChange={setIsPopupVisible}>
