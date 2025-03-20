@@ -6,3 +6,19 @@ export const HOME_PROJECTS_QUERY = groq`*[_type == "projects"] | order(_createdA
     image,
     description,
   }`;
+
+  export const FEATURED_PROJECTS_QUERY = groq`*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {
+    _id,
+    title,
+    image,
+    description,
+    tags,
+  }`;
+
+  export const PROJECTS_QUERY = groq`*[_type == "projects"] | order(orderRank) {
+    _id,
+    title,
+    image,
+    description,
+    tags,
+  }`;

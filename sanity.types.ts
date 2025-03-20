@@ -436,9 +436,29 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/sanity/queries/certifications.ts
+// Variable: CERTIFICASTES_QUERY
+// Query: *[_type == "certifications"] | order(_createdAt asc) {    _id,    title,    image,    "certificate": certificate.asset->url,  }
+export type CERTIFICASTES_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  certificate: string | null;
+}>;
+
 // Source: ./src/sanity/queries/products.ts
 // Variable: HOME_PRODUCTS_QUERY
-// Query: *[_type == "productsCategory"] | order(_createdAt asc)[0..7] {    _id,    image,    category,    slug,  }
+// Query: *[_type == "productsCategory"] | order(_createdAt asc)[0..8] {    _id,    image,    category,    slug,  }
 export type HOME_PRODUCTS_QUERYResult = Array<{
   _id: string;
   image: {
@@ -474,6 +494,44 @@ export type HOME_PROJECTS_QUERYResult = Array<{
     _type: "image";
   } | null;
   description: string | null;
+}>;
+// Variable: FEATURED_PROJECTS_QUERY
+// Query: *[_type == "projects" && isFeatured == true] | order(_createdAt asc) {    _id,    title,    image,    description,    tags,  }
+export type FEATURED_PROJECTS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  description: string | null;
+  tags: Array<string> | null;
+}>;
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "projects"] | order(orderRank) {    _id,    title,    image,    description,    tags,  }
+export type PROJECTS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  description: string | null;
+  tags: Array<string> | null;
 }>;
 
 // Source: ./src/sanity/queries/services.ts
@@ -513,8 +571,11 @@ export type HOME_SERVICES_QUERYResult = Array<{
 
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "productsCategory"] | order(_createdAt asc)[0..7] {\n    _id,\n    image,\n    category,\n    slug,\n  }': HOME_PRODUCTS_QUERYResult;
+    '*[_type == "certifications"] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    "certificate": certificate.asset->url,\n  }': CERTIFICASTES_QUERYResult;
+    '*[_type == "productsCategory"] | order(_createdAt asc)[0..8] {\n    _id,\n    image,\n    category,\n    slug,\n  }': HOME_PRODUCTS_QUERYResult;
     '*[_type == "projects"] | order(_createdAt asc)[0..3] {\n    _id,\n    title,\n    image,\n    description,\n  }': HOME_PROJECTS_QUERYResult;
+    '*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': FEATURED_PROJECTS_QUERYResult;
+    '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;
     '*[_type == "services"] | order(_createdAt asc)[0..8] {\n    _id,\n    servicesImage[0],\n    servicesTitle,\n    servicesSlug,\n    servicesDescription,\n    servicesSlug,\n    metaTagTitle,\n    thumbnail\n  }': HOME_SERVICES_QUERYResult;
   }
 }
