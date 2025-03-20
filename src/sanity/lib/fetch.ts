@@ -8,11 +8,12 @@ import {
   HOME_PRODUCTS_QUERYResult,
   HOME_PROJECTS_QUERYResult,
   HOME_SERVICES_QUERYResult,
+  PROJECTS_CAROUSEL_QUERYResult,
   PROJECTS_QUERYResult,
 } from "../../../sanity.types";
 import { CERTIFICASTES_QUERY } from "../queries/certifications";
 import { HOME_PRODUCTS_QUERY } from "../queries/products";
-import { FEATURED_PROJECTS_QUERY, HOME_PROJECTS_QUERY, PROJECTS_QUERY } from "../queries/projects";
+import { FEATURED_PROJECTS_QUERY, HOME_PROJECTS_QUERY, PROJECTS_CAROUSEL_QUERY, PROJECTS_QUERY } from "../queries/projects";
 import { HOME_SERVICES_QUERY } from "../queries/services";
 import { sanityFetch } from "./live";
 
@@ -67,6 +68,18 @@ export const getProjects = async (): Promise<PROJECTS_QUERYResult> => {
       return data;
     },
     ["projects"],
+    cacheOptions
+  )();
+};
+export const getProjectsCarousel = async (): Promise<PROJECTS_CAROUSEL_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: PROJECTS_CAROUSEL_QUERY,
+      });
+      return data;
+    },
+    ["projects-carousel"],
     cacheOptions
   )();
 };

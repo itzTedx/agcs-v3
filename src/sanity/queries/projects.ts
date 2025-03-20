@@ -22,3 +22,9 @@ export const HOME_PROJECTS_QUERY = groq`*[_type == "projects"] | order(_createdA
     description,
     tags,
   }`;
+
+  export const PROJECTS_CAROUSEL_QUERY = groq`*[_type == "projectsCarousel"] | order(orderRank) {
+    _id,
+    image,
+    title,
+  }`;

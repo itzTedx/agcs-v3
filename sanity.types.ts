@@ -533,6 +533,23 @@ export type PROJECTS_QUERYResult = Array<{
   description: string | null;
   tags: Array<string> | null;
 }>;
+// Variable: PROJECTS_CAROUSEL_QUERY
+// Query: *[_type == "projectsCarousel"] | order(orderRank) {    _id,    image,    title,  }
+export type PROJECTS_CAROUSEL_QUERYResult = Array<{
+  _id: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  title: string | null;
+}>;
 
 // Source: ./src/sanity/queries/services.ts
 // Variable: HOME_SERVICES_QUERY
@@ -576,6 +593,7 @@ declare module "@sanity/client" {
     '*[_type == "projects"] | order(_createdAt asc)[0..3] {\n    _id,\n    title,\n    image,\n    description,\n  }': HOME_PROJECTS_QUERYResult;
     '*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': FEATURED_PROJECTS_QUERYResult;
     '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;
+    '*[_type == "projectsCarousel"] | order(orderRank) {\n    _id,\n    image,\n    title,\n  }': PROJECTS_CAROUSEL_QUERYResult;
     '*[_type == "services"] | order(_createdAt asc)[0..8] {\n    _id,\n    servicesImage[0],\n    servicesTitle,\n    servicesSlug,\n    servicesDescription,\n    servicesSlug,\n    metaTagTitle,\n    thumbnail\n  }': HOME_SERVICES_QUERYResult;
   }
 }

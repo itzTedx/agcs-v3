@@ -3,6 +3,7 @@ import Image from "next/image";
 import { IconInfoCircle, IconX } from "@tabler/icons-react";
 
 import { Card } from "@/components/global/card";
+import { Cta } from "@/components/global/cta";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,16 +15,24 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FeaturedCarousel } from "@/features/projects/featured-carousel";
-import { getFeaturedProjects, getProjects } from "@/sanity/lib/fetch";
+import { ProjectsCarousel } from "@/features/projects/projects-carousels";
+import {
+  getFeaturedProjects,
+  getProjects,
+  getProjectsCarousel,
+} from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
 export default async function ProjectsPage() {
   const featured = await getFeaturedProjects();
   const projects = await getProjects();
+  const projectsCarousel = await getProjectsCarousel();
 
   return (
     <div>
-      <header className="h-44 bg-red-300">Carousel</header>
+      <header>
+        <ProjectsCarousel data={projectsCarousel} />
+      </header>
       <section className="bg-white py-12">
         <FeaturedCarousel data={featured} />
       </section>
@@ -102,6 +111,7 @@ export default async function ProjectsPage() {
           ))}
         </div>
       </section>
+      <Cta />
     </div>
   );
 }
