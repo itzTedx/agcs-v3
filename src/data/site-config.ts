@@ -5,11 +5,7 @@ export const siteConfig = {
   url: "https://www.alliedgulf.me",
   logo: "/favicon.svg",
   ogImage: "/og-img.jpg",
-  links: {
-    linkedin: "https://www.linkedin.com/company/allied-gulf",
-    instagram: "https://www.instagram.com/alliedgulf/",
-    facebook: "https://www.facebook.com/alliedgulf",
-  },
+
   contact: ["+973 1779 1317", "+973 3818 4631", "+973 3468 5656"],
   authors: [{ name: 'Allied Gulf Construction Services' }],
   creator: 'Allied Gulf Construction Services',

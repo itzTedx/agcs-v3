@@ -1,27 +1,29 @@
+import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandX, IconBrandYoutube } from "@tabler/icons-react";
+
 export const SOCIAL_LINKS = [
   {
     name: 'LinkedIn',
     href: 'https://linkedin.com/company/allied-gulf-construction-services',
-    icon: 'IconBrandLinkedin',
+    Icon: IconBrandLinkedin,
   },
   {
     name: 'Facebook',
     href: 'https://facebook.com/alliedgulfconstruction',
-    icon: 'IconBrandFacebook',
+    Icon: IconBrandFacebook,
   },
   {
     name: 'Twitter',
     href: 'https://twitter.com/allied_gulf',
-    icon: 'IconBrandX',
+    Icon: IconBrandX,
   },
   {
     name: 'Instagram',
     href: 'https://instagram.com/alliedgulfconstruction',
-    icon: 'IconBrandInstagram',
+    Icon: IconBrandInstagram,
   },
   {
     name: 'YouTube',
     href: 'https://youtube.com/@allied-gulf',
-    icon: 'IconBrandYoutube',
+    Icon: IconBrandYoutube,
   },
 ] as const;

@@ -9,8 +9,8 @@ import {
 } from "@tabler/icons-react";
 
 import { NAVLINKS } from "@/data/navbar";
-import { SOCIAL_LINKS } from "@/data/social-links";
 
+import { SocialLinks } from "../global/social-links";
 import { Button } from "../ui/button";
 
 const iconMap = {
@@ -43,24 +43,7 @@ export const Footer = () => {
 
         <section className="max-sm:col-span-2">
           <h6 className="mb-4 text-xl font-semibold">Follow Us</h6>
-          <ul className="flex gap-2" aria-label="Social media links">
-            {SOCIAL_LINKS.map(({ name, href, icon }) => {
-              const Icon = iconMap[icon as keyof typeof iconMap];
-              return (
-                <li key={name}>
-                  <Link
-                    href={href}
-                    className="inline-flex size-10 items-center justify-center rounded-full transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-200 focus:outline-none"
-                    aria-label={`Visit our ${name} page`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon className="size-7" aria-hidden="true" />
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <SocialLinks />
         </section>
 
         <nav aria-label="Quick links">
