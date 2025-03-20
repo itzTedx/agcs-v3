@@ -5,6 +5,7 @@ import { Roboto } from "next/font/google";
 import BreakpointIndicator from "@/components/dev/breakpoint-indicator";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { metadata as siteMetadata } from "@/data/site-config";
 import "@/styles/globals.css";
 
 const FloatingWhatsapp = dynamic(
@@ -14,13 +15,12 @@ const FloatingWhatsapp = dynamic(
 const roboto = Roboto({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "AGCS - Your Business Solutions Partner",
-  description:
-    "Professional business consulting and solutions services. We help companies optimize their operations and achieve sustainable growth.",
+  ...siteMetadata,
+  // Add any additional runtime metadata here if needed
 };
 
 export default function RootLayout({

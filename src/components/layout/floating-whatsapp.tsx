@@ -51,7 +51,7 @@ export default function FloatingWhatsapp({
   const sendMessageToWhatsApp = useCallback((messageToSend: string) => {
     if (!messageToSend.trim()) return;
     const encodedMessage = encodeURIComponent(messageToSend);
-    const whatsappUrl = `https://wa.me/${siteConfig.contact.replace(/\s/g, "").replace(/\+/g, "")}?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${siteConfig.contact[0].replace(/\s/g, "").replace(/\+/g, "")}?text=${encodedMessage}`;
     window.open(whatsappUrl, "_blank");
   }, []);
 
