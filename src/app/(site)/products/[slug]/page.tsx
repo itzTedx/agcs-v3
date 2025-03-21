@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Card } from "@/components/global/card";
 import Header from "@/components/global/header";
-import { Button } from "@/components/ui/button";
+import { Sidebar } from "@/features/products/components/sidebar";
 import {
   getCategories,
   getProductCategoryBySlug,
@@ -31,27 +30,10 @@ export default async function ProductsBySlugPage({
     <div>
       <Header text={text} />
 
-      <section className="relative container grid grid-cols-4 gap-12">
-        <aside className="sticky top-12 h-fit py-12">
-          <p className="font-light">Looking for our other</p>
-          <h2 className="mb-3 text-2xl">Products</h2>
-          <ul className="space-y-3">
-            {categories.map((cat) => (
-              <li key={cat._id}>
-                <Button
-                  className="bg-primary/10 w-full justify-start border-sky-300 shadow-none"
-                  asChild
-                >
-                  <Link href={`/products/${cat.slug?.current}`}>
-                    {cat.category}
-                  </Link>
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </aside>
-        <div className="col-span-3 grid grid-cols-3 gap-6 py-12">
-          <div className="col-span-3">
+      <section className="relative container grid gap-12 md:grid-cols-4">
+        <Sidebar data={categories} />
+        <div className="grid gap-6 pt-12 sm:grid-cols-2 md:col-span-3 md:grid-cols-3 md:py-12">
+          <div className="md:col-span-3">
             <h2 className="text-4xl font-medium text-sky-600">
               {category?.category}
             </h2>

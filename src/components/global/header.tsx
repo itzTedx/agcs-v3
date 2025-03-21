@@ -11,13 +11,13 @@ interface Props {
 
 export default function Header({ text }: Props) {
   return (
-    <header className="bg-sky-500 py-12">
-      <div className="container grid max-w-7xl grid-cols-3 items-center gap-6">
-        <div className="col-span-2">
-          <h1 className="pb-1 text-2xl font-light">
+    <header className="bg-sky-500 py-9 md:py-12">
+      <div className="container grid max-w-7xl items-center gap-4 md:grid-cols-3 md:gap-6">
+        <div className="md:col-span-2">
+          <h1 className="pb-1 text-xl font-light md:text-2xl">
             {text.title} <span className="sr-only">{text.subtext}</span>
           </h1>
-          <p aria-hidden className="pb-4 text-3xl font-medium">
+          <p aria-hidden className="text-2xl font-medium md:pb-4 md:text-3xl">
             {text.subtext}
           </p>
         </div>

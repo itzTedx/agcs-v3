@@ -11,8 +11,8 @@ export default async function ProductsPage() {
   return (
     <div>
       <Header text={text} />
-      <section className="container grid grid-cols-3 gap-6 py-12">
-        <div className="col-span-3">
+      <section className="container grid gap-4 py-12 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+        <div className="sm:col-span-2 md:col-span-3">
           <p className="font-light text-gray-900">
             Looking for Specialty Materials?
           </p>

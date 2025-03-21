@@ -1,7 +1,9 @@
 import { Metadata } from "next";
+import { ComponentPropsWithoutRef } from "react";
 
 import { Cta } from "@/components/global/cta";
 import { Header } from "@/features/about/sections/header";
+import { cn } from "@/lib/utils";
 
 const meta = {
   title: "Construction & Trading Company Bahrain -  A Bit About AGCS",
@@ -52,41 +54,33 @@ export default function AboutPage() {
       <article className="prose prose-lg mx-auto">
         <section
           className="container grid grid-cols-3 gap-9 py-12"
-          aria-labelledby="mission-heading"
+          aria-label="mission and vision"
         >
-          <div className="col-span-2">
-            <h2 id="mission-heading" className="text-3xl font-bold">
-              Mission
-            </h2>
-            <p>
+          <div className="col-span-2 space-y-3">
+            <Heading id="mission-heading">Mission</Heading>
+            <p className="text-lg font-light">
               ALLIED GULF CONSTRUCTION SERVICES W.L.L strives to bring growth to
               the community, using value engineering, effective construction
               practices and hard dedicated work to deliver on commitments.
             </p>
 
-            <p>
+            <p className="text-lg font-light">
               We pledge to establish and maintain a long-lasting relationship
               with all Clients by exceeding their expectations of quality and
               service based on integrity, honesty and superior performance,
               ensuring customer satisfaction and maintaining our commitment to a
               professional work ethic.
             </p>
-            <p>
+            <p className="text-lg font-light">
               To create a professional and positive working environment for all
               our employees and ensure customer satisfaction, enhance
               shareholder worth and maintain the exceptional quality performance
               of our business.
             </p>
           </div>
-        </section>
-
-        <section
-          className="container grid grid-cols-3 gap-9 py-12"
-          aria-labelledby="vision-heading"
-        >
           <div>
-            <h2 id="vision-heading">Vision</h2>
-            <p>
+            <Heading id="vision-heading">Vision</Heading>
+            <p className="text-lg font-light">
               To be the most Esteemed, Valued and Respected Construction
               Services & Construction specialty materials supplier in the Middle
               East.
@@ -98,15 +92,15 @@ export default function AboutPage() {
           className="container py-12"
           aria-labelledby="quality-safety-heading"
         >
-          <div>
-            <h2 id="quality-safety-heading">Quality & Safety</h2>
-            <p>
+          <div className="space-y-3">
+            <Heading id="quality-safety-heading">Quality & Safety</Heading>
+            <p className="text-lg font-light">
               It is the Company's policy to strictly maintain the quality
               management system on all our projects notwithstanding the project
               value, which can be either big or small. Quality is the utmost
               criterion from strict compliance of project management.
             </p>
-            <p>
+            <p className="text-lg font-light">
               At Allied Gulf, we are committed to delivering superior quality
               products and services promptly to our clients. It is the basis of
               our success. We have implemented a Quality Management System
@@ -118,7 +112,7 @@ export default function AboutPage() {
               expectations.
             </p>
 
-            <p>
+            <p className="text-lg font-light">
               We have a Safety Management System in place with a 'Zero
               Accident'Philosophy which engages all employees and subcontractors
               to actively improve HSE Performance on our projects. In addition,
@@ -133,11 +127,13 @@ export default function AboutPage() {
         </section>
 
         <section
-          className="container py-12"
+          className="container space-y-3 py-12"
           aria-labelledby="social-responsibility-heading"
         >
-          <h2 id="social-responsibility-heading">Social Responsibility</h2>
-          <p>
+          <Heading id="social-responsibility-heading">
+            Social Responsibility
+          </Heading>
+          <p className="text-lg font-light">
             At Allied Gulf Construction Services W.L.L , we are committed to our
             vision to act responsibly in how we do business and to give back to
             our community. Throughout our business years in the Middle East, we
@@ -145,7 +141,7 @@ export default function AboutPage() {
             local charities and events, Middle Eastern Councils, Universities,
             Schools, and individual men and women.
           </p>
-          <p>
+          <p className="text-lg font-light">
             In our efforts to become more environmentally friendly, we have
             established a Sustainable Management Act throughout the company
             whereby we train all of our staff to reduce, re-use and segregate
@@ -156,7 +152,7 @@ export default function AboutPage() {
             saving energy and water.
           </p>
 
-          <p>
+          <p className="text-lg font-light">
             Being sustainable is more important than it’s ever been, and to have
             a sustainable business is to have a resilient business. We are
             committed in preventing environmental and social harm, as well as
@@ -165,7 +161,7 @@ export default function AboutPage() {
             operate.
           </p>
 
-          <p>
+          <p className="text-lg font-light">
             We believe that the utilization of green technologies would be a
             crucial factor towards ensuring the sustainable development and
             progress of the construction industry. We implement environmentally
@@ -176,14 +172,14 @@ export default function AboutPage() {
             sustainable management of waste as one of the top priorities.
           </p>
 
-          <p>
+          <p className="text-lg font-light">
             With our operational activities spread across the Middle East, we
             recognize the great opportunity for us to give back more to a wider
             cross-section of the society, and we thoroughly enjoy making a
             difference, by winning many accolades.
           </p>
 
-          <p>
+          <p className="text-lg font-light">
             We reflect the four principles – Economic, Environment, Social and
             Cultural – the highest sustainability standards that includes :
           </p>
@@ -196,27 +192,33 @@ export default function AboutPage() {
             <li>Energy from Renewable sources.</li>
           </ul>
 
-          <p>
+          <p className="text-lg font-light">
             Our commitment and determination is driven by our exceptional team
             who constantly endeavors to go for the best and to find better ways
             of working in a sustainable manner. We believe that the need to
             transform the way we build, operate and repurpose the built
             environment.
           </p>
-
-          <h3>Our Commitment</h3>
+        </section>
+        <section
+          className="container py-12"
+          aria-labelledby="commitment-heading"
+        >
+          <Heading level={3} id="commitment-heading">
+            Our Commitment
+          </Heading>
 
           <div className="grid grid-cols-3 gap-4">
             <div className="">
               <h4>We Believe</h4>
-              <p>
+              <p className="text-lg font-light">
                 The key element behind our success is a continuous commitment to
                 fulfill the client's needs.
               </p>
             </div>
             <div className="">
               <h4>REMAIN COMMITTED</h4>
-              <p>
+              <p className="text-lg font-light">
                 To our designs and construction quality while respecting time
                 and budgetary constraints enables us to provide high quality
                 design and construction services to our clients.
@@ -224,7 +226,7 @@ export default function AboutPage() {
             </div>
             <div className="">
               <h4>Our Commitment</h4>
-              <p>
+              <p className="text-lg font-light">
                 To excellence in client service is confirmed by this high
                 percentage of repeat business.
               </p>
@@ -233,11 +235,11 @@ export default function AboutPage() {
         </section>
 
         <section
-          className="container py-12"
+          className="container space-y-4 py-12"
           aria-labelledby="project-management-heading"
         >
-          <h2 id="project-management-heading">Project Management</h2>
-          <p>
+          <Heading id="project-management-heading">Project Management</Heading>
+          <p className="text-lg font-light">
             Our commitment to quality and service is unrivaled. Our project
             managers are reliable, with quick response time, and open
             transparent dialogue. We work with you each step of the way to
@@ -263,7 +265,7 @@ export default function AboutPage() {
               Products Representation & Consulting
             </li>
           </ul>
-          <p>
+          <p className="text-lg font-light">
             Our team is proficient and trained in architectural specialties
             products for the construction industry. We provide product
             demonstrations, preconstruction estimates, ordering, installations,
@@ -275,8 +277,8 @@ export default function AboutPage() {
           className="container py-12"
           aria-labelledby="budgeting-heading"
         >
-          <h2 id="budgeting-heading">Budgeting & Cost Analysis</h2>
-          <p>
+          <Heading id="budgeting-heading">Budgeting & Cost Analysis</Heading>
+          <p className="text-lg font-light">
             We assist with cost planning, ensuring that your project stays on
             target. Our estimators and project managers collaborate and compare
             project details, working with the contractor to ensure all project
@@ -290,8 +292,8 @@ export default function AboutPage() {
           className="container py-12"
           aria-labelledby="estimating-heading"
         >
-          <h2 id="estimating-heading">Project Estimating</h2>
-          <p>
+          <Heading id="estimating-heading">Project Estimating</Heading>
+          <p className="text-lg font-light">
             An accurate estimate is our goal. Our estimators review each plan's
             requirements, analyze construction details, and manages the quantity
             take-offs to find the labor and materials costs for each project. We
@@ -308,3 +310,37 @@ export default function AboutPage() {
     </div>
   );
 }
+
+interface HeadingProps extends ComponentPropsWithoutRef<"h1"> {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+const Heading = ({
+  level = 2,
+  children,
+  className,
+  ...props
+}: HeadingProps) => {
+  const headings = {
+    1: "h1",
+    2: "h2",
+    3: "h3",
+    4: "h4",
+    5: "h5",
+    6: "h6",
+  } as const;
+
+  const Tag = headings[level];
+
+  return (
+    <Tag
+      className={cn(
+        "pb-3 text-3xl font-medium tracking-wide text-sky-600",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Tag>
+  );
+};

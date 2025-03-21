@@ -53,8 +53,8 @@ export function Navbar() {
             <IconMenu3 />
           </DrawerTrigger>
           <DrawerContent>
-            <DrawerHeader className="flex-row items-center">
-              <Logo className="h-20 w-auto shrink-0" aria-hidden="true" />
+            <DrawerHeader className="flex-row items-center gap-3">
+              <Logo className="h-16 w-auto shrink-0" aria-hidden="true" />
               <div>
                 <DrawerTitle>
                   <LogoText />
@@ -66,7 +66,7 @@ export function Navbar() {
               </div>
             </DrawerHeader>
 
-            <NavigationMenuList className="flex-col items-start">
+            <NavigationMenuList className="flex-col items-start gap-2">
               {filteredNavLinks.map((nav) => (
                 <NavigationMenuItem className="w-full" key={nav.href}>
                   <NavigationMenuLink
