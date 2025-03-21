@@ -3,12 +3,13 @@ import { WaveSeparator } from "@/assets/wave-separator";
 export function Header() {
   return (
     <header className="relative bg-white md:h-[calc(100svh-3rem)]">
-      <p className="pt-20 text-center">We're Leading the market</p>
-      <h1 className="pt-2 text-center text-5xl leading-14 font-light tracking-tight">
+      <p className="pt-12 text-center md:pt-20">We're Leading the market</p>
+      <h1 className="container pt-2 text-center text-3xl font-light tracking-tight md:text-5xl md:leading-14">
         Providing Quality Construction Service and
-        <br /> Construction Specialty Materials in Middle East.
+        <br className="max-sm:hidden" /> Construction Specialty Materials in
+        Middle East.
       </h1>
-      <div className="relative z-10 container max-w-7xl space-y-4 py-12 text-lg font-light">
+      <div className="relative z-10 container max-w-7xl space-y-4 py-12 font-light sm:text-lg">
         <p>
           <span className="font-medium">
             Allied Gulf Construction Services W.L.L,

@@ -53,10 +53,10 @@ export default function AboutPage() {
       <Header />
       <article className="prose prose-lg mx-auto">
         <section
-          className="container grid grid-cols-3 gap-9 py-12"
+          className="container grid gap-9 py-12 md:grid-cols-3"
           aria-label="mission and vision"
         >
-          <div className="col-span-2 space-y-3">
+          <div className="space-y-3 md:col-span-2">
             <Heading id="mission-heading">Mission</Heading>
             <p className="text-lg font-light">
               ALLIED GULF CONSTRUCTION SERVICES W.L.L strives to bring growth to
