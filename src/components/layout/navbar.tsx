@@ -108,21 +108,58 @@ export function Navbar() {
               </DrawerHeader>
 
               <NavigationMenuList className="flex-col items-start gap-2">
-                {filteredNavLinks.map((nav) => (
-                  <NavigationMenuItem className="w-full" key={nav.href}>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                      asChild
+                {filteredNavLinks.map((nav, i) =>
+                  nav.submenus ? (
+                    <div key={`${nav.href}-${i}`} className="w-full py-2">
+                      <p className="px-6 pb-2 font-medium">{nav.title}</p>
+
+                      <ul className="ml-1 w-full space-y-2">
+                        {nav.submenus.map((sub, index) => (
+                          <NavigationMenuItem
+                            className="w-full"
+                            key={`${sub.href}-${index}-menu-sub`}
+                          >
+                            <DrawerClose asChild>
+                              <NavigationMenuLink
+                                className={cn(
+                                  navigationMenuTriggerStyle(),
+                                  "px-6"
+                                )}
+                                asChild
+                              >
+                                <Link
+                                  href={sub.href}
+                                  className="px-6 max-sm:!w-full max-sm:items-start"
+                                >
+                                  {sub.title}
+                                </Link>
+                              </NavigationMenuLink>
+                            </DrawerClose>
+                          </NavigationMenuItem>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <NavigationMenuItem
+                      className="w-full"
+                      key={`${nav.href}-${i}-menu`}
                     >
-                      <Link
-                        href={nav.href}
-                        className="max-sm:!w-full max-sm:items-start"
-                      >
-                        {nav.title}
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
+                      <DrawerClose asChild>
+                        <NavigationMenuLink
+                          className={cn(navigationMenuTriggerStyle(), "px-6")}
+                          asChild
+                        >
+                          <Link
+                            href={nav.href}
+                            className="px-6 max-sm:!w-full max-sm:items-start"
+                          >
+                            {nav.title}
+                          </Link>
+                        </NavigationMenuLink>
+                      </DrawerClose>
+                    </NavigationMenuItem>
+                  )
+                )}
               </NavigationMenuList>
 
               <DrawerFooter>
@@ -155,7 +192,7 @@ export function Navbar() {
                             <Link
                               href={sub.href}
                               className={cn(
-                                "flex w-full flex-col justify-end gap-4 rounded-xl bg-sky-50 pt-4 transition-colors hover:bg-sky-100"
+                                "bg-popover flex w-full flex-col justify-end gap-4 rounded-xl pt-4 transition-colors hover:bg-sky-200"
                               )}
                             >
                               <div className="space-y-2 p-4">
