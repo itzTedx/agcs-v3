@@ -40,3 +40,16 @@ export const HOME_SERVICES_QUERY = groq`*[_type == "services"] | order(_createdA
     category,
     description,
   }`;
+
+  export const SERVICE_QUERY = groq`*[_type == "services" && servicesSlug.current == $slug][0] {
+   _id,
+    servicesTitle,
+    servicesDescription,
+    category,
+    servicesImage,
+    file,
+    servicesSlug,
+    metaTagTitle,
+    metaTagKeyword,
+    thumbnail
+  }`;
