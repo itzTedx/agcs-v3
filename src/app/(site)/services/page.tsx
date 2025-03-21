@@ -30,12 +30,12 @@ export default async function ServicesPage() {
       <article className="container py-12">
         <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
           <div className="sm:col-span-2 md:col-span-3">
-            <p className="mb-4 font-light text-gray-900">
+            <p className="font-light text-gray-900">
               Our services are offered through the lifecycle of each project.
               We're proficient in handling multiple developments simultaneously,
               from initial planning through the final installments.
             </p>
-            <h2 className="mb-8 text-4xl font-light">
+            <h2 className="text-4xl font-light">
               <span className="font-medium text-sky-600">Services</span>{" "}
               Categories
             </h2>
