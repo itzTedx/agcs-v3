@@ -32,12 +32,12 @@ export function ProjectsCarousel({
         {data.map((project) => (
           <CarouselItem key={project._id}>
             <Card className="p-0">
-              <CardContent className="relative flex h-72 w-full items-center justify-center">
+              <CardContent className="relative flex h-44 w-full items-center justify-center md:h-72">
                 {project.image && (
                   <Image
                     src={urlFor(project.image).url()}
-                    alt={project.title ?? "Certificate Image"}
-                    title={project.title ?? "Certificate"}
+                    alt={project.title ?? "Projects Image"}
+                    title={project.title ?? "Projects"}
                     fill
                     style={{
                       objectFit: "cover",

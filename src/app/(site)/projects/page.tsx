@@ -1,4 +1,6 @@
+import { Metadata } from "next";
 import Image from "next/image";
+import { Suspense } from "react";
 
 import { IconInfoCircle, IconX } from "@tabler/icons-react";
 
@@ -23,6 +25,18 @@ import {
 } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
+export const metadata: Metadata = {
+  title: "Our Projects | AGCS",
+  description:
+    "Explore our successful projects and achievements in construction and development.",
+  openGraph: {
+    title: "Our Projects | AGCS",
+    description:
+      "Explore our successful projects and achievements in construction and development.",
+    type: "website",
+  },
+};
+
 export default async function ProjectsPage() {
   const featured = await getFeaturedProjects();
   const projects = await getProjects();
@@ -31,16 +45,24 @@ export default async function ProjectsPage() {
   return (
     <div>
       <header>
-        <ProjectsCarousel data={projectsCarousel} />
+        <Suspense
+          fallback={<div className="h-[60vh] animate-pulse bg-gray-100" />}
+        >
+          <ProjectsCarousel data={projectsCarousel} />
+        </Suspense>
       </header>
+
       <section className="bg-white py-12">
-        <FeaturedCarousel data={featured} />
+        <Suspense fallback={<div className="h-96 animate-pulse bg-gray-50" />}>
+          <FeaturedCarousel data={featured} />
+        </Suspense>
       </section>
+
       <section className="container py-12">
         <h2 className="mb-3 text-4xl font-light">
           Our Successful <span className="text-sky-700">Projects</span>
         </h2>
-        <div className="relative grid grid-cols-2 gap-6">
+        <div className="relative grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((project) => (
             <div key={project._id} className="relative">
               {project.description && (
@@ -54,11 +76,12 @@ export default async function ProjectsPage() {
                       size="icon"
                       variant="ghost"
                       className="bg-background/30 rounded-full backdrop-blur-xl"
+                      aria-label="Show project details"
                     >
                       <IconInfoCircle />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="border-primary min-w-5xl border p-6">
+                  <DialogContent className="border-primary max-w-4xl border p-6">
                     <DialogClose
                       asChild
                       className="absolute -top-3 -right-3 z-10"
@@ -75,15 +98,19 @@ export default async function ProjectsPage() {
                     {project.image && (
                       <div className="relative aspect-[16/7] overflow-hidden rounded-lg border bg-white">
                         <Image
-                          src={urlFor(project.image).url()}
-                          alt={project.title ?? "Certificate Image"}
-                          title={project.title ?? "Certificate"}
+                          src={urlFor(project.image)
+                            .width(800)
+                            .height(450)
+                            .quality(85)
+                            .url()}
+                          alt={project.title ?? "Project Image"}
+                          title={project.title ?? "Project"}
                           fill
+                          priority={false}
                           style={{
                             objectFit: "cover",
                           }}
-                          sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-                          quality={100}
+                          sizes="(min-width: 1024px) 800px, (min-width: 640px) 600px, 100vw"
                           loading="lazy"
                         />
                       </div>
@@ -111,7 +138,9 @@ export default async function ProjectsPage() {
           ))}
         </div>
       </section>
-      <Cta />
+      <Suspense>
+        <Cta />
+      </Suspense>
     </div>
   );
 }

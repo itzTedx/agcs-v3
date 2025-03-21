@@ -14,9 +14,17 @@ interface Props {
   image?: SanityImageSource | null;
   className?: string;
   link?: string;
+  priority?: boolean;
 }
 
-export const Card = ({ image, title, alt, className, link }: Props) => {
+export const Card = ({
+  image,
+  title,
+  alt,
+  className,
+  link,
+  priority,
+}: Props) => {
   return (
     <CardUi>
       <Link href={link ?? "#"}>
@@ -40,6 +48,7 @@ export const Card = ({ image, title, alt, className, link }: Props) => {
                 sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
                 quality={100}
                 className="transition-transform duration-300 hover:scale-105"
+                priority={priority}
               />
             </div>
           ) : (

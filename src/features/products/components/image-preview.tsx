@@ -94,6 +94,7 @@ export const ImagePreview = ({
                   sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
                   quality={100}
                   className="transition-transform duration-300 hover:scale-105"
+                  priority
                 />
               </div>
             )}

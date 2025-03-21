@@ -34,7 +34,7 @@ export function FeaturedCarousel({
       <CarouselContent>
         {data.map((project) => (
           <CarouselItem key={project._id}>
-            <div className="grid grid-cols-2 gap-12 p-1">
+            <div className="grid gap-4 p-1 md:grid-cols-2 md:gap-12">
               <Card className="p-0">
                 <CardContent className="relative flex aspect-video items-center justify-center">
                   {project.image && (
@@ -56,7 +56,7 @@ export function FeaturedCarousel({
               </Card>
               <div>
                 <Badge>Top Projects in Bahrain</Badge>
-                <h2 className="py-3 text-6xl">{project.title}</h2>
+                <h2 className="py-3 text-2xl md:text-6xl">{project.title}</h2>
                 <p className="text-lg font-light capitalize">
                   {project.description}
                 </p>

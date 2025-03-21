@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -12,6 +13,34 @@ import {
   getProductsBySlug,
 } from "@/sanity/lib/fetch";
 
+interface ProductPageProps {
+  params: {
+    product: string;
+    slug: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
+  const product = await getProductBySlug(params.product);
+
+  if (!product)
+    return {
+      title: "Product Not Found",
+    };
+
+  return {
+    title: `${product.title} | AGCS Products`,
+    description: product.description,
+    openGraph: {
+      title: `${product.title} | AGCS Products`,
+      description:
+        product.description || "Browse our wide range of construction products",
+    },
+  };
+}
+
 export async function generateStaticParams() {
   const categories = await getCategories();
 
@@ -25,13 +54,8 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ product: string; slug: string }>;
-}) {
-  const parm = await params;
-  const product = await getProductBySlug(parm.product);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const product = await getProductBySlug(params.product);
 
   if (!product) return notFound();
 
@@ -40,25 +64,25 @@ export default async function ProductPage({
       <Breadcrumb
         segments={[
           { title: "Products", href: "/products" },
-          { title: parm.slug, href: `/products/${parm.slug}` },
+          { title: params.slug, href: `/products/${params.slug}` },
           { title: product.title! },
         ]}
       />
       <div className="container grid gap-6 pb-12 md:grid-cols-5">
-        <ImagePreview data={product?.image} alt={product?.title} />
+        <ImagePreview data={product.image} alt={product.title} />
 
         <div className="md:col-span-2 md:px-6">
           <Link
-            href={`/products/${parm.slug}`}
+            href={`/products/${params.slug}`}
             className="hidden items-center gap-1 text-sm md:flex"
           >
             <IconArrowLeft className="size-4" />
             Back to Products
           </Link>
-          <h1 className="text-4xl font-bold md:pt-4">{product?.title}</h1>
-          <p className="pt-3 text-lg font-light">{product?.description}</p>
+          <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
+          <p className="pt-3 text-lg font-light">{product.description}</p>
           <div className="pt-6">
-            <PortableText value={product?.body!} />
+            <PortableText value={product.body!} />
           </div>
         </div>
       </div>
