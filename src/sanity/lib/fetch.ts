@@ -5,6 +5,7 @@ import { unstable_cache } from "next/cache";
 import {
   CERTIFICASTES_QUERYResult,
   FEATURED_PROJECTS_QUERYResult,
+  GALLERY_QUERYResult,
   HOME_PRODUCTS_QUERYResult,
   HOME_PROJECTS_QUERYResult,
   HOME_SERVICES_QUERYResult,
@@ -20,6 +21,7 @@ import {
   SERVICES_CATEOGORIES_QUERYResult
 } from "../../../sanity.types";
 import { CERTIFICASTES_QUERY } from "../queries/certifications";
+import { GALLERY_QUERY } from "../queries/gallery";
 import { HOME_PRODUCTS_QUERY, PRODUCT_QUERY, PRODUCTS_BY_CATEGORY_QUERY, PRODUCTS_CATEGORIES_QUERY, PRODUCTS_CATEGORY_BY_CATEGORY_QUERY } from "../queries/products";
 import { FEATURED_PROJECTS_QUERY, HOME_PROJECTS_QUERY, PROJECTS_CAROUSEL_QUERY, PROJECTS_QUERY } from "../queries/projects";
 import { HOME_SERVICES_QUERY, SERVICE_QUERY, SERVICES_BY_CATEOGORY_QUERY, SERVICES_CATEGORY_BY_CATEGORY_QUERY, SERVICES_CATEOGORIES_QUERY } from "../queries/services";
@@ -217,6 +219,19 @@ export const getCertifications = async (): Promise<CERTIFICASTES_QUERYResult> =>
       return data;
     },
     ["certificates"],
+    cacheOptions
+  )();
+};
+
+export const getGalleries = async (): Promise<GALLERY_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: GALLERY_QUERY,
+      });
+      return data;
+    },
+    ["galleries"],
     cacheOptions
   )();
 };

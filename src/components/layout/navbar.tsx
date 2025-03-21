@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useMemo } from "react";
 
-import { IconMenu3 } from "@tabler/icons-react";
+import { IconMenu3, IconStar } from "@tabler/icons-react";
 
 import { Logo } from "@/assets/logo";
 import {
@@ -16,9 +16,11 @@ import {
 } from "@/components/ui/drawer";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { NAVLINKS } from "@/data/navbar";
@@ -45,74 +47,145 @@ export function Navbar() {
     []
   );
 
-  return (
-    <NavigationMenu className="bg-navbar/80 sticky top-0 z-50 w-full max-w-full items-center border-b shadow-2xs backdrop-blur-lg">
-      <div className="container flex w-full max-w-7xl items-center gap-4 px-4 py-2 md:justify-between">
-        <Drawer>
-          <DrawerTrigger className="sm:hidden" aria-label="Open menu">
-            <IconMenu3 />
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader className="flex-row items-center gap-3">
-              <Logo className="h-16 w-auto shrink-0" aria-hidden="true" />
-              <div>
-                <DrawerTitle>
-                  <LogoText />
-                </DrawerTitle>
-                <DrawerDescription className="text-xs font-light">
-                  For top construction solutions and materials, count on us!
-                  We&apos;ve got what you need.
-                </DrawerDescription>
-              </div>
-            </DrawerHeader>
+  const components: { title: string; href: string; description: string }[] = [
+    {
+      title: "Alert Dialog",
+      href: "/docs/primitives/alert-dialog",
+      description:
+        "A modal dialog that interrupts the user with important content and expects a response.",
+    },
+    {
+      title: "Hover Card",
+      href: "/docs/primitives/hover-card",
+      description:
+        "For sighted users to preview content available behind a link.",
+    },
+    {
+      title: "Progress",
+      href: "/docs/primitives/progress",
+      description:
+        "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+    },
+    {
+      title: "Scroll-area",
+      href: "/docs/primitives/scroll-area",
+      description: "Visually or semantically separates content.",
+    },
+    {
+      title: "Tabs",
+      href: "/docs/primitives/tabs",
+      description:
+        "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+    },
+    {
+      title: "Tooltip",
+      href: "/docs/primitives/tooltip",
+      description:
+        "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+    },
+  ];
 
-            <NavigationMenuList className="flex-col items-start gap-2">
-              {filteredNavLinks.map((nav) => (
-                <NavigationMenuItem className="w-full" key={nav.href}>
+  return (
+    <>
+      <NavigationMenu className="bg-navbar/80 sticky top-0 z-50 w-full max-w-full items-center border-b shadow-2xs backdrop-blur-lg">
+        <div className="container flex w-full max-w-7xl items-center gap-4 px-4 py-2 md:justify-between">
+          <Drawer>
+            <DrawerTrigger className="sm:hidden" aria-label="Open menu">
+              <IconMenu3 />
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader className="flex-row items-center gap-3">
+                <Logo className="h-16 w-auto shrink-0" aria-hidden="true" />
+                <div>
+                  <DrawerTitle>
+                    <LogoText />
+                  </DrawerTitle>
+                  <DrawerDescription className="text-xs font-light">
+                    For top construction solutions and materials, count on us!
+                    We&apos;ve got what you need.
+                  </DrawerDescription>
+                </div>
+              </DrawerHeader>
+
+              <NavigationMenuList className="flex-col items-start gap-2">
+                {filteredNavLinks.map((nav) => (
+                  <NavigationMenuItem className="w-full" key={nav.href}>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                      asChild
+                    >
+                      <Link
+                        href={nav.href}
+                        className="max-sm:!w-full max-sm:items-start"
+                      >
+                        {nav.title}
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+
+              <DrawerFooter>
+                <DrawerClose asChild>
+                  <Button>Contact</Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+
+          <Link href="/" className="flex items-center gap-2" aria-label="Home">
+            <Logo className="h-11 w-auto" aria-hidden="true" />
+            <LogoText className="pt-1.5" />
+          </Link>
+
+          <NavigationMenuList
+            className="hidden sm:flex"
+            aria-label="Main navigation"
+          >
+            {NAVLINKS.map((nav) =>
+              nav.submenus ? (
+                <NavigationMenuItem className="relative" key={nav.href}>
+                  <NavigationMenuTrigger>{nav.title}</NavigationMenuTrigger>
+
+                  <NavigationMenuContent>
+                    <ul className="mx-auto grid grid-cols-3 gap-3 p-6 md:w-[100dvw] lg:w-[80rem]">
+                      {nav.submenus.map((sub) => (
+                        <li key={sub.href}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={sub.href}
+                              className={cn(
+                                "flex w-full flex-col justify-end gap-4 rounded-xl bg-sky-50 pt-4 transition-colors hover:bg-sky-100"
+                              )}
+                            >
+                              <div className="space-y-2 p-4">
+                                <IconStar className="text-sky-500" />
+                                <p className="text-sm">Discover more</p>
+                                <h2 className="font-poly-sans pb-3 text-lg leading-none font-medium">
+                                  {sub.title}
+                                </h2>
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              ) : (
+                <NavigationMenuItem key={nav.href}>
                   <NavigationMenuLink
                     className={navigationMenuTriggerStyle()}
                     asChild
                   >
-                    <Link
-                      href={nav.href}
-                      className="max-sm:!w-full max-sm:items-start"
-                    >
-                      {nav.title}
-                    </Link>
+                    <Link href={nav.href}>{nav.title}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-
-            <DrawerFooter>
-              <DrawerClose asChild>
-                <Button>Contact</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-
-        <Link href="/" className="flex items-center gap-2" aria-label="Home">
-          <Logo className="h-11 w-auto" aria-hidden="true" />
-          <LogoText className="pt-1.5" />
-        </Link>
-
-        <NavigationMenuList
-          className="hidden sm:flex"
-          aria-label="Main navigation"
-        >
-          {NAVLINKS.map((nav) => (
-            <NavigationMenuItem key={nav.href}>
-              <NavigationMenuLink
-                className={navigationMenuTriggerStyle()}
-                asChild
-              >
-                <Link href={nav.href}>{nav.title}</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </div>
-    </NavigationMenu>
+              )
+            )}
+          </NavigationMenuList>
+        </div>
+      </NavigationMenu>
+    </>
   );
 }

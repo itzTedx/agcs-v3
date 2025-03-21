@@ -1,43 +1,18 @@
-import { FileText } from "lucide-react";
+import { orderRankField } from "@sanity/orderable-document-list";
+import { IconLibraryPhoto } from "@tabler/icons-react";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "gallery",
   title: "Gallery",
   type: "document",
-  icon: FileText,
- 
+  icon: IconLibraryPhoto,
+
   fields: [
-    defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
-     
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-     
-      options: {
-        source: "title",
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "excerpt",
-      title: "Excerpt",
-      type: "text",
-     
-    }),
-    
     defineField({
       name: "image",
       title: "Image",
       type: "image",
-     
       options: {
         hotspot: true,
       },
@@ -49,33 +24,17 @@ export default defineType({
         },
       ],
     }),
-   
- 
     defineField({
-      name: "meta_title",
-      title: "Meta Title",
+      name: "title",
+      title: "Title",
       type: "string",
-     
     }),
-    defineField({
-      name: "meta_description",
-      title: "Meta Description",
-      type: "text",
-     
-    }),
-  
-    defineField({
-      name: "ogImage",
-      title: "Open Graph Image - [1200x630]",
-      type: "image",
-     
-    }),
+      orderRankField({ type: "gallery" }),
   ],
 
   preview: {
     select: {
       title: "title",
-      author: "author.name",
       media: "image",
     },
     prepare(selection) {

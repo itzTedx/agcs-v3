@@ -28,8 +28,6 @@ export default async function ServicePage({
   const parm = await params;
   const service = await getServiceBySlug(parm.service);
 
-  console.log("Service: ", service);
-
   if (!service) return notFound();
 
   return (
@@ -37,7 +35,7 @@ export default async function ServicePage({
       <Breadcrumb
         segments={[
           { title: "Services", href: "/services" },
-          { title: parm.service, href: `/services/${parm.service}` },
+          { title: parm.category, href: `/services/${parm.category}` },
           { title: service.servicesTitle! },
         ]}
       />

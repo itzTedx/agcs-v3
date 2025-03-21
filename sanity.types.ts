@@ -509,6 +509,26 @@ export type CERTIFICASTES_QUERYResult = Array<{
   certificate: string | null;
 }>;
 
+// Source: ./src/sanity/queries/gallery.ts
+// Variable: GALLERY_QUERY
+// Query: *[_type == "gallery"] |  order(orderRank)  {    _id,    image,    title  }
+export type GALLERY_QUERYResult = Array<{
+  _id: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  title: string | null;
+}>;
+
 // Source: ./src/sanity/queries/products.ts
 // Variable: HOME_PRODUCTS_QUERY
 // Query: *[_type == "productsCategory"] | order(_createdAt asc)[0..8] {    _id,    image,    category,    slug,  }
@@ -845,6 +865,7 @@ export type SERVICE_QUERYResult = {
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "certifications"] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    "certificate": certificate.asset->url,\n  }': CERTIFICASTES_QUERYResult;
+    '*[_type == "gallery"] |  order(orderRank)  {\n    _id,\n    image,\n    title\n  }': GALLERY_QUERYResult;
     '*[_type == "productsCategory"] | order(_createdAt asc)[0..8] {\n    _id,\n    image,\n    category,\n    slug,\n  }': HOME_PRODUCTS_QUERYResult;
     '*[_type == "products" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    image,\n    slug,\n    metaTagTitle,\n    metaTagKeywords,\n    body\n  }': PRODUCT_QUERYResult;
     '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n  }': PRODUCTS_CATEGORIES_QUERYResult;

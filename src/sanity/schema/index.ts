@@ -1,7 +1,6 @@
 import { type SchemaTypeDefinition } from 'sanity'
 import certifications from './certifications'
 import gallery from './gallery'
-import post from './post'
 import products from './products'
 import productsCategory from './products-category'
 import projects from './projects'
@@ -21,6 +20,5 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     projects,
     projectsCarousel,
     gallery,
-    post
   ],
 }

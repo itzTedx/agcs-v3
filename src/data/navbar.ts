@@ -4,8 +4,22 @@ export const NAVLINKS = [
         href: '/'
     }, 
     {
-        title: "About",
-        href: '/about'
+        title: "Company",
+        href: '#',
+        submenus: [
+        {
+            title: "About",
+            href: '/about'
+        },
+        {
+            title: "Gallery",
+            href: '/gallery'
+        },
+        {
+            title: "Certifications",
+            href: '/certifications'
+        },
+     ]
     },
     {
         title: "Services",
@@ -19,10 +33,7 @@ export const NAVLINKS = [
         title: "Projects",
         href: '/projects'
     },
-    {
-        title: "Certifications",
-        href: '/certifications'
-    },
+   
     {
         title: "Contact",
         href: '/contact'
