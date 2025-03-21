@@ -139,39 +139,29 @@ export const getAllProducts = async (slug: string): Promise<PRODUCTS_BY_CATEGORY
       });
       return data;
     },
-    ["products-by-slug"],
+    ["all-products"],
     cacheOptions
   )();
 };
 
 export const getProductsBySlug = async (slug: string): Promise<PRODUCTS_BY_CATEGORY_QUERYResult> => {
-  return unstable_cache(
-    async () => {
-      const { data } = await sanityFetch({
-        query: PRODUCTS_BY_CATEGORY_QUERY,
-        params: {slug}
-        
-      });
-      return data;
-    },
-    ["products-by-slug"],
-    cacheOptions
-  )();
+  const { data } = await sanityFetch({
+    query: PRODUCTS_BY_CATEGORY_QUERY,
+    params: { slug }
+  });
+  return data;
 };
+
 export const getProductCategoryBySlug = async (slug: string): Promise<PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult> => {
-  return unstable_cache(
-    async () => {
+ 
       const { data } = await sanityFetch({
         query: PRODUCTS_CATEGORY_BY_CATEGORY_QUERY,
         params: {slug}
         
       });
       return data;
-    },
-    ["product-category-by-slug"],
-    cacheOptions
-  )();
-};
+    }
+    
 
 export const getCertifications = async (): Promise<CERTIFICASTES_QUERYResult> => {
   return unstable_cache(

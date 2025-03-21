@@ -26,6 +26,8 @@ export default async function ProductsBySlugPage({
   const category = await getProductCategoryBySlug(param.slug);
   const categories = await getCategories();
 
+  console.log("Product: ", products);
+
   if (!products || products.length === 0) return notFound();
 
   const text = {
@@ -37,9 +39,9 @@ export default async function ProductsBySlugPage({
     <div>
       <Header text={text} />
 
-      <section className="relative container grid gap-12 md:grid-cols-4">
+      <section className="relative container grid gap-12 lg:grid-cols-4">
         <Sidebar data={categories} />
-        <div className="grid gap-6 pt-12 sm:grid-cols-2 md:col-span-3 md:grid-cols-3 md:py-12">
+        <div className="grid gap-6 pt-12 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:py-12">
           <div className="md:col-span-3">
             <h2 className="text-4xl font-medium text-sky-600">
               {category?.category}
