@@ -164,7 +164,9 @@ export function Navbar() {
 
               <DrawerFooter>
                 <DrawerClose asChild>
-                  <Button>Contact</Button>
+                  <Button asChild>
+                    <Link href="/contact">Contact</Link>
+                  </Button>
                 </DrawerClose>
               </DrawerFooter>
             </DrawerContent>
