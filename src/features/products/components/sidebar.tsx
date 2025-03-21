@@ -30,7 +30,7 @@ export function Sidebar({ data }: Props) {
           <h2 className="text-2xl md:mb-3">Products</h2>
         </div>
         <ul className="space-y-3 pb-3">
-          {data.slice(0, 10).map((cat) => (
+          {data.map((cat) => (
             <li key={cat._id}>
               <Button
                 className="bg-primary/10 w-full justify-start border-sky-300 shadow-none"
@@ -43,35 +43,6 @@ export function Sidebar({ data }: Props) {
             </li>
           ))}
         </ul>
-        {data.length > 10 && (
-          <Collapsible>
-            <CollapsibleContent className="pb-3">
-              <ul className="space-y-3">
-                {data.slice(10).map((cat) => (
-                  <li key={cat._id}>
-                    <Button
-                      className="bg-primary/10 w-full justify-start border-sky-300 shadow-none"
-                      asChild
-                    >
-                      <Link href={`/products/${cat.slug?.current}`}>
-                        {cat.category}
-                      </Link>
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </CollapsibleContent>
-            <CollapsibleTrigger
-              className="flex w-full items-center justify-between"
-              asChild
-            >
-              <Button className="bg-primary/10 w-full justify-start border-sky-300 shadow-none">
-                Show More
-                <IconChevronsDown />
-              </Button>
-            </CollapsibleTrigger>
-          </Collapsible>
-        )}
       </aside>
     );
   // Mobile

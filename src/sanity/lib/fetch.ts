@@ -101,7 +101,7 @@ export const getHomeProducts = async (): Promise<HOME_PRODUCTS_QUERYResult> => {
   )();
 };
 
-export const getProduct = async (slug: string): Promise<PRODUCT_QUERYResult> => {
+export const getProductBySlug = async (slug: string): Promise<PRODUCT_QUERYResult> => {
   console.log("slug: ", slug)
   return unstable_cache(
     async () => {
@@ -125,6 +125,21 @@ export const getCategories = async (): Promise<PRODUCTS_CATEGORIES_QUERYResult> 
       return data;
     },
     ["categories"],
+    cacheOptions
+  )();
+};
+
+export const getAllProducts = async (slug: string): Promise<PRODUCTS_BY_CATEGORY_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: PRODUCTS_BY_CATEGORY_QUERY,
+        params: {slug}
+        
+      });
+      return data;
+    },
+    ["products-by-slug"],
     cacheOptions
   )();
 };

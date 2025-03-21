@@ -9,6 +9,13 @@ import {
   getProductsBySlug,
 } from "@/sanity/lib/fetch";
 
+export async function generateStaticParams() {
+  const categories = await getCategories();
+
+  return categories.map((category) => ({
+    slug: category.slug?.current,
+  }));
+}
 export default async function ProductsBySlugPage({
   params,
 }: {

@@ -6,7 +6,24 @@ import { IconArrowLeft } from "@tabler/icons-react";
 
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { ImagePreview } from "@/features/products/components/image-preview";
-import { getProduct } from "@/sanity/lib/fetch";
+import {
+  getCategories,
+  getProductBySlug,
+  getProductsBySlug,
+} from "@/sanity/lib/fetch";
+
+export async function generateStaticParams() {
+  const categories = await getCategories();
+
+  return categories.map(async (category) => {
+    const products = await getProductsBySlug(category.slug?.current!);
+
+    return products.map((product) => ({
+      slug: category.slug?.current,
+      product: product.slug?.current,
+    }));
+  });
+}
 
 export default async function ProductPage({
   params,
@@ -14,7 +31,7 @@ export default async function ProductPage({
   params: Promise<{ product: string; slug: string }>;
 }) {
   const parm = await params;
-  const product = await getProduct(parm.product);
+  const product = await getProductBySlug(parm.product);
 
   if (!product) return notFound();
 
