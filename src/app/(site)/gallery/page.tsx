@@ -1,13 +1,24 @@
-import Image from "next/image";
+import { Metadata } from "next";
+import { Suspense } from "react";
 
-import { cn } from "@/lib/utils";
 import { getGalleries } from "@/sanity/lib/fetch";
-import { urlFor } from "@/sanity/lib/image";
+
+import GalleryGrid from "../../../features/gallery/GalleryGrid";
+
+export const metadata: Metadata = {
+  title: "Our Gallery",
+  description:
+    "Explore our portfolio of successful team achievements and projects at Allied gulf construction services",
+  keywords: ["portfolio", "success stories", "gallery", "student projects"],
+  openGraph: {
+    title: "Our Gallery | AGCS",
+    description:
+      "Explore our portfolio of successful team achievements and projects",
+  },
+};
 
 export default async function GalleryPage() {
   const galleries = await getGalleries();
-
-  console.log("Gallery: ", galleries);
 
   return (
     <div className="container py-4 md:py-12">
@@ -18,31 +29,9 @@ export default async function GalleryPage() {
         </p>
       </header>
 
-      <section
-        className="columns-2 gap-3 md:columns-3 md:gap-6"
-        aria-label="Achievement gallery"
-      >
-        {galleries.map(
-          (gallery, i) =>
-            gallery.image && (
-              <div
-                key={i}
-                className={cn(
-                  "relative mt-3 inline-block w-full overflow-hidden rounded-lg md:mt-6"
-                )}
-              >
-                <Image
-                  src={urlFor(gallery.image).url()}
-                  alt={gallery.image.alt ?? ""}
-                  title={gallery.title ?? ""}
-                  width={500}
-                  height={360}
-                  className="object-cover"
-                />
-              </div>
-            )
-        )}
-      </section>
+      <Suspense fallback={<div>Loading gallery...</div>}>
+        <GalleryGrid galleries={galleries} />
+      </Suspense>
     </div>
   );
 }
