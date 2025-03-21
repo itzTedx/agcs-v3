@@ -46,7 +46,7 @@ export function Navbar() {
   );
 
   return (
-    <NavigationMenu className="bg-navbar sticky top-0 z-50 w-full max-w-full items-center">
+    <NavigationMenu className="bg-navbar/80 sticky top-0 z-50 w-full max-w-full items-center border-b shadow-2xs backdrop-blur-lg">
       <div className="container flex w-full max-w-7xl items-center gap-4 px-4 py-2 md:justify-between">
         <Drawer>
           <DrawerTrigger className="sm:hidden" aria-label="Open menu">
