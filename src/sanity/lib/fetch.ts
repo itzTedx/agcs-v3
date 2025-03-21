@@ -13,12 +13,15 @@ import {
   PRODUCTS_CATEGORIES_QUERYResult,
   PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult,
   PROJECTS_CAROUSEL_QUERYResult,
-  PROJECTS_QUERYResult
+  PROJECTS_QUERYResult,
+  SERVICES_BY_CATEOGORY_QUERYResult,
+  SERVICES_CATEGORY_BY_CATEGORY_QUERYResult,
+  SERVICES_CATEOGORIES_QUERYResult
 } from "../../../sanity.types";
 import { CERTIFICASTES_QUERY } from "../queries/certifications";
 import { HOME_PRODUCTS_QUERY, PRODUCT_QUERY, PRODUCTS_BY_CATEGORY_QUERY, PRODUCTS_CATEGORIES_QUERY, PRODUCTS_CATEGORY_BY_CATEGORY_QUERY } from "../queries/products";
 import { FEATURED_PROJECTS_QUERY, HOME_PROJECTS_QUERY, PROJECTS_CAROUSEL_QUERY, PROJECTS_QUERY } from "../queries/projects";
-import { HOME_SERVICES_QUERY } from "../queries/services";
+import { HOME_SERVICES_QUERY, SERVICES_BY_CATEOGORY_QUERY, SERVICES_CATEGORY_BY_CATEGORY_QUERY, SERVICES_CATEOGORIES_QUERY } from "../queries/services";
 import { sanityFetch } from "./live";
 
 const cacheOptions = {
@@ -39,6 +42,38 @@ export const getHomeServices = async (): Promise<HOME_SERVICES_QUERYResult> => {
   )();
 };
 
+export const getServicesCategories = async (): Promise<SERVICES_CATEOGORIES_QUERYResult> => {
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: SERVICES_CATEOGORIES_QUERY,
+      });
+      return data;
+    },
+    ["services-categories"],
+    cacheOptions
+  )();
+};
+
+export const getServicesByCategory = async (slug: string): Promise<SERVICES_BY_CATEOGORY_QUERYResult> => {
+    const { data } = await sanityFetch({
+      query: SERVICES_BY_CATEOGORY_QUERY,
+      params: {slug}
+    });
+    return data;
+  }
+
+  export const getServiceCategoryBySlug = async (slug: string): Promise<SERVICES_CATEGORY_BY_CATEGORY_QUERYResult> => {
+ 
+    const { data } = await sanityFetch({
+      query: SERVICES_CATEGORY_BY_CATEGORY_QUERY,
+      params: {slug}
+      
+    });
+    return data;
+  }
+  
+    
 export const getHomeProjects = async (): Promise<HOME_PROJECTS_QUERYResult> => {
   return unstable_cache(
     async () => {

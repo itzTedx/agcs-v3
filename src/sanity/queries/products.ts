@@ -31,6 +31,7 @@ export const PRODUCTS_BY_CATEGORY_QUERY = groq`*[_type == "products" && category
     slug,
     thumbnail
 }`;
+
 export const PRODUCTS_CATEGORY_BY_CATEGORY_QUERY = groq`*[_type == "productsCategory" && slug.current == $slug][0]{
     _id,
     category,

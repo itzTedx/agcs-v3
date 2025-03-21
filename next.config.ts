@@ -10,11 +10,11 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+  // logging: {
+  //   fetches: {
+  //     fullUrl: true,
+  //   },
+  // },
 
   experimental: {
     optimizePackageImports: [
