@@ -6,6 +6,9 @@ import { urlFor } from "@/sanity/lib/image";
 
 export default async function GalleryPage() {
   const galleries = await getGalleries();
+
+  console.log("Gallery: ", galleries);
+
   return (
     <div className="container py-4 md:py-12">
       <header className="md:py-9">
@@ -16,7 +19,7 @@ export default async function GalleryPage() {
       </header>
 
       <section
-        className="columns-2 gap-3 md:columns-4 md:gap-6"
+        className="columns-2 gap-3 md:columns-3 md:gap-6"
         aria-label="Achievement gallery"
       >
         {galleries.map(

@@ -72,14 +72,13 @@ export const structure: StructureResolver = (S, context) =>
           .title("Certification")
           .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
       ),
-      S.listItem()
-      .title("Gallery")
-      .schemaType("gallery")
-      .child(
-        S.documentTypeList("gallery")
-          .title("Gallery")
-          .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
-      ),
+
+       orderableDocumentListDeskItem({
+        type: "gallery",
+        title: "Gallery",
+        S,
+        context,
+      }),
     ]
   )
 

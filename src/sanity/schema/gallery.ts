@@ -29,7 +29,7 @@ export default defineType({
       title: "Title",
       type: "string",
     }),
-      orderRankField({ type: "gallery" }),
+    orderRankField({ type: "gallery" }),
   ],
 
   preview: {
@@ -37,9 +37,6 @@ export default defineType({
       title: "title",
       media: "image",
     },
-    prepare(selection) {
-     
-      return { ...selection };
-    },
+   
   },
 });

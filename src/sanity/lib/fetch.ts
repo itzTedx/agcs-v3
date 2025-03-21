@@ -231,7 +231,7 @@ export const getGalleries = async (): Promise<GALLERY_QUERYResult> => {
       });
       return data;
     },
-    ["galleries"],
+    ["all--galleries"],
     cacheOptions
   )();
 };
