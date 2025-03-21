@@ -102,6 +102,7 @@ export const getHomeProducts = async (): Promise<HOME_PRODUCTS_QUERYResult> => {
 };
 
 export const getProduct = async (slug: string): Promise<PRODUCT_QUERYResult> => {
+  console.log("slug: ", slug)
   return unstable_cache(
     async () => {
       const { data } = await sanityFetch({

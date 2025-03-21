@@ -109,7 +109,7 @@ export const ImagePreview = ({
         <CarouselItem
           key={index}
           className={cn(
-            "relative aspect-square w-full basis-1/4 overflow-hidden rounded-md border-white bg-white pt-0 md:basis-1/5",
+            "relative aspect-square w-full basis-1/5 overflow-hidden rounded-md border-white bg-white pt-0 pl-0",
             index === current ? "border-2" : ""
           )}
           onClick={() => handleClick(index)}
@@ -163,7 +163,7 @@ export const ImagePreview = ({
     );
   } else {
     return (
-      <div className="col-span-3">
+      <div className="md:col-span-3">
         <Carousel
           setApi={setMainApi}
           className="shrink-0 grow"
@@ -176,7 +176,7 @@ export const ImagePreview = ({
           <CarouselContent className="-ml-4">{mainImage}</CarouselContent>
         </Carousel>
         <Carousel setApi={setThumbnailApi} orientation="horizontal">
-          <CarouselContent className="my-3 h-24 gap-3">
+          <CarouselContent className="my-3 ml-0 h-24 gap-3">
             {thumbnailImages}
           </CarouselContent>
           {current > 3 && <CarouselPrevious />}
