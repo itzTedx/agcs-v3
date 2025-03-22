@@ -38,3 +38,5 @@ export const PRODUCTS_CATEGORY_BY_CATEGORY_QUERY = groq`*[_type == "productsCate
     description,
     "brochure": file.asset->url,
   }`;
+
+export const RECENTLY_VIEWED_PRODUCTS_QUERY = groq`*[_type == "product" && _id in $ids]`;

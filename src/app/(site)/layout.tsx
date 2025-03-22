@@ -6,6 +6,7 @@ import BreakpointIndicator from "@/components/dev/breakpoint-indicator";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { metadata as siteMetadata } from "@/data/site-config";
+import { RecentlyViewedProvider } from "@/features/products/context/recently-viewed-context";
 import "@/styles/globals.css";
 
 const FloatingWhatsapp = dynamic(
@@ -29,16 +30,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${roboto.className} antialiased`}>
-        <div data-vaul-drawer-wrapper className="bg-background min-h-screen">
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <FloatingWhatsapp />
-          <BreakpointIndicator />
-        </div>
-      </body>
-    </html>
+    <RecentlyViewedProvider>
+      <html lang="en">
+        <body className={`${roboto.className} antialiased`}>
+          <div data-vaul-drawer-wrapper className="bg-background min-h-screen">
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <FloatingWhatsapp />
+            <BreakpointIndicator />
+          </div>
+        </body>
+      </html>
+    </RecentlyViewedProvider>
   );
 }

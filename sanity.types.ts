@@ -633,6 +633,9 @@ export type PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult = {
   description: string | null;
   brochure: string | null;
 } | null;
+// Variable: RECENTLY_VIEWED_PRODUCTS_QUERY
+// Query: *[_type == "product" && _id in $ids]
+export type RECENTLY_VIEWED_PRODUCTS_QUERYResult = Array<never>;
 
 // Source: ./src/sanity/queries/projects.ts
 // Variable: HOME_PROJECTS_QUERY
@@ -871,6 +874,7 @@ declare module "@sanity/client" {
     '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n  }': PRODUCTS_CATEGORIES_QUERYResult;
     "*[_type == \"products\" && category._ref in *[_type=='productsCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    title,\n    slug,\n    thumbnail\n}": PRODUCTS_BY_CATEGORY_QUERYResult;
     '*[_type == "productsCategory" && slug.current == $slug][0]{\n    _id,\n    category,\n    description,\n    "brochure": file.asset->url,\n  }': PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult;
+    '*[_type == "product" && _id in $ids]': RECENTLY_VIEWED_PRODUCTS_QUERYResult;
     '*[_type == "projects"] | order(_createdAt asc)[0..3] {\n    _id,\n    title,\n    image,\n    description,\n  }': HOME_PROJECTS_QUERYResult;
     '*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': FEATURED_PROJECTS_QUERYResult;
     '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;

@@ -15,6 +15,7 @@ import {
   PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult,
   PROJECTS_CAROUSEL_QUERYResult,
   PROJECTS_QUERYResult,
+  RECENTLY_VIEWED_PRODUCTS_QUERYResult,
   SERVICE_QUERYResult,
   SERVICES_BY_CATEOGORY_QUERYResult,
   SERVICES_CATEGORY_BY_CATEGORY_QUERYResult,
@@ -22,7 +23,7 @@ import {
 } from "../../../sanity.types";
 import { CERTIFICASTES_QUERY } from "../queries/certifications";
 import { GALLERY_QUERY } from "../queries/gallery";
-import { HOME_PRODUCTS_QUERY, PRODUCT_QUERY, PRODUCTS_BY_CATEGORY_QUERY, PRODUCTS_CATEGORIES_QUERY, PRODUCTS_CATEGORY_BY_CATEGORY_QUERY } from "../queries/products";
+import { HOME_PRODUCTS_QUERY, PRODUCT_QUERY, PRODUCTS_BY_CATEGORY_QUERY, PRODUCTS_CATEGORIES_QUERY, PRODUCTS_CATEGORY_BY_CATEGORY_QUERY, RECENTLY_VIEWED_PRODUCTS_QUERY } from "../queries/products";
 import { FEATURED_PROJECTS_QUERY, HOME_PROJECTS_QUERY, PROJECTS_CAROUSEL_QUERY, PROJECTS_QUERY } from "../queries/projects";
 import { HOME_SERVICES_QUERY, SERVICE_QUERY, SERVICES_BY_CATEOGORY_QUERY, SERVICES_CATEGORY_BY_CATEGORY_QUERY, SERVICES_CATEOGORIES_QUERY } from "../queries/services";
 import { sanityFetch } from "./live";
@@ -235,3 +236,17 @@ export const getGalleries = async (): Promise<GALLERY_QUERYResult> => {
     cacheOptions
   )();
 };
+
+export async function getRecentlyViewedProducts(ids: string[]): Promise<RECENTLY_VIEWED_PRODUCTS_QUERYResult> {
+  if (!ids.length) return [];
+  
+  const { data } = await sanityFetch({
+    query: RECENTLY_VIEWED_PRODUCTS_QUERY,
+    params: { ids },
+    
+  });
+  
+  return data.sort((a: any, b: any) => 
+    ids.indexOf(a._id) - ids.indexOf(b._id)
+  );
+}

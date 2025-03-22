@@ -1,17 +1,37 @@
-import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-import { PortableText } from "@portabletext/react";
 import { IconArrowLeft } from "@tabler/icons-react";
 
+import { Card } from "@/components/global/card";
+import ExpandableCard from "@/components/layout/expandable-card";
+import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Breadcrumb from "@/features/products/components/breadcrumb";
-import { ImagePreview } from "@/features/products/components/image-preview";
+import { RecentlyViewedProducts } from "@/features/products/components/recently-viewed-products";
 import {
   getCategories,
   getProductBySlug,
   getProductsBySlug,
 } from "@/sanity/lib/fetch";
+
+const ImagePreview = dynamic(() =>
+  import("@/features/products/components/image-preview").then(
+    (mod) => mod.ImagePreview
+  )
+);
+
+const PortableText = dynamic(() =>
+  import("@portabletext/react").then((mod) => mod.PortableText)
+);
 
 interface ProductPageProps {
   params: {
@@ -22,8 +42,11 @@ interface ProductPageProps {
 
 export async function generateMetadata({
   params,
-}: ProductPageProps): Promise<Metadata> {
-  const product = await getProductBySlug(params.product);
+}: {
+  params: Promise<{ slug: string; product: string }>;
+}) {
+  const { product: query } = await params;
+  const product = await getProductBySlug(query);
 
   if (!product)
     return {
@@ -54,8 +77,14 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProductBySlug(params.product);
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string; product: string }>;
+}) {
+  const { slug, product: query } = await params;
+  const product = await getProductBySlug(query);
+  const relatedProducts = await getProductsBySlug(slug);
 
   if (!product) return notFound();
 
@@ -64,28 +93,68 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Breadcrumb
         segments={[
           { title: "Products", href: "/products" },
-          { title: params.slug, href: `/products/${params.slug}` },
+          { title: slug, href: `/products/${slug}` },
           { title: product.title! },
         ]}
       />
-      <div className="container grid gap-6 pb-12 md:grid-cols-5">
-        <ImagePreview data={product.image} alt={product.title} />
+      <section className="relative container grid gap-6 pb-12 md:grid-cols-5">
+        <Suspense
+          fallback={
+            <div className="bg-muted aspect-square w-full animate-pulse rounded-lg" />
+          }
+        >
+          <ImagePreview data={product.image} alt={product.title} />
+        </Suspense>
 
         <div className="md:col-span-2 md:px-6">
-          <Link
-            href={`/products/${params.slug}`}
-            className="hidden items-center gap-1 text-sm md:flex"
-          >
-            <IconArrowLeft className="size-4" />
-            Back to Products
-          </Link>
-          <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
-          <p className="pt-3 text-lg font-light">{product.description}</p>
-          <div className="pt-6">
-            <PortableText value={product.body!} />
+          <div className="relative">
+            <div className="bg-background sticky top-12 z-10 pt-6">
+              <Link
+                href={`/products/${slug}`}
+                className="hidden items-center gap-1 text-sm md:flex"
+              >
+                <IconArrowLeft className="size-4" />
+                Back to Products
+              </Link>
+              <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
+              <p className="py-3 text-lg font-light">{product.description}</p>
+            </div>
+            <ExpandableCard className="py-6">
+              <PortableText value={product.body!} />
+            </ExpandableCard>
           </div>
+          <Button asChild size="lg">
+            <Link href="/">Order Now</Link>
+          </Button>
         </div>
-      </div>
+      </section>
+      <section className="container py-12">
+        <h2 className="pb-3 text-2xl">Products related to {product.title}</h2>
+
+        <Carousel className="w-full">
+          <CarouselContent className="-ml-6">
+            {relatedProducts.map((product, i) => (
+              <CarouselItem key={i} className="pl-6 md:basis-1/3 lg:basis-1/4">
+                <div key={product.slug?.current}>
+                  <Card
+                    className="aspect-square"
+                    title={product.title!}
+                    alt={product.title!}
+                    image={product.thumbnail}
+                    key={product._id}
+                    link={`/products/${slug}/${product.slug?.current}`}
+                    priority={i < 3} // Prioritize loading first 3 images
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </section>
+
+      <RecentlyViewedProducts productId={product._id} />
     </>
   );
 }

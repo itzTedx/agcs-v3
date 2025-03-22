@@ -14,7 +14,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -32,7 +31,6 @@ export const ImagePreview = ({
   const [mainApi, setMainApi] = useState<CarouselApi>();
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   useEffect(() => {
     if (!mainApi || !thumbnailApi) {
@@ -139,51 +137,26 @@ export const ImagePreview = ({
     [current, handleClick]
   );
 
-  if (isDesktop) {
-    return (
-      <div className="col-span-3 flex gap-4">
-        <Carousel setApi={setThumbnailApi} orientation="vertical">
-          <CarouselContent className="m-1 w-24 gap-3">
-            {thumbnailImages}
-          </CarouselContent>
-          {current > 3 && <CarouselPrevious />}
-          {current > 3 && <CarouselNext />}
-        </Carousel>
-        <Carousel
-          setApi={setMainApi}
-          className="shrink-0 grow"
-          plugins={[
-            Autoplay({
-              delay: autoplayDelay || 2000,
-            }),
-          ]}
-        >
-          <CarouselContent className="-ml-4">{mainImage}</CarouselContent>
-        </Carousel>
-      </div>
-    );
-  } else {
-    return (
-      <div className="md:col-span-3">
-        <Carousel
-          setApi={setMainApi}
-          className="shrink-0 grow"
-          plugins={[
-            Autoplay({
-              delay: autoplayDelay || 2000,
-            }),
-          ]}
-        >
-          <CarouselContent className="-ml-4">{mainImage}</CarouselContent>
-        </Carousel>
-        <Carousel setApi={setThumbnailApi} orientation="horizontal">
-          <CarouselContent className="my-3 ml-0 h-24 gap-3">
-            {thumbnailImages}
-          </CarouselContent>
-          {current > 3 && <CarouselPrevious />}
-          {current > 3 && <CarouselNext />}
-        </Carousel>
-      </div>
-    );
-  }
+  return (
+    <div className="sticky top-20 col-span-3 flex h-fit gap-4">
+      <Carousel setApi={setThumbnailApi} orientation="vertical">
+        <CarouselContent className="m-1 w-24 gap-3">
+          {thumbnailImages}
+        </CarouselContent>
+        {current > 3 && <CarouselPrevious />}
+        {current > 3 && <CarouselNext />}
+      </Carousel>
+      <Carousel
+        setApi={setMainApi}
+        className="shrink-0 grow"
+        plugins={[
+          Autoplay({
+            delay: autoplayDelay || 2000,
+          }),
+        ]}
+      >
+        <CarouselContent className="-ml-4">{mainImage}</CarouselContent>
+      </Carousel>
+    </div>
+  );
 };
