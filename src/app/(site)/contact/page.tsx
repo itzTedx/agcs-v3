@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
 import { Icons } from "@/assets/icons";
+import { FlickeringGrid } from "@/components/animations/flickering-grid";
 import { SocialLinks } from "@/components/global/social-links";
 import {
   Card,
@@ -93,8 +94,16 @@ export default function ContactPage() {
     <main className="flex flex-col">
       <header
         role="banner"
-        className="bg-navbar border-muted-foreground/15 border-b"
+        className="bg-navbar border-muted-foreground/15 relative border-b"
       >
+        <FlickeringGrid
+          className="absolute inset-0 z-0 size-full opacity-25 [mask-image:radial-gradient(720px_circle_at_center,transparent,white)]"
+          squareSize={4}
+          gridGap={6}
+          color="#0284c7"
+          maxOpacity={0.5}
+          flickerChance={0.1}
+        />
         <div className="container flex h-56 max-w-7xl flex-col justify-between py-6 md:h-72">
           <div className="pt-4 md:pt-9">
             <h1 className="text-4xl font-semibold md:text-6xl">Contact us</h1>
@@ -120,7 +129,7 @@ export default function ContactPage() {
 
           <MultiStepLoader data={steps} />
         </div>
-        <Card className="rounded-md border border-sky-600 p-9 max-sm:order-1 md:-mt-44">
+        <Card className="z-10 rounded-md border border-sky-600 p-9 max-sm:order-1 md:-mt-44">
           <CardContent className="space-y-9 px-0">
             <CardHeader className="flex items-center gap-2 px-0">
               <CardTitle className="sr-only">Contact Form</CardTitle>

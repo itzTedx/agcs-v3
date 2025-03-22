@@ -1,5 +1,6 @@
 import { ArrowRightIcon, SearchIcon } from "lucide-react";
 
+import { FlickeringGrid } from "../animations/flickering-grid";
 import { Input } from "../ui/input";
 
 interface Props {
@@ -11,7 +12,15 @@ interface Props {
 
 export default function Header({ text }: Props) {
   return (
-    <header className="bg-sky-500 py-9 md:py-12">
+    <header className="relative bg-sky-500 py-9 md:py-12">
+      <FlickeringGrid
+        className="absolute inset-0 z-0 size-full [mask-image:radial-gradient(1280px_circle_at_center,transparent,white)]"
+        squareSize={4}
+        gridGap={6}
+        color="#0284c7"
+        maxOpacity={0.5}
+        flickerChance={0.1}
+      />
       <div className="container grid max-w-7xl items-center gap-4 md:grid-cols-3 md:gap-6">
         <div className="md:col-span-2">
           <h1 className="pb-1 text-xl font-light md:text-2xl">
