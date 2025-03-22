@@ -36,7 +36,7 @@ export const Services = async () => {
               <Card
                 title={service.servicesTitle}
                 image={service.thumbnail}
-                alt={service.metaTagTitle}
+                alt={`${service.metaTagTitle} Services - Allied gulf construction services`}
                 link={`/services/${service.servicesSlug?.current}`}
               />
             </div>

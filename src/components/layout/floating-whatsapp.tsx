@@ -66,9 +66,11 @@ export default function FloatingWhatsapp({
         <PopoverTrigger
           onClick={handleClick}
           className="cursor-pointer overflow-hidden rounded-full border shadow-lg"
+          aria-label="Open WhatsApp Chat"
         >
           <div className="flex size-14 items-center justify-center bg-sky-700">
             <Icons.whatsapp className="size-7" />
+            <p className="sr-only">Chat with us in whatsapp</p>
           </div>
         </PopoverTrigger>
         <PopoverContent
