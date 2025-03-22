@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const MAX_ITEMS = 6;
+const MAX_ITEMS = 8;
 const STORAGE_KEY = 'recently-viewed';
 
 export function useRecentlyViewed() {

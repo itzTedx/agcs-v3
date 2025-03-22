@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Card } from "@/components/global/card";
@@ -16,8 +15,11 @@ interface ProductPageProps {
 
 export async function generateMetadata({
   params,
-}: ProductPageProps): Promise<Metadata> {
-  const category = await getProductCategoryBySlug(params.slug);
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const category = await getProductCategoryBySlug(slug);
 
   return {
     title: `${category?.category || "Products"} | AGCS`,
@@ -39,11 +41,16 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ProductsBySlugPage({ params }: ProductPageProps) {
+export default async function ProductsBySlugPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   try {
     const [products, category, categories] = await Promise.all([
-      getProductsBySlug(params.slug),
-      getProductCategoryBySlug(params.slug),
+      getProductsBySlug(slug),
+      getProductCategoryBySlug(slug),
       getCategories(),
     ]);
 
@@ -77,7 +84,7 @@ export default async function ProductsBySlugPage({ params }: ProductPageProps) {
                 alt={product.title}
                 image={product.thumbnail}
                 key={product._id}
-                link={`/products/${params.slug}/${product.slug?.current}`}
+                link={`/products/${slug}/${product.slug?.current}`}
                 priority={index < 3} // Prioritize loading first 3 images
               />
             ))}

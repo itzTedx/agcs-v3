@@ -5,7 +5,6 @@ import { Suspense } from "react";
 
 import { IconArrowLeft } from "@tabler/icons-react";
 
-import ExpandableCard from "@/components/layout/expandable-card";
 import { Button } from "@/components/ui/button";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { RecentlyViewedProducts } from "@/features/products/section/recently-viewed-products";
@@ -54,25 +53,25 @@ export default async function ProductPage({
           <ImagePreview data={product.image} alt={product.title} />
         </Suspense>
 
-        <div className="md:col-span-2 md:px-6">
-          <div className="bg-background sticky top-12 z-10 py-6">
-            <Link
-              href={`/products/${slug}`}
-              className="hidden items-center gap-1 text-sm md:flex"
-            >
-              <IconArrowLeft className="size-4" />
-              Back to Products
-            </Link>
-            <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
-            <p className="py-3 text-lg font-light">{product.description}</p>
+        <div className="md:col-span-2 md:p-6">
+          <Link
+            href={`/products/${slug}`}
+            className="hidden items-center gap-1 text-sm md:flex"
+          >
+            <IconArrowLeft className="size-4" />
+            Back to Products
+          </Link>
+          <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
+          <p className="py-3 text-lg font-light">{product.description}</p>
 
-            <Button asChild size="lg">
-              <Link href="/">Order Now</Link>
-            </Button>
-          </div>
-          <ExpandableCard className="py-6">
+          <Button asChild size="lg">
+            <Link href="/">Order Now</Link>
+          </Button>
+
+          <div className="prose py-6">
+            <h2 className="text-sm text-gray-700">Description:</h2>
             <PortableText value={product.body!} />
-          </ExpandableCard>
+          </div>
         </div>
       </section>
 
