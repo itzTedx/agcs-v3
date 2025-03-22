@@ -114,7 +114,7 @@ export default async function ProductPage({
       </section>
 
       <RelatedProducts slug={slug} />
-      <RecentlyViewedProducts productId={product._id} />
+      <RecentlyViewedProducts productId={product._id} category={slug} />
     </>
   );
 }

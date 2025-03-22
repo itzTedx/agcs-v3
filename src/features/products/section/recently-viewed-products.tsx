@@ -6,7 +6,13 @@ import { Card } from "@/components/global/card";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { getRecentlyViewedProducts } from "@/sanity/lib/fetch";
 
-export function RecentlyViewedProducts({ productId }: { productId: string }) {
+export function RecentlyViewedProducts({
+  productId,
+  category,
+}: {
+  productId: string;
+  category: string;
+}) {
   const { recentIds, addToRecentlyViewed } = useRecentlyViewed();
   const [products, setProducts] = useState<any[]>([]);
 
@@ -37,7 +43,7 @@ export function RecentlyViewedProducts({ productId }: { productId: string }) {
             title={product.title}
             alt={product.title}
             image={product.thumbnail}
-            link={`/products/${product.categorySlug}/${product.slug?.current}`}
+            link={`/products/${category}/${product.slug?.current}`}
           />
         ))}
       </div>
