@@ -40,7 +40,7 @@ export function RecentlyViewedProducts({
   if (products.length > 4)
     return (
       <section className="container py-12">
-        <h2 className="pb-3 text-2xl">Recently Viewed</h2>
+        <h2 className="pb-3 text-2xl text-sky-800">Recently Viewed</h2>
 
         <Carousel className="w-full">
           <CarouselContent className="-ml-6">

@@ -12,7 +12,7 @@ export async function RelatedProducts({ slug }: { slug: string }) {
   const relatedProducts = await getProductsBySlug(slug);
   return (
     <section className="container py-12">
-      <h2 className="pb-3 text-2xl">Products related to this</h2>
+      <h2 className="pb-3 text-2xl text-sky-800">Products related to this</h2>
 
       <Carousel className="w-full">
         <CarouselContent className="-ml-6">
