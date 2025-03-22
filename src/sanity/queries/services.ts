@@ -18,7 +18,8 @@ export const HOME_SERVICES_QUERY = groq`*[_type == "services"] | order(_createdA
     description,
     file,
     slug,
-    thumbnail
+    thumbnail,
+    _createdAt
   }`;
 
   export const SERVICES_BY_CATEOGORY_QUERY =  groq`*[_type == "services" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){

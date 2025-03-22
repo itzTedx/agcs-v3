@@ -8,7 +8,7 @@ export const siteConfig = {
 
   contact: ["+973 1779 1317", "+973 3818 4631", "+973 3468 5656"],
   authors: [{ name: 'Allied Gulf Construction Services' }],
-  creator: 'Allied Gulf Construction Services',
+  creator: 'Tojo Alex',
   publisher: 'Allied Gulf Construction Services',
 };
 

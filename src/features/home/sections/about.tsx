@@ -20,7 +20,7 @@ export const About = () => {
       </div>
       <article className="space-y-2 font-light text-gray-800">
         <h2 className="pb-6 text-5xl font-bold text-sky-700">About us</h2>
-        <p>
+        <p className="text-balance">
           <span className="font-bold">
             Allied Gulf Construction Services W.L.L,
           </span>{" "}
@@ -30,7 +30,7 @@ export const About = () => {
           Construction service provider across the Middle East. We specialize in
           complex and prestigious construction and infrastructure projects.
         </p>
-        <p>
+        <p className="text-pretty">
           Our portfolio includes construction services for some of the region's
           most iconic landmarks, from super high-rise luxury developments, vital
           infrastructure and oil & gas projects, five-star hotels, hospitals and

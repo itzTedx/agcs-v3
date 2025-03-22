@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -14,6 +15,7 @@ import {
   getProductBySlug,
   getProductsBySlug,
 } from "@/sanity/lib/fetch";
+import { urlFor } from "@/sanity/lib/image";
 
 const ImagePreview = dynamic(() =>
   import("@/features/products/components/image-preview").then(
@@ -35,8 +37,21 @@ export default async function ProductPage({
 
   if (!product) return notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description,
+    image: product.thumbnail && urlFor(product.thumbnail).url,
+    category: slug,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumb
         segments={[
           { title: "Products", href: "/products" },
@@ -44,7 +59,7 @@ export default async function ProductPage({
           { title: product.title! },
         ]}
       />
-      <section className="relative container grid gap-6 pb-12 md:grid-cols-5">
+      <article className="relative container grid gap-6 pb-12 md:grid-cols-5">
         <Suspense
           fallback={
             <div className="bg-muted aspect-square w-full animate-pulse rounded-lg" />
@@ -57,12 +72,16 @@ export default async function ProductPage({
           <Link
             href={`/products/${slug}`}
             className="hidden items-center gap-1 text-sm md:flex"
+            aria-label={`Back to ${slug} products`}
           >
             <IconArrowLeft className="size-4" />
             Back to Products
           </Link>
           <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
-          <p className="py-3 text-lg font-light">{product.description}</p>
+          <meta itemProp="name" content={product.title!} />
+          <p className="py-3 text-lg font-light" itemProp="description">
+            {product.description}
+          </p>
 
           <Button asChild size="lg">
             <Link href="/">Order Now</Link>
@@ -70,10 +89,12 @@ export default async function ProductPage({
 
           <div className="prose py-6">
             <h2 className="text-sm text-gray-700">Description:</h2>
-            <PortableText value={product.body!} />
+            <div itemProp="description">
+              <PortableText value={product.body!} />
+            </div>
           </div>
         </div>
-      </section>
+      </article>
 
       <RelatedProducts slug={slug} />
       <RecentlyViewedProducts productId={product._id} category={slug} />
@@ -85,8 +106,8 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string; product: string }>;
-}) {
-  const { product: query } = await params;
+}): Promise<Metadata> {
+  const { product: query, slug } = await params;
   const product = await getProductBySlug(query);
 
   if (!product)
@@ -97,10 +118,25 @@ export async function generateMetadata({
   return {
     title: `${product.title} | AGCS Products`,
     description: product.description,
+    keywords: [`${product.title}`, `${slug}`, "construction products", "AGCS"],
     openGraph: {
       title: `${product.title} | AGCS Products`,
       description:
         product.description || "Browse our wide range of construction products",
+      images: product.image?.map((img) => ({
+        url: img ? urlFor(img).url() : "",
+        width: 800,
+        height: 600,
+      })),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.title} | AGCS Products`,
+      description: product.description ?? "",
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }

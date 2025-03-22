@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 import { SectionLoader } from "@/components/ui/section-loader";
+import { HomeSchema } from "@/features/home/schema/home-schema";
 import { Hero } from "@/features/home/sections/hero";
 
 // Dynamic imports
@@ -86,6 +87,7 @@ export default function Home() {
       <Suspense fallback={<SectionLoader height="200px" />}>
         <Cta />
       </Suspense>
+      <HomeSchema />
     </div>
   );
 }

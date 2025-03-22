@@ -69,12 +69,60 @@ const accordionData = [
 ];
 
 export default function AboutPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.alliedgulf.me/#organization",
+        name: "Allied Gulf Construction Services",
+        url: "https://www.alliedgulf.me",
+        logo: "https://www.alliedgulf.me/og-img.jpg",
+        description: meta.description,
+        areaServed: {
+          "@type": "GeoCircle",
+          geoMidpoint: {
+            "@type": "GeoCoordinates",
+            latitude: 26.0667,
+            longitude: 50.5577,
+          },
+          geoRadius: "2000 km",
+        },
+        knowsAbout: [
+          "Construction",
+          "Project Management",
+          "Sustainable Construction",
+          "Quality Management",
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": meta.url,
+        url: meta.url,
+        name: meta.title,
+        description: meta.description,
+        isPartOf: {
+          "@id": "https://www.alliedgulf.me/#website",
+        },
+        about: {
+          "@id": "https://www.alliedgulf.me/#organization",
+        },
+      },
+    ],
+  };
+
   return (
     <div>
       <Header />
-      <article className="prose prose-lg mx-auto">
+      <article className="container max-w-7xl">
         <VisionMission data={accordionData} />
-
+        <section className="container py-12">
+          <Heading id="vision-heading">Vision</Heading>
+          <p className="text-lg font-light">
+            To be the most Esteemed, Valued and Respected Construction Services
+            & Construction specialty materials supplier in the Middle East.
+          </p>
+        </section>
         <section
           className="container py-12"
           aria-labelledby="quality-safety-heading"
@@ -294,6 +342,10 @@ export default function AboutPage() {
       </article>
 
       <Cta />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </div>
   );
 }

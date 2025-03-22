@@ -38,17 +38,10 @@ export function VisionMission({ data }: AccordionData) {
           and maintain the exceptional quality performance of our business.
         </p>
       </div>
-      <div>
-        <Heading id="vision-heading">Vision</Heading>
-        <p className="text-lg font-light">
-          To be the most Esteemed, Valued and Respected Construction Services &
-          Construction specialty materials supplier in the Middle East.
-        </p>
-      </div>
+      <Image src="/images/about-agcs.png" height={384} width={384} alt="" />
       <div className="col-span-2">
         <Accordion data={data} />
       </div>
-      <Image src="/images/about-agcs.png" height={384} width={384} alt="" />
     </section>
   );
 }

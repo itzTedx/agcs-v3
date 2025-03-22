@@ -14,6 +14,7 @@ export const PRODUCT_QUERY = groq`*[_type == "products" && slug.current == $slug
     slug,
     metaTagTitle,
     metaTagKeywords,
+    thumbnail,
     body
   }`;
 
@@ -29,7 +30,8 @@ export const PRODUCTS_BY_CATEGORY_QUERY = groq`*[_type == "products" && category
     _id,
     title,
     slug,
-    thumbnail
+    thumbnail,
+    description
 }`;
 
 export const PRODUCTS_CATEGORY_BY_CATEGORY_QUERY = groq`*[_type == "productsCategory" && slug.current == $slug][0]{

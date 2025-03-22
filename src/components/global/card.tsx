@@ -15,6 +15,8 @@ interface Props {
   className?: string;
   link?: string;
   priority?: boolean;
+  description?: string | null;
+  date?: string;
 }
 
 export const Card = ({
@@ -24,13 +26,31 @@ export const Card = ({
   className,
   link,
   priority,
+  description,
+  date,
 }: Props) => {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    image: image ? urlFor(image).url() : undefined,
+    description: description,
+    datePublished: date,
+  };
+
   return (
     <CardUi>
       <Link href={link ?? "#"}>
-        <CardContent className={cn("relative")}>
+        <CardContent
+          className={cn("relative")}
+          aria-label={`Article: ${title}`}
+        >
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
           {image ? (
-            <div
+            <article
               className={cn(
                 "relative aspect-video overflow-hidden rounded-lg",
                 className
@@ -39,8 +59,8 @@ export const Card = ({
               <Title>{title}</Title>
               <Image
                 src={urlFor(image).url()}
-                alt={alt ?? ""}
-                title={alt ?? ""}
+                alt={alt ?? title ?? "Article image"}
+                title={title ?? ""}
                 fill
                 style={{
                   objectFit: "cover",
@@ -49,10 +69,15 @@ export const Card = ({
                 quality={100}
                 className="transition-transform duration-300 hover:scale-105"
                 priority={priority}
+                loading={priority ? "eager" : "lazy"}
               />
-            </div>
+              {description && <meta name="description" content={description} />}
+            </article>
           ) : (
-            <Title>{title}</Title>
+            <article>
+              <Title>{title}</Title>
+              {description && <meta name="description" content={description} />}
+            </article>
           )}
         </CardContent>
       </Link>

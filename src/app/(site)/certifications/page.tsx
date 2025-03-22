@@ -5,6 +5,7 @@ import { Suspense } from "react";
 
 import { IconDots, IconMaximize, IconX } from "@tabler/icons-react";
 
+import { FlickeringGrid } from "@/components/animations/flickering-grid";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,14 +31,51 @@ import { urlFor } from "@/sanity/lib/image";
 import { CERTIFICASTES_QUERYResult } from "../../../../sanity.types";
 
 export const metadata: Metadata = {
-  title: "Certifications | Allied Gulf Construction Services",
+  title:
+    "Professional Certifications & Quality Standards | Allied Gulf Construction Services",
   description:
-    "AGCS certifications and quality standards. View our international certifications and compliance with global regulations and directives.",
+    "Discover AGCS's international certifications and quality standards. ISO certified construction services ensuring compliance with global regulations and industry standards in the Gulf region.",
+  keywords:
+    "AGCS certifications, construction certifications, ISO certification, quality standards, Gulf construction services",
   openGraph: {
-    title: "Certifications | Allied Gulf Construction Services",
+    title:
+      "Professional Certifications & Quality Standards | Allied Gulf Construction Services",
     description:
-      "AGCS certifications and quality standards. View our international certifications and compliance with global regulations and directives.",
+      "Discover AGCS's international certifications and quality standards. ISO certified construction services ensuring compliance with global regulations and industry standards in the Gulf region.",
     type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-certifications.jpg", // Make sure to add this image to your public folder
+        width: 1200,
+        height: 630,
+        alt: "AGCS Certifications Overview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Professional Certifications & Quality Standards | AGCS",
+    description:
+      "View our international certifications and compliance with global regulations and directives.",
+    images: ["/og-certifications.jpg"],
+  },
+};
+
+// Add JSON-LD Schema
+const certificationSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "AGCS Certifications and Quality Standards",
+  description:
+    "Allied Gulf Construction Services certifications and quality standards documentation.",
+  publisher: {
+    "@type": "Organization",
+    name: "Allied Gulf Construction Services",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.agcs.com/logo.png", // Update with actual logo URL
+    },
   },
 };
 
@@ -151,50 +189,78 @@ export default async function CertificationPage() {
   const data = await getCertifications();
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="bg-navbar py-12 md:py-32" role="banner">
-        <div className="container">
-          <Badge>Certifications</Badge>
-          <h1 className="max-w-4xl text-3xl font-light tracking-tight md:text-5xl">
-            Comply with international and regional directives and regulations
-            across the world.
-          </h1>
-        </div>
-      </header>
-      <main className="flex-grow" role="main">
-        <section
-          className="container py-12"
-          aria-labelledby="quality-standards"
-        >
-          <h2
-            id="quality-standards"
-            className="max-w-3xl pb-4 text-2xl font-bold text-sky-600"
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(certificationSchema),
+        }}
+      />
+      <div className="flex min-h-screen flex-col">
+        <header className="bg-navbar relative py-12 md:py-32" role="banner">
+          <FlickeringGrid
+            className="absolute inset-0 z-0 size-full opacity-25 [mask-image:radial-gradient(75rem_circle_at_left,transparent,white)]"
+            squareSize={4}
+            gridGap={6}
+            color="#0284c7"
+            maxOpacity={0.5}
+            flickerChance={0.1}
+          />
+          <div className="container">
+            <Badge>Certifications</Badge>
+            <h1 className="max-w-4xl text-3xl font-light tracking-tight md:text-5xl">
+              Professional Certifications & Quality Standards
+            </h1>
+            <p className="text-muted-foreground mt-4 max-w-2xl text-lg">
+              Ensuring compliance with international and regional directives
+              through comprehensive certification programs.
+            </p>
+          </div>
+        </header>
+        <main className="flex-grow" role="main">
+          <section
+            className="container py-12"
+            aria-labelledby="quality-standards"
           >
-            Allied Gulf Construction Services W.L.L adheres to extremely high
-            standards of quality control.
-          </h2>
-          <p className="max-w-3xl pb-3 text-lg font-light">
-            These standards are rigorously implemented across all of our
-            operations and facilities, as well as our products, which regularly
-            undergo testing and are certified by leading accreditation bodies.
-          </p>
-          <p className="max-w-3xl text-lg font-light">
-            Health, Safety and Environment are of critical importance in our
-            workplace, as the safety of our workers and respect of the
-            environment are closely linked to our core values of being an
-            actively responsible company.
-          </p>
-        </section>
+            <h2
+              id="quality-standards"
+              className="max-w-3xl pb-4 text-2xl font-bold text-sky-600"
+            >
+              Industry-Leading Quality Control Standards
+            </h2>
+            <p className="max-w-3xl pb-3 text-lg font-light">
+              These standards are rigorously implemented across all of our
+              operations and facilities, as well as our products, which
+              regularly undergo testing and are certified by leading
+              accreditation bodies.
+            </p>
+            <p className="max-w-3xl text-lg font-light">
+              Health, Safety and Environment are of critical importance in our
+              workplace, as the safety of our workers and respect of the
+              environment are closely linked to our core values of being an
+              actively responsible company.
+            </p>
+          </section>
 
-        <section className="container py-12" aria-labelledby="certificates">
-          <h2 id="certificates" className="text-4xl font-light">
-            Certificates
-          </h2>
-          <Suspense fallback={<div>Loading certificates...</div>}>
-            <CertificateGrid certificates={data} />
-          </Suspense>
-        </section>
-      </main>
-    </div>
+          <section
+            className="container py-12"
+            aria-labelledby="certificates"
+            itemScope
+            itemType="https://schema.org/ItemList"
+          >
+            <h2
+              id="certificates"
+              className="text-4xl font-light"
+              itemProp="name"
+            >
+              Our Professional Certifications
+            </h2>
+            <Suspense fallback={<div>Loading certificates...</div>}>
+              <CertificateGrid certificates={data} />
+            </Suspense>
+          </section>
+        </main>
+      </div>
+    </>
   );
 }

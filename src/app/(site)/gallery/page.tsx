@@ -1,19 +1,49 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import GalleryGrid from "@/features/gallery/GalleryGrid";
 import { getGalleries } from "@/sanity/lib/fetch";
 
-import GalleryGrid from "../../../features/gallery/GalleryGrid";
-
 export const metadata: Metadata = {
-  title: "Our Gallery",
+  title: "Project Gallery | Allied Gulf Construction Services",
   description:
-    "Explore our portfolio of successful team achievements and projects at Allied gulf construction services",
-  keywords: ["portfolio", "success stories", "gallery", "student projects"],
+    "Browse through our comprehensive collection of construction projects, successful team achievements, and innovative solutions at Allied Gulf Construction Services. View our portfolio showcasing excellence in construction.",
+  keywords: [
+    "construction portfolio",
+    "project gallery",
+    "construction projects",
+    "AGCS projects",
+    "building portfolio",
+    "construction achievements",
+    "Allied Gulf gallery",
+  ],
   openGraph: {
-    title: "Our Gallery | AGCS",
+    title: "Project Gallery | Allied Gulf Construction Services",
     description:
-      "Explore our portfolio of successful team achievements and projects",
+      "Explore our portfolio of successful construction projects and team achievements at Allied Gulf Construction Services",
+    type: "website",
+    locale: "en_US",
+    siteName: "Allied Gulf Construction Services",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://www.agcs.com/gallery",
+  },
+};
+
+// JSON-LD structured data
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Project Gallery",
+  description:
+    "Browse through our comprehensive collection of construction projects and achievements",
+  publisher: {
+    "@type": "Organization",
+    name: "Allied Gulf Construction Services",
   },
 };
 
@@ -21,17 +51,31 @@ export default async function GalleryPage() {
   const galleries = await getGalleries();
 
   return (
-    <div className="container py-4 md:py-12">
+    <main className="container py-4 md:py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <header className="md:py-9">
-        <h1 className="text-center text-4xl md:text-6xl">Our Gallery</h1>
+        <h1 className="text-center text-4xl md:text-6xl" id="gallery-title">
+          Our Gallery
+        </h1>
         <p className="text-center text-lg font-light text-gray-600 md:mt-2 md:text-xl">
-          Discover our portfolio of successful team
+          Discover our extensive portfolio of successful construction projects
+          and innovative solutions
         </p>
       </header>
 
-      <Suspense fallback={<div>Loading gallery...</div>}>
-        <GalleryGrid galleries={galleries} />
-      </Suspense>
-    </div>
+      <section aria-labelledby="gallery-title">
+        <Suspense
+          fallback={
+            <div aria-label="Loading gallery content">Loading gallery...</div>
+          }
+        >
+          <GalleryGrid galleries={galleries} />
+        </Suspense>
+      </section>
+    </main>
   );
 }

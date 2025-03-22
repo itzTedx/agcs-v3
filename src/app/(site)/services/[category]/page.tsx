@@ -15,13 +15,27 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = await getServiceCategoryBySlug(params.category);
+  const categoryName = category?.category || "";
+  const description = category?.description || "";
 
   return {
-    title: `${category?.category} Services - Allied Gulf Construction`,
-    description: category?.description,
+    title: `${categoryName} Services - Allied Gulf Construction`,
+    description: description,
+    keywords: `${categoryName.toLowerCase()} services, construction services, allied gulf construction, bahrain construction, ${categoryName.toLowerCase()}`,
     openGraph: {
-      title: `${category?.category} Services - Allied Gulf Construction`,
-      description: category?.description ?? "",
+      title: `${categoryName} Services - Allied Gulf Construction`,
+      description: description,
+      type: "website",
+      locale: "en_US",
+      siteName: "Allied Gulf Construction",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${categoryName} Services - Allied Gulf Construction`,
+      description: description,
+    },
+    alternates: {
+      canonical: `https://alliedgulfconstruction.com/services/${params.category}`,
     },
   };
 }
@@ -45,30 +59,50 @@ export default async function ServicesByCategoryPage({ params }: Props) {
       subtext: "Allied Gulf Construction Services W.L.L",
     };
 
+    // Create JSON-LD structured data
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `${category?.category} Services`,
+      description: category?.description,
+      itemListElement: services.map((service, index) => ({
+        "@type": "Service",
+        position: index + 1,
+        name: service.servicesTitle,
+        url: `https://alliedgulf.me/services/${params.category}/${service.servicesSlug?.current}`,
+      })),
+    };
+
     return (
-      <div>
-        <Header text={text} />
-        <section className="container grid gap-4 py-12 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
-          <div className="sm:col-span-2 md:col-span-3">
-            <h2 className="text-4xl font-medium text-sky-600">
-              {category?.category}
-            </h2>
-            <p className="text-lg font-light text-gray-900">
-              {category?.description}
-            </p>
-          </div>
-          {services.map((service) => (
-            <Card
-              className="aspect-video"
-              title={service.servicesTitle}
-              image={service.thumbnail}
-              key={service._id}
-              link={`/services/${params.category}/${service.servicesSlug?.current}`}
-              priority={true}
-            />
-          ))}
-        </section>
-      </div>
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <main>
+          <Header text={text} />
+          <section className="container grid gap-4 py-12 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+            <div className="sm:col-span-2 md:col-span-3">
+              <h1 className="text-4xl font-medium text-sky-600">
+                {category?.category} Services
+              </h1>
+              <p className="text-lg font-light text-gray-900">
+                {category?.description}
+              </p>
+            </div>
+            {services.map((service) => (
+              <Card
+                className="aspect-video"
+                title={service.servicesTitle}
+                image={service.thumbnail}
+                key={service._id}
+                link={`/services/${params.category}/${service.servicesSlug?.current}`}
+                priority={true}
+              />
+            ))}
+          </section>
+        </main>
+      </>
     );
   } catch (error) {
     return notFound();
