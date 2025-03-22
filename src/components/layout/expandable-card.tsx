@@ -24,7 +24,7 @@ export default function ExpandableCard({
       <div className="relative overflow-hidden">
         <h2 className="text-sm text-gray-700">Description:</h2>
         <motion.div
-          animate={{ height: isExpanded ? "auto" : "26rem" }}
+          animate={{ height: isExpanded ? "auto" : "12rem" }}
           transition={{
             duration: 0.4,
             ease: [0.04, 0.62, 0.23, 0.98],

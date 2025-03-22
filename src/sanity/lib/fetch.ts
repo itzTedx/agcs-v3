@@ -238,6 +238,8 @@ export const getGalleries = async (): Promise<GALLERY_QUERYResult> => {
 };
 
 export async function getRecentlyViewedProducts(ids: string[]): Promise<RECENTLY_VIEWED_PRODUCTS_QUERYResult> {
+
+  console.log('server: Product IDs: ', ids)
   if (!ids.length) return [];
   
   const { data } = await sanityFetch({
@@ -245,6 +247,8 @@ export async function getRecentlyViewedProducts(ids: string[]): Promise<RECENTLY
     params: { ids },
     
   });
+
+  console.log("Fetched Product: ", data)
   
   return data.sort((a: any, b: any) => 
     ids.indexOf(a._id) - ids.indexOf(b._id)

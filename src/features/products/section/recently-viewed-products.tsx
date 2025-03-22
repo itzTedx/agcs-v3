@@ -21,10 +21,10 @@ export function RecentlyViewedProducts({ productId }: { productId: string }) {
         .catch(console.error);
     }
   }, [recentIds]);
+  console.log("Products: ", products);
+  console.log("Client ");
 
   if (!products?.length) return null;
-
-  console.log("Products: ", products);
 
   return (
     <section className="container py-12">

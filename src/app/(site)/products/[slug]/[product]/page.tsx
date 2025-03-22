@@ -5,18 +5,11 @@ import { Suspense } from "react";
 
 import { IconArrowLeft } from "@tabler/icons-react";
 
-import { Card } from "@/components/global/card";
 import ExpandableCard from "@/components/layout/expandable-card";
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import Breadcrumb from "@/features/products/components/breadcrumb";
-import { RecentlyViewedProducts } from "@/features/products/components/recently-viewed-products";
+import { RecentlyViewedProducts } from "@/features/products/section/recently-viewed-products";
+import { RelatedProducts } from "@/features/products/section/related-products";
 import {
   getCategories,
   getProductBySlug,
@@ -32,13 +25,6 @@ const ImagePreview = dynamic(() =>
 const PortableText = dynamic(() =>
   import("@portabletext/react").then((mod) => mod.PortableText)
 );
-
-interface ProductPageProps {
-  params: {
-    product: string;
-    slug: string;
-  };
-}
 
 export async function generateMetadata({
   params,
@@ -84,7 +70,6 @@ export default async function ProductPage({
 }) {
   const { slug, product: query } = await params;
   const product = await getProductBySlug(query);
-  const relatedProducts = await getProductsBySlug(slug);
 
   if (!product) return notFound();
 
@@ -107,53 +92,28 @@ export default async function ProductPage({
         </Suspense>
 
         <div className="md:col-span-2 md:px-6">
-          <div className="relative">
-            <div className="bg-background sticky top-12 z-10 pt-6">
-              <Link
-                href={`/products/${slug}`}
-                className="hidden items-center gap-1 text-sm md:flex"
-              >
-                <IconArrowLeft className="size-4" />
-                Back to Products
-              </Link>
-              <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
-              <p className="py-3 text-lg font-light">{product.description}</p>
-            </div>
-            <ExpandableCard className="py-6">
-              <PortableText value={product.body!} />
-            </ExpandableCard>
+          <div className="bg-background sticky top-12 z-10 py-6">
+            <Link
+              href={`/products/${slug}`}
+              className="hidden items-center gap-1 text-sm md:flex"
+            >
+              <IconArrowLeft className="size-4" />
+              Back to Products
+            </Link>
+            <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
+            <p className="py-3 text-lg font-light">{product.description}</p>
+
+            <Button asChild size="lg">
+              <Link href="/">Order Now</Link>
+            </Button>
           </div>
-          <Button asChild size="lg">
-            <Link href="/">Order Now</Link>
-          </Button>
+          <ExpandableCard className="py-6">
+            <PortableText value={product.body!} />
+          </ExpandableCard>
         </div>
       </section>
-      <section className="container py-12">
-        <h2 className="pb-3 text-2xl">Products related to {product.title}</h2>
 
-        <Carousel className="w-full">
-          <CarouselContent className="-ml-6">
-            {relatedProducts.map((product, i) => (
-              <CarouselItem key={i} className="pl-6 md:basis-1/3 lg:basis-1/4">
-                <div key={product.slug?.current}>
-                  <Card
-                    className="aspect-square"
-                    title={product.title!}
-                    alt={product.title!}
-                    image={product.thumbnail}
-                    key={product._id}
-                    link={`/products/${slug}/${product.slug?.current}`}
-                    priority={i < 3} // Prioritize loading first 3 images
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </section>
-
+      <RelatedProducts slug={slug} />
       <RecentlyViewedProducts productId={product._id} />
     </>
   );
