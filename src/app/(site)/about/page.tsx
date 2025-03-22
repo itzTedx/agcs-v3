@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import { ComponentPropsWithoutRef } from "react";
 
 import { Cta } from "@/components/global/cta";
+import { Heading } from "@/features/about/components/heading";
 import { Header } from "@/features/about/sections/header";
-import { cn } from "@/lib/utils";
+import { VisionMission } from "@/features/about/sections/vision-mission";
 
 const meta = {
   title: "Construction & Trading Company Bahrain -  A Bit About AGCS",
@@ -47,46 +47,33 @@ export const metadata: Metadata = {
   },
 };
 
+const accordionData = [
+  {
+    id: "item-1",
+    title: "Esteemed by our Employees",
+    content:
+      "Employees will be proud to work at Allied Gulf Construction Services W.L.L since we provide opportunities for growth succession and rewards based on achievements.",
+  },
+  {
+    id: "item-2",
+    title: "Valued by our Clients and Partners",
+    content:
+      "Our Clients and Partners will value working with Allied Gulf Construction Services W.L.L since we deliver all our projects on a timely basis and with the highest quality standards specified.",
+  },
+  {
+    id: "item-3",
+    title: "Respected by our Community",
+    content:
+      "We strive to protect the environment and the community in all of our business dealings. We aim for the Community to regard Allied Gulf Construction as a responsible member of society that fosters the sound management of resources and protection of the environment.",
+  },
+];
+
 export default function AboutPage() {
   return (
     <div>
       <Header />
       <article className="prose prose-lg mx-auto">
-        <section
-          className="container grid gap-9 py-12 md:grid-cols-3"
-          aria-label="mission and vision"
-        >
-          <div className="space-y-3 md:col-span-2">
-            <Heading id="mission-heading">Mission</Heading>
-            <p className="text-lg font-light">
-              ALLIED GULF CONSTRUCTION SERVICES W.L.L strives to bring growth to
-              the community, using value engineering, effective construction
-              practices and hard dedicated work to deliver on commitments.
-            </p>
-
-            <p className="text-lg font-light">
-              We pledge to establish and maintain a long-lasting relationship
-              with all Clients by exceeding their expectations of quality and
-              service based on integrity, honesty and superior performance,
-              ensuring customer satisfaction and maintaining our commitment to a
-              professional work ethic.
-            </p>
-            <p className="text-lg font-light">
-              To create a professional and positive working environment for all
-              our employees and ensure customer satisfaction, enhance
-              shareholder worth and maintain the exceptional quality performance
-              of our business.
-            </p>
-          </div>
-          <div>
-            <Heading id="vision-heading">Vision</Heading>
-            <p className="text-lg font-light">
-              To be the most Esteemed, Valued and Respected Construction
-              Services & Construction specialty materials supplier in the Middle
-              East.
-            </p>
-          </div>
-        </section>
+        <VisionMission data={accordionData} />
 
         <section
           className="container py-12"
@@ -208,30 +195,30 @@ export default function AboutPage() {
             Our Commitment
           </Heading>
 
-          <div className="grid grid-cols-3 gap-4">
-            <div className="">
+          <ul className="grid grid-cols-3 gap-4">
+            <li className="">
               <h4>We Believe</h4>
               <p className="text-lg font-light">
                 The key element behind our success is a continuous commitment to
                 fulfill the client's needs.
               </p>
-            </div>
-            <div className="">
+            </li>
+            <li className="">
               <h4>REMAIN COMMITTED</h4>
               <p className="text-lg font-light">
                 To our designs and construction quality while respecting time
                 and budgetary constraints enables us to provide high quality
                 design and construction services to our clients.
               </p>
-            </div>
-            <div className="">
+            </li>
+            <li className="">
               <h4>Our Commitment</h4>
               <p className="text-lg font-light">
                 To excellence in client service is confirmed by this high
                 percentage of repeat business.
               </p>
-            </div>
-          </div>
+            </li>
+          </ul>
         </section>
 
         <section
@@ -310,37 +297,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
-interface HeadingProps extends ComponentPropsWithoutRef<"h1"> {
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
-}
-
-const Heading = ({
-  level = 2,
-  children,
-  className,
-  ...props
-}: HeadingProps) => {
-  const headings = {
-    1: "h1",
-    2: "h2",
-    3: "h3",
-    4: "h4",
-    5: "h5",
-    6: "h6",
-  } as const;
-
-  const Tag = headings[level];
-
-  return (
-    <Tag
-      className={cn(
-        "pb-3 text-3xl font-medium tracking-wide text-sky-600",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Tag>
-  );
-};

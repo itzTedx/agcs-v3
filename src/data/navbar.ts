@@ -8,14 +8,17 @@ export const NAVLINKS = [
         href: '#',
         submenus: [
         {
-            title: "About",
+            subtitle: 'Learn more',
+            title: "About Us",
             href: '/about'
         },
         {
+            subtitle: 'Explore our projects and achievements',
             title: "Gallery",
             href: '/gallery'
         },
         {
+            subtitle: 'Discover our',
             title: "Certifications",
             href: '/certifications'
         },
