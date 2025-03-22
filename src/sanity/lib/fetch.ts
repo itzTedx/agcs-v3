@@ -150,19 +150,15 @@ export const getHomeProducts = async (): Promise<HOME_PRODUCTS_QUERYResult> => {
 };
 
 export const getProductBySlug = async (slug: string): Promise<PRODUCT_QUERYResult> => {
-  console.log("slug: ", slug)
-  return unstable_cache(
-    async () => {
-      const { data } = await sanityFetch({
-        query: PRODUCT_QUERY,
-        params: {slug}
-      });
-      return data;
-    },
-    ["product"],
-    cacheOptions
-  )();
-};
+  const { data } = await sanityFetch({
+    query: PRODUCT_QUERY,
+    params: {slug}
+  });
+  
+  return data
+}
+  
+
 
 export const getCategories = async (): Promise<PRODUCTS_CATEGORIES_QUERYResult> => {
   return unstable_cache(
@@ -201,14 +197,13 @@ export const getProductsBySlug = async (slug: string): Promise<PRODUCTS_BY_CATEG
 };
 
 export const getProductCategoryBySlug = async (slug: string): Promise<PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult> => {
- 
-      const { data } = await sanityFetch({
-        query: PRODUCTS_CATEGORY_BY_CATEGORY_QUERY,
-        params: {slug}
-        
-      });
-      return data;
-    }
+  const { data } = await sanityFetch({
+    query: PRODUCTS_CATEGORY_BY_CATEGORY_QUERY,
+    params: {slug}
+    
+  });
+  return data;
+}
     
 
 export const getCertifications = async (): Promise<CERTIFICASTES_QUERYResult> => {
@@ -239,7 +234,7 @@ export const getGalleries = async (): Promise<GALLERY_QUERYResult> => {
 
 export async function getRecentlyViewedProducts(ids: string[]): Promise<RECENTLY_VIEWED_PRODUCTS_QUERYResult> {
 
-  console.log('server: Product IDs: ', ids)
+
   if (!ids.length) return [];
   
   const { data } = await sanityFetch({
@@ -248,7 +243,7 @@ export async function getRecentlyViewedProducts(ids: string[]): Promise<RECENTLY
     
   });
 
-  console.log("Fetched Product: ", data)
+ 
   
   return data.sort((a: any, b: any) => 
     ids.indexOf(a._id) - ids.indexOf(b._id)

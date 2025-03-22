@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 
 import { Card } from "@/components/global/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { getRecentlyViewedProducts } from "@/sanity/lib/fetch";
 
@@ -27,10 +34,36 @@ export function RecentlyViewedProducts({
         .catch(console.error);
     }
   }, [recentIds]);
-  console.log("Products: ", products);
-  console.log("Client ");
 
   if (!products?.length) return null;
+
+  if (products.length > 4)
+    return (
+      <section className="container py-12">
+        <h2 className="pb-3 text-2xl">Recently Viewed</h2>
+
+        <Carousel className="w-full">
+          <CarouselContent className="-ml-6">
+            {products.map((product) => (
+              <CarouselItem
+                key={product._id}
+                className="pl-6 md:basis-1/3 lg:basis-1/4"
+              >
+                <Card
+                  className="aspect-square"
+                  title={product.title}
+                  alt={product.title}
+                  image={product.thumbnail}
+                  link={`/products/${category}/${product.slug?.current}`}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </section>
+    );
 
   return (
     <section className="container py-12">

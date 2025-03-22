@@ -26,43 +26,6 @@ const PortableText = dynamic(() =>
   import("@portabletext/react").then((mod) => mod.PortableText)
 );
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string; product: string }>;
-}) {
-  const { product: query } = await params;
-  const product = await getProductBySlug(query);
-
-  if (!product)
-    return {
-      title: "Product Not Found",
-    };
-
-  return {
-    title: `${product.title} | AGCS Products`,
-    description: product.description,
-    openGraph: {
-      title: `${product.title} | AGCS Products`,
-      description:
-        product.description || "Browse our wide range of construction products",
-    },
-  };
-}
-
-export async function generateStaticParams() {
-  const categories = await getCategories();
-
-  return categories.map(async (category) => {
-    const products = await getProductsBySlug(category.slug?.current!);
-
-    return products.map((product) => ({
-      slug: category.slug?.current,
-      product: product.slug?.current,
-    }));
-  });
-}
-
 export default async function ProductPage({
   params,
 }: {
@@ -117,4 +80,41 @@ export default async function ProductPage({
       <RecentlyViewedProducts productId={product._id} category={slug} />
     </>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; product: string }>;
+}) {
+  const { product: query } = await params;
+  const product = await getProductBySlug(query);
+
+  if (!product)
+    return {
+      title: "Product Not Found",
+    };
+
+  return {
+    title: `${product.title} | AGCS Products`,
+    description: product.description,
+    openGraph: {
+      title: `${product.title} | AGCS Products`,
+      description:
+        product.description || "Browse our wide range of construction products",
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  const categories = await getCategories();
+
+  return categories.map(async (category) => {
+    const products = await getProductsBySlug(category.slug?.current!);
+
+    return products.map((product) => ({
+      slug: category.slug?.current,
+      product: product.slug?.current,
+    }));
+  });
 }
