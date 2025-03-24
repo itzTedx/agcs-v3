@@ -90,23 +90,22 @@ export default async function ProjectsPage() {
             AGCS Construction and Development Projects
           </h1>
           <Suspense
-            fallback={<div className="h-[60vh] animate-pulse bg-gray-100" />}
+            fallback={<div className="bg-muted h-[60vh] animate-pulse" />}
           >
             <ProjectsCarousel data={projectsCarousel} />
           </Suspense>
         </header>
 
-        <section className="bg-white py-12" aria-label="Featured Projects">
-          <Suspense
-            fallback={<div className="h-96 animate-pulse bg-gray-50" />}
-          >
+        <section className="bg-popover py-12" aria-label="Featured Projects">
+          <Suspense fallback={<div className="bg-muted h-96 animate-pulse" />}>
             <FeaturedCarousel data={featured} />
           </Suspense>
         </section>
 
         <section className="container py-12" aria-label="All Projects">
           <h2 className="mb-3 text-4xl font-light">
-            Our Successful <span className="text-sky-700">Projects</span>
+            Our Successful{" "}
+            <span className="text-primary font-normal">Projects</span>
           </h2>
           <div className="relative grid grid-cols-1 gap-6 md:grid-cols-2">
             {projects.map((project) => (
@@ -127,7 +126,7 @@ export default async function ProjectsPage() {
                         <IconInfoCircle />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="border-primary max-w-4xl border p-6">
+                    <DialogContent className="border-primary max-w-7xl min-w-4xl border p-6">
                       <DialogClose
                         asChild
                         className="absolute -top-3 -right-3 z-10"
@@ -142,7 +141,7 @@ export default async function ProjectsPage() {
                       </DialogClose>
 
                       {project.image && (
-                        <div className="relative aspect-[16/7] overflow-hidden rounded-lg border bg-white">
+                        <div className="relative aspect-[16/9] overflow-hidden rounded-lg border bg-white">
                           <Image
                             src={urlFor(project.image)
                               .width(800)

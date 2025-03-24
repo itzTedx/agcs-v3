@@ -61,7 +61,7 @@ export default async function GalleryPage() {
         <h1 className="text-center text-4xl md:text-6xl" id="gallery-title">
           Our Gallery
         </h1>
-        <p className="text-center text-lg font-light text-gray-600 md:mt-2 md:text-xl">
+        <p className="text-muted-foreground text-center text-lg font-light md:mt-2 md:text-xl">
           Discover our extensive portfolio of successful construction projects
           and innovative solutions
         </p>

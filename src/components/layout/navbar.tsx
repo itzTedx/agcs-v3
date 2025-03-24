@@ -157,13 +157,13 @@ export function Navbar() {
                             <Link
                               href={sub.href}
                               className={cn(
-                                "bg-popover flex w-full flex-col justify-end gap-4 rounded-xl pt-4 transition-colors hover:bg-sky-200"
+                                "bg-popover hover:bg-primary flex w-full flex-col justify-end gap-4 rounded-xl pt-12 transition-colors"
                               )}
                             >
                               <div className="space-y-2 p-4">
-                                <IconStar className="text-sky-500" />
-                                <p className="text-sm">{sub.subtitle}</p>
-                                <h2 className="font-poly-sans pb-3 text-lg leading-none font-medium">
+                                <IconStar className="text-primary" />
+                                <p className="text-xs">{sub.subtitle}</p>
+                                <h2 className="font-poly-sans pb-3 text-xl leading-none font-medium">
                                   {sub.title}
                                 </h2>
                               </div>

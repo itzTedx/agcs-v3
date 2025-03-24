@@ -97,7 +97,7 @@ export default async function ServicesByCategoryPage({
               <h1 className="text-4xl font-medium text-sky-600">
                 {category?.category} Services
               </h1>
-              <p className="text-lg font-light text-gray-900">
+              <p className="text-muted-foreground text-lg font-light">
                 {category?.description}
               </p>
             </div>

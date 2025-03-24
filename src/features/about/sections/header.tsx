@@ -2,7 +2,7 @@ import { WaveSeparator } from "@/assets/wave-separator";
 
 export function Header() {
   return (
-    <header className="relative bg-white md:h-[calc(100svh-3rem)]">
+    <header className="relative bg-white md:h-[calc(100svh-3rem)] dark:bg-slate-900">
       <p className="pt-12 text-center md:pt-20">We're Leading the market</p>
       <h1 className="container pt-2 text-center text-3xl font-light tracking-tight md:text-5xl md:leading-14">
         Providing Quality Construction Service and
@@ -54,7 +54,7 @@ export function Header() {
         </p>
       </div>
       <WaveSeparator
-        className="pointer-events-auto absolute bottom-0 z-0 h-auto w-full select-none"
+        className="fill-background pointer-events-auto absolute -bottom-px z-0 h-auto w-full select-none"
         aria-hidden
       />
     </header>

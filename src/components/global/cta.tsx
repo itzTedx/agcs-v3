@@ -27,7 +27,7 @@ export const Cta = () => {
       <div
         role="region"
         aria-labelledby="cta-heading"
-        className="question text-foreground relative mx-auto w-4/5 rounded-lg bg-gradient-to-r from-[#5ebce6] to-[#3aaee3] px-10 py-7 duration-300 ease-out md:w-[38em] md:shadow-xl"
+        className="question text-foreground from-primary relative mx-auto w-4/5 rounded-lg bg-gradient-to-r to-[#3aaee3] px-10 py-7 duration-300 ease-out md:w-[38em] md:shadow-xl dark:to-sky-700"
         itemScope
         itemType="https://schema.org/CallToAction"
       >

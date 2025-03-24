@@ -61,7 +61,7 @@ export default async function ServicesPage() {
       <article className="container py-12">
         <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
           <div className="sm:col-span-2 md:col-span-3">
-            <p className="text-lg leading-relaxed font-light text-gray-900">
+            <p className="text-muted-foreground text-lg leading-relaxed font-light">
               Our comprehensive construction and engineering services are
               offered throughout the complete lifecycle of each project. With
               extensive experience in the Middle East, we excel in managing

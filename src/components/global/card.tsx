@@ -87,7 +87,7 @@ export const Card = ({
 
 const Title = ({ children }: { children: React.ReactNode }) => {
   return (
-    <h3 className="bg-background/75 absolute bottom-3 left-3 z-10 rounded-lg border border-sky-400/40 px-3 py-1 font-medium text-sky-700 shadow-2xl backdrop-blur-2xl">
+    <h3 className="bg-background/75 text-primary-foreground absolute bottom-3 left-3 z-10 rounded-lg border border-sky-400/40 px-3 py-1 font-medium shadow-2xl backdrop-blur-2xl">
       {children}
     </h3>
   );

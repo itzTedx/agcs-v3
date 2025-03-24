@@ -8,16 +8,12 @@ interface Props {
     title: string;
     subtext: string;
   };
-  seo?: {
-    description?: string;
-    canonical?: string;
-  };
 }
 
-export default function Header({ text, seo }: Props) {
+export default function Header({ text }: Props) {
   return (
     <>
-      <header className="relative bg-sky-500 py-9 md:py-12" role="banner">
+      <header className="bg-primary relative py-9 md:py-12" role="banner">
         <FlickeringGrid
           className="absolute inset-0 z-0 size-full [mask-image:radial-gradient(1280px_circle_at_center,transparent,white)]"
           squareSize={4}

@@ -18,7 +18,7 @@ export const About = () => {
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
-      <article className="space-y-2 font-light text-gray-800">
+      <article className="text-muted-foreground space-y-2 font-light">
         <h2 className="pb-6 text-5xl font-bold text-sky-700">About us</h2>
         <p className="text-balance">
           <span className="font-bold">

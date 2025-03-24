@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
 
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { RecentlyViewedProducts } from "@/features/products/section/recently-viewed-products";
 import { RelatedProducts } from "@/features/products/section/related-products";
@@ -52,20 +53,39 @@ export default async function ProductPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Breadcrumb
-        segments={[
-          { title: "Products", href: "/products" },
-          { title: slug, href: `/products/${slug}` },
-          { title: product.title! },
-        ]}
-      />
+      <Suspense
+        fallback={
+          <div className="flex items-center space-x-4 py-4">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+        }
+      >
+        <Breadcrumb
+          segments={[
+            { title: "Products", href: "/products" },
+            {
+              title: slug
+                .replace(/-/g, " ")
+                .replace(/\b\w/g, (char) => char.toUpperCase()),
+              href: `/products/${slug}`,
+            },
+            { title: product.title! },
+          ]}
+        />
+      </Suspense>
       <article className="relative container grid gap-6 pb-12 md:grid-cols-5">
         <Suspense
           fallback={
-            <div className="bg-muted aspect-square w-full animate-pulse rounded-lg" />
+            <div className="md:col-span-3">
+              <Skeleton className="aspect-square w-full rounded-lg" />
+            </div>
           }
         >
-          <ImagePreview data={product.image} alt={product.title} />
+          <div className="md:col-span-3">
+            <ImagePreview data={product.image} alt={product.title} />
+          </div>
         </Suspense>
 
         <div className="md:col-span-2 md:p-6">
@@ -87,17 +107,24 @@ export default async function ProductPage({
             <Link href="/">Order Now</Link>
           </Button>
 
-          <div className="prose py-6">
-            <h2 className="text-sm text-gray-700">Description:</h2>
-            <div itemProp="description">
-              <PortableText value={product.body!} />
+          <Suspense fallback={<Skeleton className="h-32 w-full" />}>
+            <div className="prose dark:prose-invert py-6">
+              <h2 className="text-muted-foreground text-sm">Description:</h2>
+              <div itemProp="description">
+                <PortableText value={product.body!} />
+              </div>
             </div>
-          </div>
+          </Suspense>
         </div>
       </article>
 
-      <RelatedProducts slug={slug} />
-      <RecentlyViewedProducts productId={product._id} category={slug} />
+      <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+        <RelatedProducts slug={slug} />
+      </Suspense>
+
+      <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+        <RecentlyViewedProducts productId={product._id} category={slug} />
+      </Suspense>
     </>
   );
 }

@@ -51,7 +51,7 @@ export default async function ProductsPage() {
       <Header text={text} />
       <section className="container py-12" aria-label="Product Categories">
         <div className="pb-4 sm:col-span-2 md:col-span-3">
-          <p className="font-light text-gray-900" role="doc-subtitle">
+          <p className="text-muted-foreground font-light" role="doc-subtitle">
             Looking for Specialty Materials?
           </p>
           <h2 className="text-4xl font-light">

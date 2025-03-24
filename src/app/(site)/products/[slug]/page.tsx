@@ -1,8 +1,13 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { Card } from "@/components/global/card";
 import Header from "@/components/global/header";
+import {
+  CardSkeleton,
+  SidebarSkeleton,
+} from "@/features/products/components/loading-skeletons";
 import { Sidebar } from "@/features/products/components/sidebar";
 import {
   getCategories,
@@ -10,42 +15,6 @@ import {
   getProductsBySlug,
 } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const category = await getProductCategoryBySlug(slug);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alliedgulf.me";
-
-  return {
-    title: `${category?.category || "Products"} | AGCS`,
-    description:
-      category?.description || "Browse our wide range of construction products",
-    keywords: `${category?.category}, construction products, AGCS, building materials, `,
-    robots: "index, follow",
-    alternates: {
-      canonical: `${baseUrl}/products/${slug}`,
-    },
-    openGraph: {
-      title: `${category?.category || "Products"} | AGCS`,
-      description:
-        category?.description ||
-        "Browse our wide range of construction products",
-      type: "website",
-      url: `${baseUrl}/products/${slug}`,
-    },
-  };
-}
-
-export async function generateStaticParams() {
-  const categories = await getCategories();
-  return categories.map((category) => ({
-    slug: category.slug?.current,
-  }));
-}
 
 export default async function ProductsBySlugPage({
   params,
@@ -92,30 +61,34 @@ export default async function ProductsBySlugPage({
         <div>
           <Header text={text} />
           <main className="relative container grid gap-12 lg:grid-cols-4">
-            <Sidebar data={categories} />
-            <div className="grid gap-6 pt-12 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:py-12">
-              <div className="md:col-span-3">
-                <h1 className="text-4xl font-medium text-sky-600">
-                  {category?.category}
-                </h1>
-                {category?.description && (
-                  <p className="text-lg font-light text-gray-900">
-                    {category.description}
-                  </p>
-                )}
+            <Suspense fallback={<SidebarSkeleton />}>
+              <Sidebar data={categories} />
+            </Suspense>
+            <Suspense fallback={<CardSkeleton />}>
+              <div className="grid gap-6 pt-12 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:py-12">
+                <div className="md:col-span-3">
+                  <h1 className="text-4xl font-medium text-sky-600">
+                    {category?.category}
+                  </h1>
+                  {category?.description && (
+                    <p className="text-muted-foreground text-lg font-light">
+                      {category.description}
+                    </p>
+                  )}
+                </div>
+                {products.map((product, index) => (
+                  <Card
+                    className="aspect-square"
+                    title={product.title}
+                    alt={`${product.title} - Construction Product by AGCS`}
+                    image={product.thumbnail}
+                    key={product._id}
+                    link={`/products/${slug}/${product.slug?.current}`}
+                    priority={index < 3}
+                  />
+                ))}
               </div>
-              {products.map((product, index) => (
-                <Card
-                  className="aspect-square"
-                  title={product.title}
-                  alt={`${product.title} - Construction Product by AGCS`}
-                  image={product.thumbnail}
-                  key={product._id}
-                  link={`/products/${slug}/${product.slug?.current}`}
-                  priority={index < 3}
-                />
-              ))}
-            </div>
+            </Suspense>
           </main>
         </div>
       </>
@@ -124,4 +97,40 @@ export default async function ProductsBySlugPage({
     console.error("Error loading products:", error);
     return notFound();
   }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const category = await getProductCategoryBySlug(slug);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alliedgulf.me";
+
+  return {
+    title: `${category?.category || "Products"} | AGCS`,
+    description:
+      category?.description || "Browse our wide range of construction products",
+    keywords: `${category?.category}, construction products, AGCS, building materials, `,
+    robots: "index, follow",
+    alternates: {
+      canonical: `${baseUrl}/products/${slug}`,
+    },
+    openGraph: {
+      title: `${category?.category || "Products"} | AGCS`,
+      description:
+        category?.description ||
+        "Browse our wide range of construction products",
+      type: "website",
+      url: `${baseUrl}/products/${slug}`,
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    slug: category.slug?.current,
+  }));
 }

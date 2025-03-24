@@ -12,7 +12,7 @@ export const Footer = () => {
 
   return (
     <footer
-      className="mt-12 rounded-t-4xl bg-gradient-to-b from-sky-700 to-sky-500/90 py-12 pt-16 text-sky-100"
+      className="to-primary/90 mt-12 rounded-t-4xl bg-gradient-to-b from-sky-700 py-12 pt-16 text-sky-100"
       role="contentinfo"
       itemScope
       itemType="http://schema.org/WPFooter"

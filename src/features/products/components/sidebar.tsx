@@ -19,7 +19,7 @@ export function Sidebar({ data }: Props) {
         {data.map((cat) => (
           <li key={cat._id}>
             <Button
-              className="bg-primary/10 w-full justify-start border-sky-300 shadow-none"
+              className="bg-primary/10 border-primary/60 w-full justify-start shadow-none"
               asChild
             >
               <Link href={`/products/${cat.slug?.current}`}>

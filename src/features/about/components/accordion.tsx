@@ -34,13 +34,13 @@ export function Accordion({ data }: AccordionData) {
         <AccordionItem key={item.id} value={item.id} className={`group`}>
           <AccordionTrigger
             className={cn(
-              "overflow-hidden border bg-white px-4 text-base [&[data-state=open]]:bg-sky-400",
-              "rounded-b-none"
+              "bg-popover [&[data-state=open]]:bg-primary overflow-hidden border px-4 text-base",
+              "[&[data-state=open]]:rounded-b-none"
             )}
           >
             {item.title}
           </AccordionTrigger>
-          <AccordionContent className="overflow-hidden bg-white p-4 text-base font-light">
+          <AccordionContent className="bg-popover overflow-hidden p-4 text-base font-light">
             {item.content}
           </AccordionContent>
         </AccordionItem>
