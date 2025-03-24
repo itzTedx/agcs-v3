@@ -734,27 +734,10 @@ export type PROJECTS_CAROUSEL_QUERYResult = Array<{
 
 // Source: ./src/sanity/queries/services.ts
 // Variable: HOME_SERVICES_QUERY
-// Query: *[_type == "services"] | order(_createdAt asc)[0..8] {    _id,    servicesImage[0],    servicesTitle,    servicesSlug,    servicesDescription,    servicesSlug,    metaTagTitle,    thumbnail  }
+// Query: *[_type == "servicesCategory"] | order(orderRank)[0..8] {    _id,    image,    category,    description,    file,    slug,    thumbnail,    _createdAt  }
 export type HOME_SERVICES_QUERYResult = Array<{
   _id: string;
-  servicesImage: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-    _key: string;
-  } | null;
-  servicesTitle: string | null;
-  servicesSlug: Slug | null;
-  servicesDescription: string | null;
-  metaTagTitle: string | null;
-  thumbnail: {
+  image: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -765,6 +748,20 @@ export type HOME_SERVICES_QUERYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
+  category: string | null;
+  description: string | null;
+  file: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    _type: "file";
+  } | null;
+  slug: Slug | null;
+  thumbnail: null;
+  _createdAt: string;
 }>;
 // Variable: SERVICES_CATEOGORIES_QUERY
 // Query: *[_type == "servicesCategory"] | order(orderRank) {    _id,    image,    category,    description,    file,    slug,    thumbnail,    _createdAt  }
@@ -900,7 +897,7 @@ declare module "@sanity/client" {
     '*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': FEATURED_PROJECTS_QUERYResult;
     '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;
     '*[_type == "projectsCarousel"] | order(orderRank) {\n    _id,\n    image,\n    title,\n  }': PROJECTS_CAROUSEL_QUERYResult;
-    '*[_type == "services"] | order(_createdAt asc)[0..8] {\n    _id,\n    servicesImage[0],\n    servicesTitle,\n    servicesSlug,\n    servicesDescription,\n    servicesSlug,\n    metaTagTitle,\n    thumbnail\n  }': HOME_SERVICES_QUERYResult;
+    '*[_type == "servicesCategory"] | order(orderRank)[0..8] {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _createdAt\n  }': HOME_SERVICES_QUERYResult;
     '*[_type == "servicesCategory"] | order(orderRank) {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _createdAt\n  }': SERVICES_CATEOGORIES_QUERYResult;
     "*[_type == \"services\" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail\n  }": SERVICES_BY_CATEOGORY_QUERYResult;
     '*[_type == "servicesCategory" && slug.current == $slug][0]{\n     _id,\n    category,\n    description,\n  }': SERVICES_CATEGORY_BY_CATEGORY_QUERYResult;

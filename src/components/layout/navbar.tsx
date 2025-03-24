@@ -26,6 +26,7 @@ import {
 import { NAVLINKS } from "@/data/navbar";
 import { cn } from "@/lib/utils";
 
+import { ThemeToggle } from "../theme-toggle";
 import { Button } from "../ui/button";
 
 const LogoText = React.memo(({ className }: { className?: string }) => (
@@ -184,6 +185,7 @@ export function Navbar() {
                 </NavigationMenuItem>
               )
             )}
+            <ThemeToggle />
           </NavigationMenuList>
         </div>
       </NavigationMenu>

@@ -1,14 +1,14 @@
 import { groq } from "next-sanity";
 
-export const HOME_SERVICES_QUERY = groq`*[_type == "services"] | order(_createdAt asc)[0..8] {
+export const HOME_SERVICES_QUERY = groq`*[_type == "servicesCategory"] | order(orderRank)[0..8] {
     _id,
-    servicesImage[0],
-    servicesTitle,
-    servicesSlug,
-    servicesDescription,
-    servicesSlug,
-    metaTagTitle,
-    thumbnail
+    image,
+    category,
+    description,
+    file,
+    slug,
+    thumbnail,
+    _createdAt
   }`;
 
   export const SERVICES_CATEOGORIES_QUERY = groq`*[_type == "servicesCategory"] | order(orderRank) {

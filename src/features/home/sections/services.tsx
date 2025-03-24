@@ -34,10 +34,10 @@ export const Services = async () => {
               key={service._id}
             >
               <Card
-                title={service.servicesTitle}
-                image={service.thumbnail}
-                alt={`${service.metaTagTitle} Services - Allied gulf construction services`}
-                link={`/services/${service.servicesSlug?.current}`}
+                title={service.category}
+                image={service.image}
+                alt={`${service.category} Services - Allied gulf construction services`}
+                link={`/services/${service.slug?.current}`}
               />
             </div>
           ))}
@@ -45,6 +45,8 @@ export const Services = async () => {
         <h4 className="sr-only">
           Explore our services more in the services section
         </h4>
+      </div>
+      <div className="container grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Button
           asChild
           className="md:col-span-2 lg:col-span-1 lg:col-start-2"

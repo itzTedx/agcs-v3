@@ -41,7 +41,7 @@ export const getHomeServices = async (): Promise<HOME_SERVICES_QUERYResult> => {
       });
       return data;
     },
-    ["home-services"],
+    ["home-services_categories"],
     cacheOptions
   )();
 };
