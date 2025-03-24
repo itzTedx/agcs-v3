@@ -52,5 +52,6 @@ export const HOME_SERVICES_QUERY = groq`*[_type == "servicesCategory"] | order(o
     servicesSlug,
     metaTagTitle,
     metaTagKeyword,
-    thumbnail
+    thumbnail,
+    "products": *[ _type == "products" && relatedProducts._ref == ^._id ]
   }`;

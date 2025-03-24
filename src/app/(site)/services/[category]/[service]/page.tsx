@@ -4,6 +4,14 @@ import { notFound } from "next/navigation";
 
 import { IconArrowLeft } from "@tabler/icons-react";
 
+import { Card } from "@/components/global/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { ImagePreview } from "@/features/products/components/image-preview";
 import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch";
@@ -37,6 +45,8 @@ export default async function ServicePage({
 
   const service = await getServiceBySlug(query);
 
+  console.log("Services: ", service);
+
   if (!service) return notFound();
 
   const jsonLd = {
@@ -53,7 +63,7 @@ export default async function ServicePage({
   };
 
   return (
-    <article>
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -96,7 +106,37 @@ export default async function ServicePage({
           </section>
         </article>
       </div>
-    </article>
+      {service.products && service.products.length !== 0 && (
+        <section className="container">
+          <h3>Related Products for {service?.servicesTitle}</h3>
+
+          <Carousel className="w-full">
+            <CarouselContent className="-ml-6">
+              {service.products.map((product, i) => (
+                <CarouselItem
+                  key={i}
+                  className="pl-6 md:basis-1/3 lg:basis-1/4"
+                >
+                  <div key={product.slug?.current}>
+                    <Card
+                      className="aspect-square"
+                      title={product.title!}
+                      alt={product.title!}
+                      image={product.thumbnail}
+                      key={product._id}
+                      link={`/products/${slug}/${product.slug?.current}`}
+                      priority={i < 3} // Prioritize loading first 3 images
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </section>
+      )}
+    </div>
   );
 }
 
@@ -105,14 +145,20 @@ export async function generateMetadata({
 }: {
   params: { category: string; service: string };
 }): Promise<Metadata> {
-  const service = await getServiceBySlug(params.service);
+  const { category: categoryQuery, service: serviceQuery } = params;
+  const service = await getServiceBySlug(serviceQuery);
 
   if (!service) return { title: "Service Not Found" };
 
   return {
     title: `${service.servicesTitle} | AGCS Services`,
     description: service.servicesDescription,
-    keywords: [`${service.servicesTitle}`, "AGCS services", params.category],
+    keywords: [
+      `${service.servicesTitle}`,
+      "AGCS services",
+      categoryQuery,
+      service.metaTagKeyword!,
+    ],
     openGraph: {
       title: service.servicesTitle!,
       description: service.servicesDescription!,

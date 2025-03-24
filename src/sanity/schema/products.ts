@@ -87,6 +87,14 @@ export default defineType({
       }),
 
       defineField({
+        group: "settings",
+        title: "Related Services",
+        name: "relatedServices",
+        type: "array",
+        of: [{ type: "reference", to: {type: "services"} }]
+      }),
+
+      defineField({
         name: 'metaTagTitle',
         group: "seo",
         title: 'Title for SEO',

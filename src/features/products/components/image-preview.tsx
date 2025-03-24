@@ -14,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -31,6 +32,7 @@ export const ImagePreview = ({
   const [mainApi, setMainApi] = useState<CarouselApi>();
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   useEffect(() => {
     if (!mainApi || !thumbnailApi) {
@@ -108,7 +110,7 @@ export const ImagePreview = ({
         <CarouselItem
           key={index}
           className={cn(
-            "relative aspect-square w-full basis-1/5 overflow-hidden rounded-md border-white bg-white pt-0 pl-0",
+            "relative aspect-square w-full basis-1/4 overflow-hidden rounded-md border-white bg-white pt-2 max-md:pl-4 md:basis-1/6",
             index === current ? "border-2" : ""
           )}
           onClick={() => handleClick(index)}
@@ -138,14 +140,22 @@ export const ImagePreview = ({
   );
 
   return (
-    <div className="sticky top-20 col-span-3 flex h-fit gap-4">
-      <Carousel setApi={setThumbnailApi} orientation="vertical">
-        <CarouselContent className="m-1 w-24 gap-3">
+    <div className="sticky top-20 col-span-3 flex h-fit flex-col-reverse gap-4 md:flex-row">
+      <Carousel
+        setApi={setThumbnailApi}
+        opts={{
+          align: "start",
+        }}
+        orientation={isDesktop ? "vertical" : "horizontal"}
+        className="my-2 h-28 md:h-fit md:w-20"
+      >
+        <CarouselContent className="-ml-4 md:-mt-2 md:h-[34rem]">
           {thumbnailImages}
         </CarouselContent>
-        {current > 3 && <CarouselPrevious />}
-        {current > 3 && <CarouselNext />}
+        <CarouselPrevious className="max-md:-left-3 md:-top-3 md:size-6" />
+        <CarouselNext className="max-md:-right-3 md:-bottom-3 md:size-6" />
       </Carousel>
+
       <Carousel
         setApi={setMainApi}
         className="shrink-0 grow"

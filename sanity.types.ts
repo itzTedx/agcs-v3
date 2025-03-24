@@ -200,6 +200,13 @@ export type Products = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "productsCategory";
   };
+  relatedServices?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "services";
+  }>;
   metaTagTitle?: string;
   description?: string;
   metaTagKeyword?: string;
@@ -245,6 +252,8 @@ export type Services = {
   _updatedAt: string;
   _rev: string;
   servicesTitle?: string;
+  servicesDescription?: string;
+  servicesSlug?: Slug;
   thumbnail?: {
     asset?: {
       _ref: string;
@@ -275,8 +284,13 @@ export type Services = {
     _type: "image";
     _key: string;
   }>;
-  servicesSlug?: Slug;
-  servicesDescription?: string;
+  relatedProducts?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "products";
+  }>;
   servicesFile?: {
     asset?: {
       _ref: string;
@@ -651,6 +665,13 @@ export type RECENTLY_VIEWED_PRODUCTS_QUERYResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "productsCategory";
   };
+  relatedServices?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "services";
+  }>;
   metaTagTitle?: string;
   description?: string;
   metaTagKeyword?: string;
@@ -842,7 +863,7 @@ export type SERVICES_CATEGORY_BY_CATEGORY_QUERYResult = {
   description: string | null;
 } | null;
 // Variable: SERVICE_QUERY
-// Query: *[_type == "services" && servicesSlug.current == $slug][0] {   _id,    servicesTitle,    servicesDescription,    category,    servicesImage,    file,    servicesSlug,    metaTagTitle,    metaTagKeyword,    thumbnail  }
+// Query: *[_type == "services" && servicesSlug.current == $slug][0] {   _id,    servicesTitle,    servicesDescription,    category,    servicesImage,    file,    servicesSlug,    metaTagTitle,    metaTagKeyword,    thumbnail,    "products": *[ _type == "products" && relatedProducts._ref == ^._id ]  }
 export type SERVICE_QUERYResult = {
   _id: string;
   servicesTitle: string | null;
@@ -881,6 +902,7 @@ export type SERVICE_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
+  products: Array<never>;
 } | null;
 
 declare module "@sanity/client" {
@@ -901,6 +923,6 @@ declare module "@sanity/client" {
     '*[_type == "servicesCategory"] | order(orderRank) {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _createdAt\n  }': SERVICES_CATEOGORIES_QUERYResult;
     "*[_type == \"services\" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail\n  }": SERVICES_BY_CATEOGORY_QUERYResult;
     '*[_type == "servicesCategory" && slug.current == $slug][0]{\n     _id,\n    category,\n    description,\n  }': SERVICES_CATEGORY_BY_CATEGORY_QUERYResult;
-    '*[_type == "services" && servicesSlug.current == $slug][0] {\n   _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail\n  }': SERVICE_QUERYResult;
+    '*[_type == "services" && servicesSlug.current == $slug][0] {\n   _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail,\n    "products": *[ _type == "products" && relatedProducts._ref == ^._id ]\n  }': SERVICE_QUERYResult;
   }
 }
