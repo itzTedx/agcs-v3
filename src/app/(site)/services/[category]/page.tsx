@@ -13,8 +13,14 @@ type Props = {
   params: { category: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const category = await getServiceCategoryBySlug(params.category);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category: query } = await params;
+
+  const category = await getServiceCategoryBySlug(query);
   const categoryName = category?.category || "";
   const description = category?.description || "";
 
@@ -35,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: description,
     },
     alternates: {
-      canonical: `https://alliedgulfconstruction.com/services/${params.category}`,
+      canonical: `https://alliedgulfconstruction.com/services/${query}`,
     },
   };
 }
@@ -47,10 +53,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ServicesByCategoryPage({ params }: Props) {
+export default async function ServicesByCategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category: query } = await params;
   try {
-    const services = await getServicesByCategory(params.category);
-    const category = await getServiceCategoryBySlug(params.category);
+    const services = await getServicesByCategory(query);
+    const category = await getServiceCategoryBySlug(query);
 
     if (!services || services.length === 0) return notFound();
 
@@ -69,7 +80,7 @@ export default async function ServicesByCategoryPage({ params }: Props) {
         "@type": "Service",
         position: index + 1,
         name: service.servicesTitle,
-        url: `https://alliedgulf.me/services/${params.category}/${service.servicesSlug?.current}`,
+        url: `https://alliedgulf.me/services/${query}/${service.servicesSlug?.current}`,
       })),
     };
 
@@ -96,7 +107,7 @@ export default async function ServicesByCategoryPage({ params }: Props) {
                 title={service.servicesTitle}
                 image={service.thumbnail}
                 key={service._id}
-                link={`/services/${params.category}/${service.servicesSlug?.current}`}
+                link={`/services/${query}/${service.servicesSlug?.current}`}
                 priority={true}
               />
             ))}
