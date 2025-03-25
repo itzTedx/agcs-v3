@@ -1,12 +1,12 @@
-import type { MetadataRoute } from 'next'
- 
+import type { MetadataRoute } from "next";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: '/studio/',
+      userAgent: "*",
+      allow: "/",
+      disallow: "/studio/",
     },
-    sitemap: 'https://www.alliedgulf.me/sitemap.xml',
-  }
+    sitemap: "https://www.alliedgulf.me/sitemap.xml",
+  };
 }

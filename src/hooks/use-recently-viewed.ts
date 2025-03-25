@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const MAX_ITEMS = 8;
-const STORAGE_KEY = 'recently-viewed';
+const STORAGE_KEY = "recently-viewed";
 
 export function useRecentlyViewed() {
   const [recentIds, setRecentIds] = useState<string[]>([]);

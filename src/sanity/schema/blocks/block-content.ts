@@ -76,7 +76,6 @@ export default defineType({
           title: "videoId",
         },
       },
-      
     }),
     defineArrayMember({
       name: "code",

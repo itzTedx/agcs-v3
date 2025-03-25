@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier . --write",
     "sanity:types": "sanity typegen generate",
     "sanity:extract": "sanity schema extract"
   },

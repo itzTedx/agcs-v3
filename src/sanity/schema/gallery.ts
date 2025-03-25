@@ -37,6 +37,5 @@ export default defineType({
       title: "title",
       media: "image",
     },
-   
   },
 });

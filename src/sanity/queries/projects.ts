@@ -7,7 +7,7 @@ export const HOME_PROJECTS_QUERY = groq`*[_type == "projects"] | order(_createdA
     description,
   }`;
 
-  export const FEATURED_PROJECTS_QUERY = groq`*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {
+export const FEATURED_PROJECTS_QUERY = groq`*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {
     _id,
     title,
     image,
@@ -15,7 +15,7 @@ export const HOME_PROJECTS_QUERY = groq`*[_type == "projects"] | order(_createdA
     tags,
   }`;
 
-  export const PROJECTS_QUERY = groq`*[_type == "projects"] | order(orderRank) {
+export const PROJECTS_QUERY = groq`*[_type == "projects"] | order(orderRank) {
     _id,
     title,
     image,
@@ -23,7 +23,7 @@ export const HOME_PROJECTS_QUERY = groq`*[_type == "projects"] | order(_createdA
     tags,
   }`;
 
-  export const PROJECTS_CAROUSEL_QUERY = groq`*[_type == "projectsCarousel"] | order(orderRank) {
+export const PROJECTS_CAROUSEL_QUERY = groq`*[_type == "projectsCarousel"] | order(orderRank) {
     _id,
     image,
     title,
