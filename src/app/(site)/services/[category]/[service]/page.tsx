@@ -7,25 +7,25 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { ImagePreview } from "@/features/products/components/image-preview";
 import { RelatedProducts } from "@/features/services/components/related-products";
-import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch";
+import { getServiceBySlug } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
-export async function generateStaticParams() {
-  const categories = await getServicesCategories();
+// export async function generateStaticParams() {
+//   const categories = await getServicesCategories();
 
-  return categories.map(async (category) => {
-    const service = await getServiceBySlug(category.slug?.current!);
+//   return categories.map(async (category) => {
+//     const service = await getServiceBySlug(category.slug?.current!);
 
-    return service
-      ? [
-          {
-            slug: category.slug?.current,
-            service: service.servicesSlug?.current,
-          },
-        ]
-      : [];
-  });
-}
+//     return service
+//       ? [
+//           {
+//             slug: category.slug?.current,
+//             service: service.servicesSlug?.current,
+//           },
+//         ]
+//       : [];
+//   });
+// }
 
 export const revalidate = 3600; // Revalidate every hour
 
