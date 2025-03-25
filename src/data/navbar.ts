@@ -10,17 +10,17 @@ export const NAVLINKS = [
         {
             subtitle: 'Learn more',
             title: "About Us",
-            href: '/about'
+            href: '/company/about'
         },
         {
             subtitle: 'Explore our projects and achievements',
             title: "Gallery",
-            href: '/gallery'
+            href: '/company/gallery'
         },
         {
             subtitle: 'Discover our',
             title: "Certifications",
-            href: '/certifications'
+            href: '/company/certifications'
         },
      ]
     },

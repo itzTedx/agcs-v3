@@ -4,16 +4,9 @@ import { notFound } from "next/navigation";
 
 import { IconArrowLeft } from "@tabler/icons-react";
 
-import { Card } from "@/components/global/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { ImagePreview } from "@/features/products/components/image-preview";
+import { RelatedProducts } from "@/features/services/components/related-products";
 import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -44,8 +37,6 @@ export default async function ServicePage({
   const { category: categoryQuery, service: query } = await params;
 
   const service = await getServiceBySlug(query);
-
-  console.log("Services: ", service);
 
   if (!service) return notFound();
 
@@ -106,34 +97,22 @@ export default async function ServicePage({
           </section>
         </article>
       </div>
-      {service.products && service.products.length !== 0 && (
+      {service.relatedProducts && service.relatedProducts.length !== 0 && (
         <section className="container">
-          <h3>Related Products for {service?.servicesTitle}</h3>
+          <h3 className="pb-3 text-2xl text-sky-800">
+            Related Products for {service?.servicesTitle}
+          </h3>
 
-          <Carousel className="w-full">
-            <CarouselContent className="-ml-6">
-              {service.products.map((product, i) => (
-                <CarouselItem
-                  key={i}
-                  className="pl-6 md:basis-1/3 lg:basis-1/4"
-                >
-                  <div key={product.slug?.current}>
-                    <Card
-                      className="aspect-square"
-                      title={product.title!}
-                      alt={product.title!}
-                      image={product.thumbnail}
-                      key={product._id}
-                      link={`/products/${slug}/${product.slug?.current}`}
-                      priority={i < 3} // Prioritize loading first 3 images
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <RelatedProducts
+            category={categoryQuery}
+            products={service.relatedProducts.map((product) => ({
+              ...product,
+              thumbnail: product.thumbnail?.asset?._ref || "",
+              slug: product.slug
+                ? { current: product.slug.current || "" }
+                : undefined,
+            }))}
+          />
         </section>
       )}
     </div>

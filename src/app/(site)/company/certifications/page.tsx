@@ -28,7 +28,7 @@ import {
 import { getCertifications } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
-import { CERTIFICASTES_QUERYResult } from "../../../../sanity.types";
+import { CERTIFICASTES_QUERYResult } from "../../../../../sanity.types";
 
 export const metadata: Metadata = {
   title:

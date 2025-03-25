@@ -863,7 +863,7 @@ export type SERVICES_CATEGORY_BY_CATEGORY_QUERYResult = {
   description: string | null;
 } | null;
 // Variable: SERVICE_QUERY
-// Query: *[_type == "services" && servicesSlug.current == $slug][0] {   _id,    servicesTitle,    servicesDescription,    category,    servicesImage,    file,    servicesSlug,    metaTagTitle,    metaTagKeyword,    thumbnail,    "products": *[ _type == "products" && relatedProducts._ref == ^._id ]  }
+// Query: *[_type == "services" && servicesSlug.current == $slug][0] {   _id,    servicesTitle,    servicesDescription,    category,    servicesImage,    file,    servicesSlug,    metaTagTitle,    metaTagKeyword,    thumbnail,    relatedProducts[]->{        _id,        title,        slug,        thumbnail,      }    }
 export type SERVICE_QUERYResult = {
   _id: string;
   servicesTitle: string | null;
@@ -902,7 +902,22 @@ export type SERVICE_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
-  products: Array<never>;
+  relatedProducts: Array<{
+    _id: string;
+    title: string | null;
+    slug: Slug | null;
+    thumbnail: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  }> | null;
 } | null;
 
 declare module "@sanity/client" {
@@ -923,6 +938,6 @@ declare module "@sanity/client" {
     '*[_type == "servicesCategory"] | order(orderRank) {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _createdAt\n  }': SERVICES_CATEOGORIES_QUERYResult;
     "*[_type == \"services\" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail\n  }": SERVICES_BY_CATEOGORY_QUERYResult;
     '*[_type == "servicesCategory" && slug.current == $slug][0]{\n     _id,\n    category,\n    description,\n  }': SERVICES_CATEGORY_BY_CATEGORY_QUERYResult;
-    '*[_type == "services" && servicesSlug.current == $slug][0] {\n   _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail,\n    "products": *[ _type == "products" && relatedProducts._ref == ^._id ]\n  }': SERVICE_QUERYResult;
+    '*[_type == "services" && servicesSlug.current == $slug][0] {\n   _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail,\n    relatedProducts[]->{\n        _id,\n        title,\n        slug,\n        thumbnail,\n      }\n    }': SERVICE_QUERYResult;
   }
 }

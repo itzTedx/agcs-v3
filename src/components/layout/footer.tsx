@@ -163,7 +163,7 @@ export const Footer = () => {
           </p>
           <Button variant="link" className="w-fit px-0" asChild>
             <Link
-              href="/policies"
+              href="/company/policies"
               className="rounded-sm text-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
             >
               Terms of Service and Privacy Policy

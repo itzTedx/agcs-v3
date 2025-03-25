@@ -2,14 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { Card } from "@/components/global/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { RelatedProducts } from "@/features/services/components/related-products";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { getRecentlyViewedProducts } from "@/sanity/lib/fetch";
 
@@ -37,49 +30,11 @@ export function RecentlyViewedProducts({
 
   if (!products?.length) return null;
 
-  if (products.length > 4)
-    return (
-      <section className="container py-12">
-        <h2 className="pb-3 text-2xl text-sky-800">Recently Viewed</h2>
-
-        <Carousel className="w-full">
-          <CarouselContent className="-ml-6">
-            {products.map((product) => (
-              <CarouselItem
-                key={product._id}
-                className="pl-6 md:basis-1/3 lg:basis-1/4"
-              >
-                <Card
-                  className="aspect-square"
-                  title={product.title}
-                  alt={product.title}
-                  image={product.thumbnail}
-                  link={`/products/${category}/${product.slug?.current}`}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </section>
-    );
-
   return (
     <section className="container py-12">
-      <h2 className="pb-3 text-2xl">Recently Viewed</h2>
-      <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-        {products.map((product) => (
-          <Card
-            key={product._id}
-            className="aspect-square"
-            title={product.title}
-            alt={product.title}
-            image={product.thumbnail}
-            link={`/products/${category}/${product.slug?.current}`}
-          />
-        ))}
-      </div>
+      <h2 className="pb-3 text-2xl text-sky-800">Recently Viewed</h2>
+
+      <RelatedProducts category={category} products={products} />
     </section>
   );
 }
