@@ -208,7 +208,7 @@ export async function Navbar() {
 
                       {services.map((sub) => (
                         <ListItem
-                          href={sub.slug?.current!}
+                          href={`/services/${sub.slug?.current!}`}
                           title={sub.category!}
                           key={sub._id}
                           className="group relative z-50 overflow-hidden"
@@ -246,7 +246,7 @@ export async function Navbar() {
 
                       {products.slice(0, 8).map((sub) => (
                         <ListItem
-                          href={sub.slug?.current!}
+                          href={`/products/${sub.slug?.current!}`}
                           title={sub.category!}
                           key={sub._id}
                           className="group relative overflow-hidden"
