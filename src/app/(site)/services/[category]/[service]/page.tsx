@@ -62,7 +62,12 @@ export default async function ServicePage({
       <Breadcrumb
         segments={[
           { title: "Services", href: "/services" },
-          { title: categoryQuery, href: `/services/${categoryQuery}` },
+          {
+            title: categoryQuery
+              .replace(/-/g, " ")
+              .replace(/\b\w/g, (char) => char.toUpperCase()),
+            href: `/services/${categoryQuery}`,
+          },
           { title: service.servicesTitle! },
         ]}
       />
