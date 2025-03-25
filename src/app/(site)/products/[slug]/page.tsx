@@ -22,81 +22,77 @@ export default async function ProductsBySlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  try {
-    const [products, category, categories] = await Promise.all([
-      getProductsBySlug(slug),
-      getProductCategoryBySlug(slug),
-      getCategories(),
-    ]);
 
-    if (!products || products.length === 0) return notFound();
+  const [products, category, categories] = await Promise.all([
+    getProductsBySlug(slug),
+    getProductCategoryBySlug(slug),
+    getCategories(),
+  ]);
 
-    const text = {
-      title: "Get the best products at",
-      subtext: "Allied Gulf Construction Services W.L.L",
-    };
+  if (!products || products.length === 0) return notFound();
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      itemListElement: products.map((product, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        item: {
-          "@type": "Product",
-          name: product.title,
-          description: product.description,
-          image: product.thumbnail && urlFor(product.thumbnail).url,
-          url: `/products/${slug}/${product.slug?.current}`,
-        },
-      })),
-    };
+  const text = {
+    title: "Get the best products at",
+    subtext: "Allied Gulf Construction Services W.L.L",
+  };
 
-    return (
-      <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <div>
-          <Header text={text} />
-          <main className="relative container grid gap-12 lg:grid-cols-4">
-            <Suspense fallback={<SidebarSkeleton />}>
-              <Sidebar data={categories} />
-            </Suspense>
-            <Suspense fallback={<CardSkeleton />}>
-              <div className="grid gap-6 pt-12 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:py-12">
-                <div className="md:col-span-3">
-                  <h1 className="text-4xl font-medium text-sky-600">
-                    {category?.category}
-                  </h1>
-                  {category?.description && (
-                    <p className="text-muted-foreground text-lg font-light">
-                      {category.description}
-                    </p>
-                  )}
-                </div>
-                {products.map((product, index) => (
-                  <Card
-                    className="aspect-square"
-                    title={product.title}
-                    alt={`${product.title} - Construction Product by AGCS`}
-                    image={product.thumbnail}
-                    key={product._id}
-                    link={`/products/${slug}/${product.slug?.current}`}
-                    priority={index < 3}
-                  />
-                ))}
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: products.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Product",
+        name: product.title,
+        description: product.description,
+        image: product.thumbnail && urlFor(product.thumbnail).url,
+        url: `/products/${slug}/${product.slug?.current}`,
+      },
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div>
+        <Header text={text} />
+        <main className="relative container grid gap-12 lg:grid-cols-4">
+          <Suspense fallback={<SidebarSkeleton />}>
+            <Sidebar data={categories} />
+          </Suspense>
+          <Suspense fallback={<CardSkeleton />}>
+            <div className="grid gap-6 pt-12 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:py-12">
+              <div className="md:col-span-3">
+                <h1 className="text-4xl font-medium text-sky-600">
+                  {category?.category}
+                </h1>
+                {category?.description && (
+                  <p className="text-muted-foreground text-lg font-light">
+                    {category.description}
+                  </p>
+                )}
               </div>
-            </Suspense>
-          </main>
-        </div>
-      </>
-    );
-  } catch (error) {
-    console.error("Error loading products:", error);
-    return notFound();
-  }
+              {products.map((product, index) => (
+                <Card
+                  className="aspect-square"
+                  title={product.title}
+                  alt={`${product.title} - Construction Product by AGCS`}
+                  image={product.thumbnail}
+                  key={product._id}
+                  link={`/products/${slug}/${product.slug?.current}`}
+                  priority={index < 3}
+                />
+              ))}
+            </div>
+          </Suspense>
+        </main>
+      </div>
+    </>
+  );
 }
 
 export async function generateMetadata({
@@ -128,9 +124,9 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const categories = await getCategories();
-  return categories.map((category) => ({
-    slug: category.slug?.current,
-  }));
-}
+// export async function generateStaticParams() {
+//   const categories = await getCategories();
+//   return categories.map((category) => ({
+//     slug: category.slug?.current,
+//   }));
+// }

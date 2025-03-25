@@ -8,7 +8,7 @@ export const HOME_SERVICES_QUERY = groq`*[_type == "servicesCategory"] | order(o
     file,
     slug,
     thumbnail,
-    _createdAt
+    _updatedAt
   }`;
 
 export const SERVICES_CATEOGORIES_QUERY = groq`*[_type == "servicesCategory"] | order(orderRank) {
@@ -19,7 +19,7 @@ export const SERVICES_CATEOGORIES_QUERY = groq`*[_type == "servicesCategory"] | 
     file,
     slug,
     thumbnail,
-    _createdAt
+    _updatedAt
   }`;
 
 export const SERVICES_BY_CATEOGORY_QUERY = groq`*[_type == "services" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){
@@ -60,4 +60,3 @@ export const SERVICE_QUERY = groq`*[_type == "services" && servicesSlug.current 
         thumbnail,
       }
     }`;
-// "products": *[ _type == "services" && relatedProducts._ref in *[_type=='products' && ^._id]._id]

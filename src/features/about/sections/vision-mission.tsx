@@ -38,7 +38,7 @@ export function VisionMission({ data }: AccordionData) {
           and maintain the exceptional quality performance of our business.
         </p>
       </div>
-      <Image src="/images/about-agcs.png" height={384} width={384} alt="" />
+      <Image src="/images/about-agcs.webp" height={384} width={384} alt="" />
       <div className="col-span-2">
         <Accordion data={data} />
       </div>

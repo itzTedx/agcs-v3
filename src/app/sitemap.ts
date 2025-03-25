@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import {
+  getCategories,
   getServicesByCategory,
   getServicesCategories,
 } from "@/sanity/lib/fetch";
@@ -9,6 +10,7 @@ const BASE_URL = "https://www.alliedgulf.me";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const servicesCategoriesQuery = await getServicesCategories();
+  const products = await getCategories();
 
   const servicesCategoriesEntries: MetadataRoute.Sitemap =
     servicesCategoriesQuery.map((s) => ({
@@ -18,19 +20,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changefreq: "weekly",
     }));
 
-  const servicesByCategoryEntries = (await Promise.all(
-    servicesCategoriesQuery.map(async (s) => {
-      const services = await getServicesByCategory(s.slug?.current!);
-      return services.map((c) => ({
-        url: `${BASE_URL}/services/${s.slug?.current}/${c.servicesSlug?.current}`,
-        priority: 0.8,
-        lastModified: s._createdAt,
-      }));
+  const servicesByCategoryEntries = (
+    await Promise.all(
+      servicesCategoriesQuery.map(async (s) => {
+        const services = await getServicesByCategory(s.slug?.current!);
+        return services.map((c) => ({
+          url: `${BASE_URL}/services/${s.slug?.current}/${c.servicesSlug?.current}`,
+          priority: 0.8,
+          lastModified: s._createdAt,
+        }));
+      })
+    )
+  ).flat();
+
+  const productsCategoriesEntries: MetadataRoute.Sitemap = products.map(
+    (s) => ({
+      url: `${BASE_URL}/products/${s.slug?.current}`,
+      priority: 0.8,
+      lastModified: s._updatedAt,
+      changefreq: "weekly",
     })
-  )).flat();
+  );
 
+  const productsByCategoryEntries = (
+    await Promise.all(
+      products.map(async (s) => {
+        const services = await getServicesByCategory(s.slug?.current!);
+        return services.map((c) => ({
+          url: `${BASE_URL}/services/${s.slug?.current}/${c.servicesSlug?.current}`,
+          priority: 0.8,
+          lastModified: s._updatedAt,
+        }));
+      })
+    )
+  ).flat();
 
-  console.log('Entries: ', servicesByCategoryEntries)
   return [
     {
       url: BASE_URL,
@@ -70,12 +94,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    ...productsCategoriesEntries,
+    ...productsByCategoryEntries,
     {
       url: `${BASE_URL}/projects`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
+
     {
       url: `${BASE_URL}/contact`,
       lastModified: new Date(),

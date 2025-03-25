@@ -24,6 +24,7 @@ export const PRODUCTS_CATEGORIES_QUERY = groq`*[_type == "productsCategory"]{
     image,
     description,
     category,
+    _updatedAt,
   }`;
 
 export const PRODUCTS_BY_CATEGORY_QUERY = groq`*[_type == "products" && category._ref in *[_type=='productsCategory' && slug.current == $slug]._id] | order(_createdAt asc){

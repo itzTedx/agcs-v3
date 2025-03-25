@@ -563,7 +563,7 @@ export type PRODUCT_QUERYResult = {
   }> | null;
 } | null;
 // Variable: PRODUCTS_CATEGORIES_QUERY
-// Query: *[_type == "productsCategory"]{    _id,    slug,    image,    description,    category,  }
+// Query: *[_type == "productsCategory"]{    _id,    slug,    image,    description,    category,    _updatedAt  }
 export type PRODUCTS_CATEGORIES_QUERYResult = Array<{
   _id: string;
   slug: Slug | null;
@@ -580,6 +580,7 @@ export type PRODUCTS_CATEGORIES_QUERYResult = Array<{
   } | null;
   description: string | null;
   category: string | null;
+  _updatedAt: string;
 }>;
 // Variable: PRODUCTS_BY_CATEGORY_QUERY
 // Query: *[_type == "products" && category._ref in *[_type=='productsCategory' && slug.current == $slug]._id] | order(_createdAt asc){    _id,    title,    slug,    thumbnail,    description}
@@ -927,7 +928,7 @@ declare module "@sanity/client" {
     '*[_type == "gallery"] |  order(orderRank)  {\n    _id,\n    image,\n    title\n  }': GALLERY_QUERYResult;
     '*[_type == "productsCategory"] | order(_createdAt asc)[0..8] {\n    _id,\n    image,\n    category,\n    slug,\n  }': HOME_PRODUCTS_QUERYResult;
     '*[_type == "products" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    image,\n    slug,\n    metaTagTitle,\n    metaTagKeywords,\n    thumbnail,\n    body\n  }': PRODUCT_QUERYResult;
-    '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n  }': PRODUCTS_CATEGORIES_QUERYResult;
+    '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n    _updatedAt\n  }': PRODUCTS_CATEGORIES_QUERYResult;
     "*[_type == \"products\" && category._ref in *[_type=='productsCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    title,\n    slug,\n    thumbnail,\n    description\n}": PRODUCTS_BY_CATEGORY_QUERYResult;
     '*[_type == "productsCategory" && slug.current == $slug][0]{\n    _id,\n    category,\n    description,\n    "brochure": file.asset->url,\n  }': PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult;
     '*[_type == "products" && _id in $ids]': RECENTLY_VIEWED_PRODUCTS_QUERYResult;

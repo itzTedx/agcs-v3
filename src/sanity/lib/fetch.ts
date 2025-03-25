@@ -185,16 +185,10 @@ export const getProductBySlug = async (
 
 export const getCategories =
   async (): Promise<PRODUCTS_CATEGORIES_QUERYResult> => {
-    return unstable_cache(
-      async () => {
-        const { data } = await sanityFetch({
-          query: PRODUCTS_CATEGORIES_QUERY,
-        });
-        return data;
-      },
-      ["categories"],
-      cacheOptions
-    )();
+    const { data } = await sanityFetch({
+      query: PRODUCTS_CATEGORIES_QUERY,
+    });
+    return data;
   };
 
 export const getAllProducts = async (
