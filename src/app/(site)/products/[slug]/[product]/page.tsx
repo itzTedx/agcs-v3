@@ -11,7 +11,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { RecentlyViewedProducts } from "@/features/products/section/recently-viewed-products";
 import { RelatedProducts } from "@/features/products/section/related-products";
-import { getProductBySlug } from "@/sanity/lib/fetch";
+import {
+  getCategories,
+  getProductBySlug,
+  getProductsBySlug,
+} from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
 const ImagePreview = dynamic(() =>
@@ -164,15 +168,15 @@ export async function generateMetadata({
   };
 }
 
-// export async function generateStaticParams() {
-//   const categories = await getCategories();
+export async function generateStaticParams() {
+  const categories = await getCategories();
 
-//   return categories.map(async (category) => {
-//     const products = await getProductsBySlug(category.slug?.current!);
+  return categories.map(async (category) => {
+    const products = await getProductsBySlug(category.slug?.current!);
 
-//     return products.map((product) => ({
-//       slug: category.slug?.current,
-//       product: product.slug?.current,
-//     }));
-//   });
-// }
+    return products.map((product) => ({
+      slug: category.slug?.current,
+      product: product.slug?.current,
+    }));
+  });
+}

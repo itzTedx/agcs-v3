@@ -124,9 +124,9 @@ export async function generateMetadata({
   };
 }
 
-// export async function generateStaticParams() {
-//   const categories = await getCategories();
-//   return categories.map((category) => ({
-//     slug: category.slug?.current,
-//   }));
-// }
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    slug: category.slug?.current,
+  }));
+}

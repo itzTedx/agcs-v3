@@ -5,6 +5,7 @@ import { Card } from "@/components/global/card";
 import Header from "@/components/global/header";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import {
+  getCategories,
   getServiceCategoryBySlug,
   getServicesByCategory,
 } from "@/sanity/lib/fetch";
@@ -42,12 +43,12 @@ export async function generateMetadata({
   };
 }
 
-// export async function generateStaticParams() {
-//   const categories = await getCategories();
-//   return categories.map((category) => ({
-//     category: category.slug?.current,
-//   }));
-// }
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    category: category.slug?.current,
+  }));
+}
 
 export default async function ServicesByCategoryPage({
   params,
