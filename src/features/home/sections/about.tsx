@@ -1,50 +1,118 @@
 import Image from "next/image";
+import Link from "next/link";
+
+import { IconArrowRight } from "@tabler/icons-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export const About = () => {
+  const services = [
+    "Shopping Centers",
+    "Houses",
+    "Restaurants",
+    "Hotels",
+    "Exhibition Centers",
+    "Complete Interior Fit-Out Services",
+    "Furniture",
+    "Kitchen Equipment",
+    "Structural and Sub-Structural Fabrication Works",
+    "Industrial Buildings",
+    "Warehouses",
+    "Coating & Insulation",
+    "Turnkey Restaurant Projects",
+    "Shades",
+    "Prefab Houses and Offices",
+    "M.E.P Works",
+    "Floorings",
+    "Skylights",
+    "Portable Cabins",
+    "Container Conversion",
+    "Acoustics",
+    "General Trading with Supply and Installation of Equipment",
+    "Machinery",
+    "Specialty Construction Materials",
+  ];
   return (
     <section
       id="about"
       aria-label="About Allied Gulf Construction Services"
-      className="container grid max-w-7xl gap-12 py-20 md:grid-cols-2"
+      className="dark:bg-navbar bg-[#e8e8e8] py-20"
     >
-      <div className="relative aspect-square">
-        <Image
-          src="/images/about.webp"
-          fill
-          alt="Allied Gulf Construction Services office building"
-          title="Allied Gulf Construction Services office building"
-          className="object-contain"
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
+      <div className="relative container grid gap-12 md:grid-cols-2">
+        <div className="sticky top-16 aspect-square">
+          <Image
+            src="/images/about.webp"
+            fill
+            alt="Allied Gulf Construction Services office building"
+            title="Allied Gulf Construction Services office building"
+            className="object-contain"
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+        <article className="prose dark:prose-invert">
+          <h2 className="text-3xl font-bold text-sky-700">About us</h2>
+          <p className="text-balance">
+            <span className="font-bold">
+              Allied Gulf Construction Services W.L.L,
+            </span>{" "}
+            founded in the Kingdom of Bahrain, has grown to become one of the
+            leading Civil & Mechanical contracting services companies handling
+            various prestigious projects and is ranked as a leading General
+            Construction service provider across the Middle East. We specialize
+            in complex and prestigious construction and infrastructure projects.
+          </p>
+          <p className="">
+            Our portfolio includes construction services for some of the
+            region's most iconic landmarks, from
+          </p>
+          <ul className="capitalize">
+            <li>super high-rise luxury developments,</li>
+            <li>vital infrastructure </li>
+            <li>oil & gas projects,</li>
+            <li>five-star hotels,</li>
+            <li>hospitals,</li>
+            <li>intricately sophisticated smart buildings</li>
+          </ul>
+          <p>We also provide construction services for:</p>
+          <div className="flex flex-wrap gap-2 capitalize">
+            {services.map((s) => (
+              <Badge key={s}>{s}</Badge>
+            ))}
+          </div>
+          <div className="mt-9 flex items-center space-x-4">
+            <Button
+              className="border-primary hover:text-primary-foreground text-primary rounded-md border bg-sky-50 text-sm font-medium tracking-wide shadow-[-4px_-2px_16px_0px_#ffffff,4px_2px_16px_0px_rgb(95_157_231_/_48%)] hover:bg-sky-100 hover:shadow-[-2px_-1px_8px_0px_#ffffff,2px_1px_8px_0px_rgb(95_157_231_/_48%)] active:shadow-none"
+              asChild
+            >
+              <Link href="/company/about" className="w-fit">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="css-i6dzq1"
+                >
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>{" "}
+                Know More
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              className="border-primary text-primary-foreground"
+            >
+              Contact <IconArrowRight />
+            </Button>
+          </div>
+        </article>
       </div>
-      <article className="text-muted-foreground space-y-2 font-light">
-        <h2 className="pb-6 text-5xl font-bold text-sky-700">About us</h2>
-        <p className="text-balance">
-          <span className="font-bold">
-            Allied Gulf Construction Services W.L.L,
-          </span>{" "}
-          founded in the Kingdom of Bahrain, has grown to become one of the
-          leading Civil & Mechanical contracting services companies handling
-          various prestigious projects and is ranked as a leading General
-          Construction service provider across the Middle East. We specialize in
-          complex and prestigious construction and infrastructure projects.
-        </p>
-        <p className="text-pretty">
-          Our portfolio includes construction services for some of the region's
-          most iconic landmarks, from super high-rise luxury developments, vital
-          infrastructure and oil & gas projects, five-star hotels, hospitals and
-          intricately sophisticated smart buildings. We also provide
-          construction services for houses, shopping centers, restaurants,
-          hotels, exhibition centers, complete interior fit-out services,
-          furniture, kitchen equipment, structural and sub-structural
-          fabrication works, industrial buildings, warehouses, coating &
-          insulation, turnkey restaurant projects, shades, prefab houses and
-          offices, M.E.P works, floorings, skylights, portable cabins, container
-          conversion, acoustics and general trading with supply and installation
-          of equipment, machinery and specialty construction materials.
-        </p>
-      </article>
     </section>
   );
 };
