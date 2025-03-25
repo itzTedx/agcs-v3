@@ -9,10 +9,6 @@ import {
   getServicesByCategory,
 } from "@/sanity/lib/fetch";
 
-type Props = {
-  params: { category: string };
-};
-
 export async function generateMetadata({
   params,
 }: {

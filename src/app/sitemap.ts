@@ -9,9 +9,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const servicesCategoriesEntries: MetadataRoute.Sitemap =
     servicesCategoriesQuery.map((s) => ({
-      url: `${BASE_URL}/distributions/${s.slug}`,
+      url: `${BASE_URL}/services/${s.slug?.current}`,
       priority: 0.8,
+      lastModified: s._createdAt,
+      changeFrequency: "weekly",
     }));
+
+//   const servicesByCategoryEntries: Promise<MetadataRoute.Sitemap> =
+//     servicesCategoriesQuery.map(async (s) => {
+//         const category = await getServiceCategoryBySlug(s.slug?.current!)
+//       return {
+//         url: `${BASE_URL}/services/${s.slug?.current}/${category.}`,
+//         priority: 0.8,
+//         lastModified: s._createdAt,
+//         changeFrequency: "weekly",
+//       };
+//     });
 
   return [
     {
@@ -45,6 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     ...servicesCategoriesEntries,
+    // ...servicesByCategoryEntries,
     {
       url: `${BASE_URL}/products`,
       lastModified: new Date(),
