@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { Card } from "@/components/global/card";
 import Header from "@/components/global/header";
+import Breadcrumb from "@/features/products/components/breadcrumb";
 import { getServicesCategories } from "@/sanity/lib/fetch";
 
 export const metadata: Metadata = {
@@ -58,7 +59,8 @@ export default async function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Header text={text} />
-      <article className="container py-12">
+      <Breadcrumb segments={[{ title: "Services" }]} />
+      <article className="container pb-12">
         <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
           <div className="sm:col-span-2 md:col-span-3">
             <p className="text-muted-foreground text-lg leading-relaxed font-light">

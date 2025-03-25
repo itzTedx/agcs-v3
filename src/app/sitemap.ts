@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 
-import { getServicesCategories } from "@/sanity/lib/fetch";
+import {
+  getServicesByCategory,
+  getServicesCategories,
+} from "@/sanity/lib/fetch";
 
 const BASE_URL = "https://www.alliedgulf.me";
 
@@ -12,20 +15,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${BASE_URL}/services/${s.slug?.current}`,
       priority: 0.8,
       lastModified: s._createdAt,
-      changeFrequency: "weekly",
+      changefreq: "weekly",
     }));
 
-//   const servicesByCategoryEntries: Promise<MetadataRoute.Sitemap> =
-//     servicesCategoriesQuery.map(async (s) => {
-//         const category = await getServiceCategoryBySlug(s.slug?.current!)
-//       return {
-//         url: `${BASE_URL}/services/${s.slug?.current}/${category.}`,
-//         priority: 0.8,
-//         lastModified: s._createdAt,
-//         changeFrequency: "weekly",
-//       };
-//     });
+  const servicesByCategoryEntries = (await Promise.all(
+    servicesCategoriesQuery.map(async (s) => {
+      const services = await getServicesByCategory(s.slug?.current!);
+      return services.map((c) => ({
+        url: `${BASE_URL}/services/${s.slug?.current}/${c.servicesSlug?.current}`,
+        priority: 0.8,
+        lastModified: s._createdAt,
+      }));
+    })
+  )).flat();
 
+
+  console.log('Entries: ', servicesByCategoryEntries)
   return [
     {
       url: BASE_URL,
@@ -58,7 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     ...servicesCategoriesEntries,
-    // ...servicesByCategoryEntries,
+    ...servicesByCategoryEntries,
     {
       url: `${BASE_URL}/products`,
       lastModified: new Date(),

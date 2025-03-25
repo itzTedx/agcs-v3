@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { Card } from "@/components/global/card";
 import Header from "@/components/global/header";
+import Breadcrumb from "@/features/products/components/breadcrumb";
 import {
   getCategories,
   getServiceCategoryBySlug,
@@ -88,7 +89,15 @@ export default async function ServicesByCategoryPage({
         />
         <main>
           <Header text={text} />
-          <section className="container grid gap-4 py-12 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+          <Breadcrumb
+            segments={[
+              { title: "Services", href: "/services" },
+              {
+                title: category?.category!,
+              },
+            ]}
+          />
+          <section className="container grid gap-4 pb-12 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
             <div className="sm:col-span-2 md:col-span-3">
               <h1 className="text-4xl font-medium text-sky-600">
                 {category?.category} Services

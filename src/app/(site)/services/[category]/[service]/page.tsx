@@ -53,12 +53,18 @@ export default async function ServicePage({
     category: categoryQuery,
   };
 
+  const text = {
+    title: "Services we providing",
+    subtext: "in Middle East",
+  };
+
   return (
     <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       <Breadcrumb
         segments={[
           { title: "Services", href: "/services" },

@@ -39,6 +39,7 @@ export const SERVICES_CATEGORY_BY_CATEGORY_QUERY = groq`*[_type == "servicesCate
      _id,
     category,
     description,
+    slug,
   }`;
 
 export const SERVICE_QUERY = groq`*[_type == "services" && servicesSlug.current == $slug][0] {
