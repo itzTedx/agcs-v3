@@ -8,7 +8,7 @@ export function Hero() {
     >
       <h1 className="sr-only">Welcome to AGCS - Creative Solutions</h1>
       <Link
-        className="scroll-down bottom-3 z-50 hidden hover:cursor-pointer md:block"
+        className="scroll-down bottom-3 z-40 hidden hover:cursor-pointer md:block"
         href={"#about"}
         aria-label="Scroll to About section"
       ></Link>

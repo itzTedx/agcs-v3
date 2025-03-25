@@ -16,7 +16,6 @@ export const About = () => {
     "Complete Interior Fit-Out Services",
     "Furniture",
     "Kitchen Equipment",
-    "Structural and Sub-Structural Fabrication Works",
     "Industrial Buildings",
     "Warehouses",
     "Coating & Insulation",
@@ -29,6 +28,7 @@ export const About = () => {
     "Portable Cabins",
     "Container Conversion",
     "Acoustics",
+    "Structural and Sub-Structural Fabrication Works",
     "General Trading with Supply and Installation of Equipment",
     "Machinery",
     "Specialty Construction Materials",
@@ -76,7 +76,7 @@ export const About = () => {
             <li>intricately sophisticated smart buildings</li>
           </ul>
           <p>We also provide construction services for:</p>
-          <div className="flex flex-wrap gap-2 capitalize">
+          <div className="flex flex-wrap gap-3 capitalize">
             {services.map((s) => (
               <Badge key={s}>{s}</Badge>
             ))}
