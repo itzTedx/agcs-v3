@@ -45,6 +45,15 @@ const Projects = dynamic(
     loading: () => <SectionLoader height="400px" />,
   }
 );
+const FAQs = dynamic(
+  () =>
+    import("@/components/global/faq").then((mod) => ({
+      default: mod.FAQs,
+    })),
+  {
+    loading: () => <SectionLoader height="400px" />,
+  }
+);
 
 const LogoStrip = dynamic(
   () =>
@@ -83,6 +92,9 @@ export default function Home() {
       </Suspense>
       <Suspense fallback={<SectionLoader height="400px" />}>
         <Projects />
+      </Suspense>
+      <Suspense fallback={<SectionLoader height="200px" />}>
+        <FAQs />
       </Suspense>
       <Suspense fallback={<SectionLoader height="200px" />}>
         <Cta />

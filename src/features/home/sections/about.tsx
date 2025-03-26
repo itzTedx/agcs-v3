@@ -35,10 +35,10 @@ export const About = () => {
     <section
       id="about"
       aria-label="About Allied Gulf Construction Services"
-      className="dark:bg-navbar bg-[#e8e8e8] py-20"
+      className="dark:bg-navbar bg-[#e8e8e8] py-12 md:py-20"
     >
       <div className="relative container grid gap-12 md:grid-cols-2">
-        <div className="sticky top-16 aspect-square">
+        <div className="relative aspect-square md:sticky md:top-16">
           <Image
             src="/images/about.webp"
             fill

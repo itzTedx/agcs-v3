@@ -213,9 +213,7 @@ export async function Navbar() {
                           key={sub._id}
                           className="group relative z-50 overflow-hidden"
                           image={sub.image}
-                        >
-                          {sub.description}
-                        </ListItem>
+                        ></ListItem>
                       ))}
                     </ul>
                   </NavigationMenuContent>
@@ -255,9 +253,10 @@ export async function Navbar() {
                           {sub.description}
                         </ListItem>
                       ))}
-                      <ListItem href={"/products"} title={"Explore More"}>
-                        {products.slice(8).map((sub) => sub.category)}{" "}
-                      </ListItem>
+                      <ListItem
+                        href={"/products"}
+                        title={"Explore More..."}
+                      ></ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -288,7 +287,7 @@ interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
 const ListItem = React.forwardRef<React.ElementRef<"a">, ListItemProps>(
   ({ className, image, title, children, ...props }, ref) => {
     return (
-      <li>
+      <li className="relative">
         <NavigationMenuLink asChild>
           <Link
             href={props.href!}
@@ -299,10 +298,11 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, ListItemProps>(
             )}
             {...props}
           >
-            <div className="z-50 text-sm leading-none font-medium">{title}</div>
-            <p className="text-muted-foreground relative z-50 line-clamp-2 text-sm leading-snug">
+            <div className="z-50 pt-8 text-lg leading-none">{title}</div>
+            {/* <p className="text-muted-foreground relative z-50 line-clamp-2 text-sm leading-snug">
               {children}
-            </p>
+            </p> */}
+            <div className="from-background/50 absolute -bottom-1 left-0 z-40 h-1/2 w-full bg-gradient-to-t to-transparent" />
             {image && (
               <Image
                 src={urlFor(image).url()}
