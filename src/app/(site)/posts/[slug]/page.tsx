@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import PortableTextRenderer from "@/components/portable-text-renderer";
 import PostHero from "@/features/post/components/hero";
 import Breadcrumb from "@/features/products/components/breadcrumb";
-import { getPostBySlug } from "@/sanity/lib/fetch";
+import { getPostBySlug, getPosts } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
 interface PostPageProps {
@@ -115,4 +115,11 @@ export default async function PostPage({ params }: PostPageProps) {
       </section>
     </>
   );
+}
+
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    slug: post.slug?.current,
+  }));
 }
