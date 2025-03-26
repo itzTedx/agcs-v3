@@ -21,8 +21,8 @@ export const contactSchema = z.object({
       message: "Please enter a valid phone number. Example: +1 (123) 456-7890",
     })
     .min(8, { message: "Phone number must be at least 8 digits" })
-    .max(20, { message: "Phone number cannot exceed 20 characters" })
-    .optional(),
+    .max(20, { message: "Phone number cannot exceed 20 characters" }),
+
   company: z
     .string()
     .max(100, { message: "Company name cannot exceed 100 characters" })

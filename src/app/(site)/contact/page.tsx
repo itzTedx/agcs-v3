@@ -4,6 +4,7 @@ import Script from "next/script";
 
 import { Icons } from "@/assets/icons";
 import { FlickeringGrid } from "@/components/animations/flickering-grid";
+import { TextAnimate } from "@/components/animations/text-animate";
 import { SocialLinks } from "@/components/global/social-links";
 import {
   Card,
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ContactForm } from "@/features/contact/contact-form";
+import { getProductBySlug } from "@/sanity/lib/fetch";
 
 // Dynamically import heavy components
 const MultiStepLoader = dynamic(() =>
@@ -96,7 +98,17 @@ const steps = [
   },
 ];
 
-export default function ContactPage() {
+type SearchParams = Promise<{ product: string | undefined }>;
+
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const { product } = await searchParams;
+
+  const productData = product ? await getProductBySlug(product) : null;
+
   return (
     <>
       <Script id="contact-schema" type="application/ld+json">
@@ -118,7 +130,7 @@ export default function ContactPage() {
       <div className="flex flex-col">
         <header
           role="banner"
-          className="bg-navbar border-muted-foreground/15 relative border-b"
+          className="bg-primary border-muted-foreground/15 relative border-b"
         >
           <FlickeringGrid
             className="absolute inset-0 z-0 size-full opacity-25 [mask-image:radial-gradient(14rem_circle_at_center,transparent,white)] md:[mask-image:radial-gradient(720px_circle_at_center,transparent,white)]"
@@ -146,16 +158,27 @@ export default function ContactPage() {
           itemType="https://schema.org/ContactPoint"
         >
           <div className="max-w-sm max-sm:order-2">
-            <h2 className="relative z-20 text-4xl font-medium">
+            <TextAnimate
+              once
+              animation="slideLeft"
+              by="character"
+              as={"h2"}
+              className="relative z-20 text-3xl font-medium"
+            >
               What will be your next step?
-            </h2>
-            <p
+            </TextAnimate>
+
+            <TextAnimate
               className="relative z-20 pt-3 text-lg font-light"
-              itemProp="description"
+              animation="blurIn"
+              by="character"
+              as={"p"}
+              once
             >
               You are one step closer to building or renovating your perfect
               building
-            </p>
+            </TextAnimate>
+
             <MultiStepLoader data={steps} />
           </div>
           <Card
@@ -178,7 +201,7 @@ export default function ContactPage() {
                 </CardDescription>
               </CardHeader>
               <Separator />
-              <ContactForm />
+              <ContactForm data={productData} />
             </CardContent>
           </Card>
         </section>

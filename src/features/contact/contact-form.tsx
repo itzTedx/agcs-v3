@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -17,18 +18,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+import { PRODUCT_QUERYResult } from "../../../sanity.types";
 import { contactSchema } from "./contact-schema";
+import { useFormStorage } from "./use-form-storage";
 
-export function ContactForm() {
+export function ContactForm({ data }: { data: PRODUCT_QUERYResult }) {
+  const { updateFormData, formData } = useFormStorage();
+  const message = `I'm interested in this product can we discuss more about it
+  
+Product: ${data?.title}
+  `;
   const form = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      name: "",
+      name: formData.name ?? "",
+      email: formData.email ?? "",
+      phone: formData.phone ?? "",
+      company: formData.company ?? "",
+
+      message: data ? message : "",
     },
   });
 
   function onSubmit(values: z.infer<typeof contactSchema>) {
-    console.log(values);
+    updateFormData(values);
+    toast.success(JSON.stringify(values));
   }
   return (
     <Form {...form}>

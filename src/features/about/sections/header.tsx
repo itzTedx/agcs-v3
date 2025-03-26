@@ -1,14 +1,22 @@
 import { WaveSeparator } from "@/assets/wave-separator";
+import { TextAnimate } from "@/components/animations/text-animate";
+import { Badge } from "@/components/ui/badge";
 
 export function Header() {
   return (
-    <header className="relative bg-white md:h-[calc(100svh-3rem)] dark:bg-slate-900">
-      <p className="pt-12 text-center md:pt-20">We're Leading the market</p>
-      <h1 className="container pt-2 text-center text-3xl font-light tracking-tight md:text-5xl md:leading-14">
-        Providing Quality Construction Service and
-        <br className="max-sm:hidden" /> Construction Specialty Materials in
-        Middle East.
-      </h1>
+    <header className="relative bg-white pt-12 md:h-[calc(100svh-3rem)] md:pt-20 dark:bg-slate-900">
+      <div className="container flex flex-col items-center">
+        <Badge className="text-center">We're Leading the market</Badge>
+        <TextAnimate
+          animation="slideUp"
+          by="line"
+          as="h1"
+          once
+          className="pt-2 text-center text-3xl font-light tracking-tight md:text-5xl md:leading-14"
+        >
+          {`Providing Quality Construction Service and\nConstruction Specialty Materials in Middle East.`}
+        </TextAnimate>
+      </div>
       <div className="relative z-10 container max-w-7xl space-y-4 py-12 font-light sm:text-lg">
         <p>
           <span className="font-medium">

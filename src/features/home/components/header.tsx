@@ -10,7 +10,7 @@ interface Props {
 
 export const Header = ({ children, className, id }: Props) => {
   return (
-    <div className="dark:bg-neutral bg-primary relative w-full overflow-hidden py-9">
+    <div className="bg-primary relative w-full overflow-hidden py-9">
       <FlickeringGrid
         className="absolute inset-0 z-0 size-full [mask-image:radial-gradient(450px_circle_at_center,transparent,white)]"
         squareSize={4}

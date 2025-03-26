@@ -105,7 +105,12 @@ export default async function ProductPage({
             </p>
 
             <Button asChild size="lg">
-              <Link href="/">Order Now</Link>
+              <Link
+                href={{ pathname: "/contact", query: { product: query } }}
+                target="_blank"
+              >
+                Order Now
+              </Link>
             </Button>
 
             <Suspense fallback={<Skeleton className="h-32 w-full" />}>

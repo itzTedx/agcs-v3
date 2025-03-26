@@ -8,6 +8,7 @@ import BreakpointIndicator from "@/components/dev/breakpoint-indicator";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { metadata as siteMetadata } from "@/data/site-config";
 import "@/styles/globals.css";
 
@@ -55,6 +56,7 @@ export default function RootLayout({
             <Navbar />
             <main>{children}</main>
             <Footer />
+            <Toaster richColors />
             <FloatingWhatsapp />
             <BreakpointIndicator />
           </div>

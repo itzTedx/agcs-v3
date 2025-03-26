@@ -608,10 +608,11 @@ export type GALLERY_QUERYResult = Array<{
 
 // Source: ./src/sanity/queries/posts.ts
 // Variable: POST_QUERY
-// Query: *[_type == "posts" && slug.current == $slug][0]{    title,    slug,    image{      ...,      asset->{        _id,        url,        mimeType,        metadata {          lqip,          dimensions {            width,            height          }        }      },      alt    },    body[]{      ...,      _type == "image" => {        ...,        asset->{          _id,          url,          mimeType,          metadata {            lqip,            dimensions {              width,              height            }          }        }      }    },        _createdAt,    _updatedAt,    meta_title,    meta_description,    meta_keyword,    noindex,    ogImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height          }        }      },    }}
+// Query: *[_type == "posts" && slug.current == $slug][0]{    title,    slug,    excerpt,    image{      ...,      asset->{        _id,        url,        mimeType,        metadata {          lqip,          dimensions {            width,            height          }        }      },      alt    },    body[]{      ...,      _type == "image" => {        ...,        asset->{          _id,          url,          mimeType,          metadata {            lqip,            dimensions {              width,              height            }          }        }      }    },        _createdAt,    _updatedAt,    meta_title,    meta_description,    meta_keyword,    noindex,    ogImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height          }        }      },    }}
 export type POST_QUERYResult = {
   title: string | null;
   slug: Slug | null;
+  excerpt: string | null;
   image: {
     asset: {
       _id: string;
@@ -689,12 +690,14 @@ export type POST_QUERYResult = {
   } | null;
 } | null;
 // Variable: POSTS_QUERY
-// Query: *[_type == "posts" && defined(slug)] | order(_createdAt desc){_id,    title,    slug,    excerpt,    image{      asset->{        _id,        url,        mimeType,        metadata {          lqip,          dimensions {            width,            height          }        }      },      alt    },}
+// Query: *[_type == "posts" && defined(slug)] | order(_createdAt desc){  _id,  title,  slug,  excerpt,  _createdAt,  _updatedAt,  image{    asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    },    alt  },}
 export type POSTS_QUERYResult = Array<{
   _id: string;
   title: string | null;
   slug: Slug | null;
   excerpt: string | null;
+  _createdAt: string;
+  _updatedAt: string;
   image: {
     asset: {
       _id: string;
@@ -1146,8 +1149,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "certifications"] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    "certificate": certificate.asset->url,\n  }': CERTIFICASTES_QUERYResult;
     '*[_type == "gallery"] |  order(orderRank)  {\n    _id,\n    image,\n    title\n  }': GALLERY_QUERYResult;
-    '*[_type == "posts" && slug.current == $slug][0]{\n    title,\n    slug,\n    image{\n      ...,\n      asset->{\n        _id,\n        url,\n        mimeType,\n        metadata {\n          lqip,\n          dimensions {\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    body[]{\n      ...,\n      _type == "image" => {\n        ...,\n        asset->{\n          _id,\n          url,\n          mimeType,\n          metadata {\n            lqip,\n            dimensions {\n              width,\n              height\n            }\n          }\n        }\n      }\n    },\n    \n    _createdAt,\n    _updatedAt,\n    meta_title,\n    meta_description,\n    meta_keyword,\n    noindex,\n    ogImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height\n          }\n        }\n      },\n    }\n}': POST_QUERYResult;
-    '*[_type == "posts" && defined(slug)] | order(_createdAt desc){\n_id,\n    title,\n    slug,\n    excerpt,\n    image{\n      asset->{\n        _id,\n        url,\n        mimeType,\n        metadata {\n          lqip,\n          dimensions {\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n}': POSTS_QUERYResult;
+    '*[_type == "posts" && slug.current == $slug][0]{\n    title,\n    slug,\n    excerpt,\n    image{\n      ...,\n      asset->{\n        _id,\n        url,\n        mimeType,\n        metadata {\n          lqip,\n          dimensions {\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    body[]{\n      ...,\n      _type == "image" => {\n        ...,\n        asset->{\n          _id,\n          url,\n          mimeType,\n          metadata {\n            lqip,\n            dimensions {\n              width,\n              height\n            }\n          }\n        }\n      }\n    },\n    \n    _createdAt,\n    _updatedAt,\n    meta_title,\n    meta_description,\n    meta_keyword,\n    noindex,\n    ogImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height\n          }\n        }\n      },\n    }\n}': POST_QUERYResult;
+    '*[_type == "posts" && defined(slug)] | order(_createdAt desc){\n  _id,\n  title,\n  slug,\n  excerpt,\n  _createdAt,\n  _updatedAt,\n  image{\n    asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    },\n    alt\n  },\n}': POSTS_QUERYResult;
     '*[_type == "productsCategory"] | order(_createdAt asc)[0..8] {\n    _id,\n    image,\n    category,\n    slug,\n  }': HOME_PRODUCTS_QUERYResult;
     '*[_type == "products" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    image,\n    slug,\n    metaTagTitle,\n    metaTagKeywords,\n    thumbnail,\n    body\n  }': PRODUCT_QUERYResult;
     '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n    _updatedAt,\n  }': PRODUCTS_CATEGORIES_QUERYResult;

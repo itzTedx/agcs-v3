@@ -243,7 +243,7 @@ export default function AboutPage() {
             Our Commitment
           </Heading>
 
-          <ul className="grid grid-cols-3 gap-4">
+          <ul className="grid gap-4 md:grid-cols-3">
             <li className="">
               <h4>We Believe</h4>
               <p className="text-lg font-light">

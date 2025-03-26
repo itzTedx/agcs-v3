@@ -75,7 +75,11 @@ export const ImagePreview = ({
   const mainImage = useMemo(
     () =>
       data?.map((image, index) => (
-        <CarouselItem key={index} className="w-full cursor-pointer pl-4">
+        <CarouselItem
+          key={index}
+          className="w-full cursor-pointer pl-4"
+          data-carousel-item={`image-${index + 1}`}
+        >
           <div className="relative aspect-square overflow-hidden rounded-md bg-white">
             {image && (
               <div
@@ -88,20 +92,24 @@ export const ImagePreview = ({
                   alt={alt ?? ""}
                   title={alt ?? ""}
                   fill
-                  style={{
-                    objectFit: "cover",
-                  }}
+                  style={{ objectFit: "cover" }}
                   sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-                  quality={100}
+                  quality={90}
                   className="transition-transform duration-300 hover:scale-105"
-                  priority
+                  priority={index === 0}
+                  placeholder="blur"
+                  blurDataURL={urlFor(image)
+                    .width(10)
+                    .quality(20)
+                    .blur(10)
+                    .url()}
                 />
               </div>
             )}
           </div>
         </CarouselItem>
       )),
-    []
+    [data, alt]
   );
 
   const thumbnailImages = useMemo(
@@ -114,6 +122,7 @@ export const ImagePreview = ({
             index === current ? "border-2" : ""
           )}
           onClick={() => handleClick(index)}
+          data-carousel-thumbnail={`thumb-${index + 1}`}
         >
           {image && (
             <div
@@ -123,20 +132,20 @@ export const ImagePreview = ({
             >
               <Image
                 src={urlFor(image).url()}
-                alt={alt ?? ""}
-                title={alt ?? ""}
+                alt={`${alt ?? ""} thumbnail ${index + 1}`}
+                title={`${alt ?? ""} thumbnail ${index + 1}`}
                 fill
-                style={{
-                  objectFit: "cover",
-                }}
-                sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-                quality={100}
+                style={{ objectFit: "cover" }}
+                sizes="(min-width: 1024px) 10vw, (min-width: 640px) 15vw, 25vw"
+                quality={75}
+                placeholder="blur"
+                blurDataURL={urlFor(image).width(10).quality(20).blur(10).url()}
               />
             </div>
           )}
         </CarouselItem>
       )),
-    [current, handleClick]
+    [data, alt, current, handleClick]
   );
 
   return (
