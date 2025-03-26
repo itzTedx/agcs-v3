@@ -45,8 +45,8 @@ export const Footer = () => {
         <nav aria-label="Main website links">
           <h6 className="mb-4 text-xl font-semibold">Site Navigation</h6>
           <ul className="space-y-2">
-            {NAVLINKS.filter((nav) => nav.title !== "Company").map((nav) => (
-              <li key={nav.href}>
+            {NAVLINKS.filter((nav) => nav.title !== "Company").map((nav, i) => (
+              <li key={`${nav.href}-${i}`}>
                 <Link
                   href={nav.href}
                   className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
@@ -73,6 +73,14 @@ export const Footer = () => {
                 </li>
               ))
             )}
+            <li>
+              <Link
+                href="/company/faqs"
+                className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+              >
+                FAQs
+              </Link>
+            </li>
           </ul>
         </nav>
 

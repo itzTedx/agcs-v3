@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 import { SectionLoader } from "@/components/ui/section-loader";
+import { HOME_FAQS } from "@/data/faq";
 import { HomeSchema } from "@/features/home/schema/home-schema";
 import { Hero } from "@/features/home/sections/hero";
 
@@ -94,7 +95,7 @@ export default function Home() {
         <Projects />
       </Suspense>
       <Suspense fallback={<SectionLoader height="200px" />}>
-        <FAQs />
+        <FAQs data={HOME_FAQS} />
       </Suspense>
       <Suspense fallback={<SectionLoader height="200px" />}>
         <Cta />

@@ -1,10 +1,11 @@
+import type { MetadataRoute } from "next";
+
 import {
   getCategories,
   getProductsBySlug,
   getServicesByCategory,
   getServicesCategories,
 } from "@/sanity/lib/fetch";
-import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://www.alliedgulf.me";
 
@@ -34,13 +35,11 @@ const staticPages = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Fetch all data in parallel
-    const [servicesCategoriesQuery, productsCategoriesQuery] = await Promise.all([
-      getServicesCategories(),
-      getCategories(),
-    ]);
+    const [servicesCategoriesQuery, productsCategoriesQuery] =
+      await Promise.all([getServicesCategories(), getCategories()]);
 
     // Process services data
-    const servicesCategoriesEntries = servicesCategoriesQuery.map((s) => 
+    const servicesCategoriesEntries = servicesCategoriesQuery.map((s) =>
       createSitemapEntry(
         `/services/${s.slug?.current}`,
         0.8,

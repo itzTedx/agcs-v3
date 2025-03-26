@@ -9,12 +9,9 @@ import { Button } from "@/components/ui/button";
 export const About = () => {
   const services = [
     "Shopping Centers",
-
     "Restaurants",
     "Hotels",
-
     "Complete Interior Fit-Out Services",
-
     "Industrial Buildings",
     "Warehouses",
     "Coating & Insulation",
