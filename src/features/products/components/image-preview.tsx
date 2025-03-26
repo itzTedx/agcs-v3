@@ -118,8 +118,7 @@ export const ImagePreview = ({
         <CarouselItem
           key={index}
           className={cn(
-            "relative aspect-square w-full basis-1/4 overflow-hidden rounded-md border-white bg-white pt-2 max-md:pl-4 md:basis-1/6",
-            index === current ? "border-2" : ""
+            "group relative aspect-square w-full shrink-0 basis-1/4 cursor-pointer overflow-hidden rounded-md pt-2 max-md:pl-4 md:basis-1/6"
           )}
           onClick={() => handleClick(index)}
           data-carousel-thumbnail={`thumb-${index + 1}`}
@@ -127,7 +126,8 @@ export const ImagePreview = ({
           {image && (
             <div
               className={cn(
-                "relative aspect-square overflow-hidden rounded-lg"
+                "relative aspect-square overflow-hidden rounded-lg border-white bg-white",
+                index === current ? "border-2" : ""
               )}
             >
               <Image
@@ -140,6 +140,7 @@ export const ImagePreview = ({
                 quality={75}
                 placeholder="blur"
                 blurDataURL={urlFor(image).width(10).quality(20).blur(10).url()}
+                className="transition-[filter] group-hover:brightness-110"
               />
             </div>
           )}
@@ -158,11 +159,16 @@ export const ImagePreview = ({
         orientation={isDesktop ? "vertical" : "horizontal"}
         className="my-2 h-28 md:h-fit md:w-20"
       >
-        <CarouselContent className="-ml-4 md:-mt-2 md:h-[34rem]">
+        <CarouselContent className="max-md:-ml-4 md:-mt-2 md:h-[34rem]">
           {thumbnailImages}
         </CarouselContent>
-        <CarouselPrevious className="max-md:-left-3 md:-top-3 md:size-6" />
-        <CarouselNext className="max-md:-right-3 md:-bottom-3 md:size-6" />
+
+        {data && data.length > 6 && (
+          <CarouselPrevious className="max-md:-left-3 md:-top-3 md:size-6" />
+        )}
+        {data && data.length > 6 && (
+          <CarouselNext className="max-md:-right-3 md:-bottom-3 md:size-6" />
+        )}
       </Carousel>
 
       <Carousel
@@ -170,7 +176,8 @@ export const ImagePreview = ({
         className="shrink-0 grow"
         plugins={[
           Autoplay({
-            delay: autoplayDelay || 2000,
+            delay: autoplayDelay || 3000,
+            stopOnMouseEnter: true,
           }),
         ]}
       >
