@@ -50,7 +50,7 @@ export const RelatedProducts = ({
     );
 
   return (
-    <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+    <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
       {products.map((product) => (
         <Card
           key={product._id}
