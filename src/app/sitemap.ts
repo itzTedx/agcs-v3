@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import {
   getCategories,
+  getPosts,
   getProductsBySlug,
   getServicesByCategory,
   getServicesCategories,
@@ -26,24 +27,25 @@ const staticPages = [
   createSitemapEntry("/company/about", 0.7, new Date(), "yearly"),
   createSitemapEntry("/company/gallery", 0.6, new Date(), "yearly"),
   createSitemapEntry("/company/certifications", 0.5, new Date(), "yearly"),
-  createSitemapEntry("/services", 0.8, new Date(), "weekly"),
-  createSitemapEntry("/products", 0.8, new Date(), "monthly"),
+  createSitemapEntry("/services", 0.9, new Date(), "weekly"),
+  createSitemapEntry("/products", 0.9, new Date(), "weekly"),
   createSitemapEntry("/projects", 0.8, new Date(), "monthly"),
+  createSitemapEntry("/posts", 0.8, new Date(), "monthly"),
   createSitemapEntry("/contact", 0.7, new Date(), "monthly"),
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Fetch all data in parallel
-    const [servicesCategoriesQuery, productsCategoriesQuery] =
-      await Promise.all([getServicesCategories(), getCategories()]);
+    const [servicesCategoriesQuery, productsCategoriesQuery, postsQuery] =
+      await Promise.all([getServicesCategories(), getCategories(), getPosts()]);
 
     // Process services data
     const servicesCategoriesEntries = servicesCategoriesQuery.map((s) =>
       createSitemapEntry(
         `/services/${s.slug?.current}`,
         0.8,
-        s._createdAt,
+        s._updatedAt,
         "weekly"
       )
     );
@@ -57,7 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
               createSitemapEntry(
                 `/services/${s.slug?.current}/${c.servicesSlug?.current}`,
                 0.8,
-                s._createdAt
+                s._updatedAt
               )
             )
           )
@@ -92,12 +94,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       )
     ).flat();
 
+    const postsEntries = postsQuery.map((s) =>
+      createSitemapEntry(
+        `/products/${s.slug?.current}`,
+        0.8,
+        s._updatedAt,
+        "weekly"
+      )
+    );
+
+
     return [
       ...staticPages,
       ...servicesCategoriesEntries,
       ...servicesByCategoryEntries,
       ...productsCategoriesEntries,
       ...productsByCategoryEntries,
+      ...postsEntries,
     ];
   } catch (error) {
     console.error("Error generating sitemap:", error);
