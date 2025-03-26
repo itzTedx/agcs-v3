@@ -67,7 +67,7 @@ export const Footer = () => {
         </nav>
 
         <nav aria-label="Company information links">
-          <h6 className="mb-4 text-xl font-semibold">Company Information</h6>
+          <h6 className="mb-4 text-xl font-semibold">Company</h6>
           <ul className="space-y-2">
             {NAVLINKS.map((nav) =>
               nav.submenus?.map((sub) => (
@@ -101,7 +101,7 @@ export const Footer = () => {
             itemProp="name"
             content="Allied Gulf Construction Services W.L.L"
           />
-          <h6 className="mb-4 text-xl font-semibold">Contact Information</h6>
+          <h6 className="mb-4 text-xl font-semibold">Contact</h6>
 
           <ul className="space-y-3">
             <li>

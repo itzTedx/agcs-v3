@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { Card } from "@/components/global/card";
 import Header from "@/components/global/header";
+import Breadcrumb from "@/features/products/components/breadcrumb";
 import {
   CardSkeleton,
   SidebarSkeleton,
@@ -60,35 +61,46 @@ export default async function ProductsBySlugPage({
       />
       <div>
         <Header text={text} />
-        <main className="relative container grid gap-12 lg:grid-cols-4">
-          <Suspense fallback={<SidebarSkeleton />}>
-            <Sidebar data={categories} />
-          </Suspense>
-          <Suspense fallback={<CardSkeleton />}>
-            <div className="grid gap-6 pt-12 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:py-12">
-              <div className="md:col-span-3">
-                <h1 className="text-4xl font-medium text-sky-600">
-                  {category?.category}
-                </h1>
-                {category?.description && (
-                  <p className="text-muted-foreground text-lg font-light">
-                    {category.description}
-                  </p>
-                )}
+
+        <main className="relative container">
+          <Breadcrumb
+            segments={[
+              { title: "Products", href: "/services" },
+              {
+                title: category?.category!,
+              },
+            ]}
+          />
+          <div className="grid gap-12 lg:grid-cols-4">
+            <Suspense fallback={<SidebarSkeleton />}>
+              <Sidebar data={categories} />
+            </Suspense>
+            <Suspense fallback={<CardSkeleton />}>
+              <div className="grid gap-6 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-3">
+                <div className="md:col-span-3">
+                  <h1 className="text-4xl font-medium text-sky-600">
+                    {category?.category}
+                  </h1>
+                  {category?.description && (
+                    <p className="text-muted-foreground text-lg font-light">
+                      {category.description}
+                    </p>
+                  )}
+                </div>
+                {products.map((product, index) => (
+                  <Card
+                    className="aspect-square"
+                    title={product.title}
+                    alt={`${product.title} - Construction Product by AGCS`}
+                    image={product.thumbnail}
+                    key={product._id}
+                    link={`/products/${slug}/${product.slug?.current}`}
+                    priority={index < 3}
+                  />
+                ))}
               </div>
-              {products.map((product, index) => (
-                <Card
-                  className="aspect-square"
-                  title={product.title}
-                  alt={`${product.title} - Construction Product by AGCS`}
-                  image={product.thumbnail}
-                  key={product._id}
-                  link={`/products/${slug}/${product.slug?.current}`}
-                  priority={index < 3}
-                />
-              ))}
-            </div>
-          </Suspense>
+            </Suspense>
+          </div>
         </main>
       </div>
     </>

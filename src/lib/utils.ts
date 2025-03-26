@@ -15,3 +15,14 @@ export function getCurrentTime(): string {
   const strHours = hours.toString().padStart(2, "0");
   return `${strHours}:${minutes} ${ampm}`;
 }
+
+
+export const formatDate = (date: string): string => {
+  const dateObj = new Date(date);
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return dateObj.toLocaleDateString("en-US", options);
+};

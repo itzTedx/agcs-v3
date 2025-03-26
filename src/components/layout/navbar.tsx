@@ -58,7 +58,7 @@ export async function Navbar() {
   return (
     <>
       <NavigationMenu className="bg-navbar/80 sticky top-0 z-50 w-full max-w-full items-center border-b shadow-2xs backdrop-blur-lg">
-        <div className="container flex w-full max-w-7xl items-center gap-4 px-4 py-2 md:justify-between">
+        <div className="container flex w-full max-w-7xl items-center gap-4 py-2 md:justify-between">
           <Drawer>
             <DrawerTrigger className="sm:hidden" aria-label="Open menu">
               <IconMenu3 />
@@ -157,7 +157,7 @@ export async function Navbar() {
                   <NavigationMenuTrigger>{nav.title}</NavigationMenuTrigger>
 
                   <NavigationMenuContent>
-                    <ul className="mx-auto grid grid-cols-3 gap-3 p-6 md:w-[100dvw] lg:w-[80rem]">
+                    <ul className="mx-auto grid grid-cols-3 gap-3 p-6 md:w-[100dvw] lg:w-[62rem]">
                       {nav.submenus.map((sub) => (
                         <li key={sub.href}>
                           <NavigationMenuLink asChild>
@@ -187,7 +187,7 @@ export async function Navbar() {
                     <Link href={nav.href}>{nav.title}</Link>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[80rem] lg:grid-cols-[.75fr_1fr_1fr_1fr]">
+                    <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[72rem] lg:grid-cols-[.75fr_1fr_1fr_1fr]">
                       <li className="row-span-3">
                         <NavigationMenuLink asChild>
                           <Link
@@ -224,7 +224,7 @@ export async function Navbar() {
                     <Link href={nav.href}>{nav.title}</Link>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[80rem] lg:grid-cols-[.75fr_1fr_1fr_1fr]">
+                    <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[72rem] lg:grid-cols-[.75fr_1fr_1fr_1fr]">
                       <li className="row-span-3">
                         <NavigationMenuLink asChild>
                           <Link

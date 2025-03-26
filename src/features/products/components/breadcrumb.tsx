@@ -22,7 +22,7 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ segments }: BreadcrumbProps) {
   return (
-    <ShadRoot className="container py-6">
+    <ShadRoot className="py-6">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/">

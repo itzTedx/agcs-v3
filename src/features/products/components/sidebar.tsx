@@ -10,7 +10,7 @@ interface Props {
 
 export function Sidebar({ data }: Props) {
   return (
-    <aside className="sticky top-16 z-10 hidden h-fit rounded-lg px-4 py-2 backdrop-blur-lg max-sm:bg-white/80 md:top-12 md:py-12 lg:block">
+    <aside className="sticky top-28 z-10 hidden h-fit rounded-lg px-4 py-2 backdrop-blur-lg max-sm:bg-white/80 md:top-12 lg:block">
       <div className="text-start">
         <p className="font-light">Looking for our other</p>
         <h2 className="text-2xl md:mb-3">Products</h2>

@@ -65,48 +65,50 @@ export default async function ServicePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Breadcrumb
-        segments={[
-          { title: "Services", href: "/services" },
-          {
-            title: categoryQuery
-              .replace(/-/g, " ")
-              .replace(/\b\w/g, (char) => char.toUpperCase()),
-            href: `/services/${categoryQuery}`,
-          },
-          { title: service.servicesTitle! },
-        ]}
-      />
-      <div className="container grid gap-6 pb-12 md:grid-cols-5">
-        <figure className="md:col-span-3">
-          <ImagePreview
-            data={service?.servicesImage}
-            alt={service?.servicesTitle}
-          />
-        </figure>
+      <div className="container">
+        <Breadcrumb
+          segments={[
+            { title: "Services", href: "/services" },
+            {
+              title: categoryQuery
+                .replace(/-/g, " ")
+                .replace(/\b\w/g, (char) => char.toUpperCase()),
+              href: `/services/${categoryQuery}`,
+            },
+            { title: service.servicesTitle! },
+          ]}
+        />
+        <div className="grid gap-6 pb-12 md:grid-cols-5">
+          <figure className="md:col-span-3">
+            <ImagePreview
+              data={service?.servicesImage}
+              alt={service?.servicesTitle}
+            />
+          </figure>
 
-        <article className="md:col-span-2 md:px-6">
-          <nav>
-            <Link
-              href={`/services/${categoryQuery}`}
-              className="hidden items-center gap-1 text-sm md:flex"
-              aria-label={`Back to ${categoryQuery} services`}
-            >
-              <IconArrowLeft className="size-4" />
-              Back to services
-            </Link>
-          </nav>
-          <header>
-            <h1 className="text-4xl font-bold md:pt-4">
-              {service?.servicesTitle}
-            </h1>
-          </header>
-          <section className="service-description">
-            <p className="pt-3 text-lg font-light">
-              {service?.servicesDescription}
-            </p>
-          </section>
-        </article>
+          <article className="md:col-span-2 md:px-6">
+            <nav>
+              <Link
+                href={`/services/${categoryQuery}`}
+                className="hidden items-center gap-1 text-sm md:flex"
+                aria-label={`Back to ${categoryQuery} services`}
+              >
+                <IconArrowLeft className="size-4" />
+                Back to services
+              </Link>
+            </nav>
+            <header>
+              <h1 className="text-4xl font-bold md:pt-4">
+                {service?.servicesTitle}
+              </h1>
+            </header>
+            <section className="service-description">
+              <p className="pt-3 text-lg font-light">
+                {service?.servicesDescription}
+              </p>
+            </section>
+          </article>
+        </div>
       </div>
       {service.relatedProducts && service.relatedProducts.length !== 0 && (
         <section className="container">

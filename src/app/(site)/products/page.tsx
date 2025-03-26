@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { Card } from "@/components/global/card";
 import Header from "@/components/global/header";
+import Breadcrumb from "@/features/products/components/breadcrumb";
 import { getCategories } from "@/sanity/lib/fetch";
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default async function ProductsPage() {
       />
       <Header text={text} />
       <section className="container py-12" aria-label="Product Categories">
+        <Breadcrumb segments={[{ title: "Products" }]} />
         <div className="pb-4 sm:col-span-2 md:col-span-3">
           <p className="text-muted-foreground font-light" role="doc-subtitle">
             Looking for Specialty Materials?

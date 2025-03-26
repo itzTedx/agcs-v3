@@ -89,15 +89,15 @@ export default async function ServicesByCategoryPage({
       />
       <main>
         <Header text={text} />
-        <Breadcrumb
-          segments={[
-            { title: "Services", href: "/services" },
-            {
-              title: category?.category!,
-            },
-          ]}
-        />
         <section className="container grid gap-4 pb-12 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+          <Breadcrumb
+            segments={[
+              { title: "Services", href: "/services" },
+              {
+                title: category?.category!,
+              },
+            ]}
+          />
           <div className="sm:col-span-2 md:col-span-3">
             <h1 className="text-4xl font-medium text-sky-600">
               {category?.category} Services

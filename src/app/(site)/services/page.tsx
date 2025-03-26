@@ -59,8 +59,8 @@ export default async function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Header text={text} />
-      <Breadcrumb segments={[{ title: "Services" }]} />
       <article className="container pb-12">
+        <Breadcrumb segments={[{ title: "Services" }]} />
         <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
           <div className="sm:col-span-2 md:col-span-3">
             <p className="text-muted-foreground text-lg leading-relaxed font-light">
@@ -87,7 +87,7 @@ export default async function ServicesPage() {
                 image={service.image}
                 key={service._id}
                 link={`/services/${service.slug?.current}`}
-                date={service._createdAt}
+                date={service._updatedAt}
                 priority={i < 8}
                 description={service.description}
               />

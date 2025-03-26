@@ -53,68 +53,70 @@ export default async function ProductPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense
-        fallback={
-          <div className="flex items-center space-x-4 py-4">
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="h-4 w-24" />
-          </div>
-        }
-      >
-        <Breadcrumb
-          segments={[
-            { title: "Products", href: "/products" },
-            {
-              title: slug
-                .replace(/-/g, " ")
-                .replace(/\b\w/g, (char) => char.toUpperCase()),
-              href: `/products/${slug}`,
-            },
-            { title: product.title! },
-          ]}
-        />
-      </Suspense>
-      <article className="relative container grid gap-6 pb-12 md:grid-cols-5">
+      <article className="relative container">
         <Suspense
           fallback={
-            <div className="md:col-span-3">
-              <Skeleton className="aspect-square w-full rounded-lg" />
+            <div className="flex items-center space-x-4 py-4">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-24" />
             </div>
           }
         >
-          <div className="md:col-span-3">
-            <ImagePreview data={product.image} alt={product.title} />
-          </div>
+          <Breadcrumb
+            segments={[
+              { title: "Products", href: "/products" },
+              {
+                title: slug
+                  .replace(/-/g, " ")
+                  .replace(/\b\w/g, (char) => char.toUpperCase()),
+                href: `/products/${slug}`,
+              },
+              { title: product.title! },
+            ]}
+          />
         </Suspense>
-
-        <div className="md:col-span-2 md:p-6">
-          <Link
-            href={`/products/${slug}`}
-            className="hidden items-center gap-1 text-sm md:flex"
-            aria-label={`Back to ${slug} products`}
-          >
-            <IconArrowLeft className="size-4" />
-            Back to Products
-          </Link>
-          <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
-          <meta itemProp="name" content={product.title!} />
-          <p className="py-3 text-lg font-light" itemProp="description">
-            {product.description}
-          </p>
-
-          <Button asChild size="lg">
-            <Link href="/">Order Now</Link>
-          </Button>
-
-          <Suspense fallback={<Skeleton className="h-32 w-full" />}>
-            <div className="prose dark:prose-invert py-6">
-              <h2 className="text-muted-foreground text-sm">Description:</h2>
-              <div itemProp="description">
-                <PortableText value={product.body!} />
+        <div className="grid gap-6 pb-12 md:grid-cols-5">
+          <Suspense
+            fallback={
+              <div className="md:col-span-3">
+                <Skeleton className="aspect-square w-full rounded-lg" />
               </div>
+            }
+          >
+            <div className="md:col-span-3">
+              <ImagePreview data={product.image} alt={product.title} />
             </div>
           </Suspense>
+
+          <div className="md:col-span-2 md:p-6">
+            <Link
+              href={`/products/${slug}`}
+              className="hidden items-center gap-1 text-sm md:flex"
+              aria-label={`Back to ${slug} products`}
+            >
+              <IconArrowLeft className="size-4" />
+              Back to Products
+            </Link>
+            <h1 className="text-4xl font-bold md:pt-4">{product.title}</h1>
+            <meta itemProp="name" content={product.title!} />
+            <p className="py-3 text-lg font-light" itemProp="description">
+              {product.description}
+            </p>
+
+            <Button asChild size="lg">
+              <Link href="/">Order Now</Link>
+            </Button>
+
+            <Suspense fallback={<Skeleton className="h-32 w-full" />}>
+              <div className="prose dark:prose-invert py-6">
+                <h2 className="text-muted-foreground text-sm">Description:</h2>
+                <div itemProp="description">
+                  <PortableText value={product.body!} />
+                </div>
+              </div>
+            </Suspense>
+          </div>
         </div>
       </article>
 
