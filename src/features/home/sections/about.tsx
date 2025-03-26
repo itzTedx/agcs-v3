@@ -9,13 +9,12 @@ import { Button } from "@/components/ui/button";
 export const About = () => {
   const services = [
     "Shopping Centers",
-    "Houses",
+
     "Restaurants",
     "Hotels",
-    "Exhibition Centers",
+
     "Complete Interior Fit-Out Services",
-    "Furniture",
-    "Kitchen Equipment",
+
     "Industrial Buildings",
     "Warehouses",
     "Coating & Insulation",
@@ -28,10 +27,9 @@ export const About = () => {
     "Portable Cabins",
     "Container Conversion",
     "Acoustics",
+    "Construction Specialty Materials",
+    "General Trading with Supply and Installation",
     "Structural and Sub-Structural Fabrication Works",
-    "General Trading with Supply and Installation of Equipment",
-    "Machinery",
-    "Specialty Construction Materials",
   ];
   return (
     <section
@@ -83,7 +81,7 @@ export const About = () => {
           </div>
           <div className="mt-9 flex items-center space-x-4">
             <Button
-              className="border-primary hover:text-primary-foreground text-primary rounded-md border bg-sky-50 text-sm font-medium tracking-wide shadow-[-4px_-2px_16px_0px_#ffffff,4px_2px_16px_0px_rgb(95_157_231_/_48%)] hover:bg-sky-100 hover:shadow-[-2px_-1px_8px_0px_#ffffff,2px_1px_8px_0px_rgb(95_157_231_/_48%)] active:shadow-none"
+              className="border-primary hover:text-primary-foreground text-primary rounded-md border bg-sky-50 text-sm font-medium tracking-wide no-underline shadow-[-4px_-2px_16px_0px_#ffffff,4px_2px_16px_0px_rgb(95_157_231_/_48%)] hover:bg-sky-100 hover:shadow-[-2px_-1px_8px_0px_#ffffff,2px_1px_8px_0px_rgb(95_157_231_/_48%)] active:shadow-none"
               asChild
             >
               <Link href="/company/about" className="w-fit">
@@ -107,8 +105,11 @@ export const About = () => {
               variant="ghost"
               size="lg"
               className="border-primary text-primary-foreground"
+              asChild
             >
-              Contact <IconArrowRight />
+              <Link href="/contact">
+                Contact <IconArrowRight />
+              </Link>
             </Button>
           </div>
         </article>

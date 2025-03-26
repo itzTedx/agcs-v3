@@ -1,113 +1,108 @@
-import type { MetadataRoute } from "next";
-
 import {
   getCategories,
+  getProductsBySlug,
   getServicesByCategory,
   getServicesCategories,
 } from "@/sanity/lib/fetch";
+import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://www.alliedgulf.me";
 
+const createSitemapEntry = (
+  path: string,
+  priority: number,
+  lastModified: string | Date,
+  changeFrequency: "yearly" | "monthly" | "weekly" = "monthly"
+) => ({
+  url: `${BASE_URL}${path}`,
+  priority,
+  lastModified,
+  changeFrequency,
+});
+
+const staticPages = [
+  createSitemapEntry("", 1, new Date(), "weekly"),
+  createSitemapEntry("/company/about", 0.7, new Date(), "yearly"),
+  createSitemapEntry("/company/gallery", 0.6, new Date(), "yearly"),
+  createSitemapEntry("/company/certifications", 0.5, new Date(), "yearly"),
+  createSitemapEntry("/services", 0.8, new Date(), "weekly"),
+  createSitemapEntry("/products", 0.8, new Date(), "monthly"),
+  createSitemapEntry("/projects", 0.8, new Date(), "monthly"),
+  createSitemapEntry("/contact", 0.7, new Date(), "monthly"),
+];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const servicesCategoriesQuery = await getServicesCategories();
-  const products = await getCategories();
+  try {
+    // Fetch all data in parallel
+    const [servicesCategoriesQuery, productsCategoriesQuery] = await Promise.all([
+      getServicesCategories(),
+      getCategories(),
+    ]);
 
-  const servicesCategoriesEntries: MetadataRoute.Sitemap =
-    servicesCategoriesQuery.map((s) => ({
-      url: `${BASE_URL}/services/${s.slug?.current}`,
-      priority: 0.8,
-      lastModified: s._createdAt,
-      changefreq: "weekly",
-    }));
+    // Process services data
+    const servicesCategoriesEntries = servicesCategoriesQuery.map((s) => 
+      createSitemapEntry(
+        `/services/${s.slug?.current}`,
+        0.8,
+        s._createdAt,
+        "weekly"
+      )
+    );
 
-  const servicesByCategoryEntries = (
-    await Promise.all(
-      servicesCategoriesQuery.map(async (s) => {
-        const services = await getServicesByCategory(s.slug?.current!);
-        return services.map((c) => ({
-          url: `${BASE_URL}/services/${s.slug?.current}/${c.servicesSlug?.current}`,
-          priority: 0.8,
-          lastModified: s._createdAt,
-        }));
-      })
-    )
-  ).flat();
+    // Fetch all services for each category in parallel
+    const servicesByCategoryEntries = (
+      await Promise.all(
+        servicesCategoriesQuery.map((s) =>
+          getServicesByCategory(s.slug?.current!).then((services) =>
+            services.map((c) =>
+              createSitemapEntry(
+                `/services/${s.slug?.current}/${c.servicesSlug?.current}`,
+                0.8,
+                s._createdAt
+              )
+            )
+          )
+        )
+      )
+    ).flat();
 
-  const productsCategoriesEntries: MetadataRoute.Sitemap = products.map(
-    (s) => ({
-      url: `${BASE_URL}/products/${s.slug?.current}`,
-      priority: 0.8,
-      lastModified: s._updatedAt,
-      changefreq: "weekly",
-    })
-  );
+    // Process products data
+    const productsCategoriesEntries = productsCategoriesQuery.map((s) =>
+      createSitemapEntry(
+        `/products/${s.slug?.current}`,
+        0.8,
+        s._updatedAt,
+        "weekly"
+      )
+    );
 
-  const productsByCategoryEntries = (
-    await Promise.all(
-      products.map(async (s) => {
-        const services = await getServicesByCategory(s.slug?.current!);
-        return services.map((c) => ({
-          url: `${BASE_URL}/services/${s.slug?.current}/${c.servicesSlug?.current}`,
-          priority: 0.8,
-          lastModified: s._updatedAt,
-        }));
-      })
-    )
-  ).flat();
+    // Fetch all products for each category in parallel
+    const productsByCategoryEntries = (
+      await Promise.all(
+        productsCategoriesQuery.map((s) =>
+          getProductsBySlug(s.slug?.current!).then((products) =>
+            products.map((c) =>
+              createSitemapEntry(
+                `/products/${s.slug?.current}/${c.slug?.current}`,
+                0.8,
+                s._updatedAt
+              )
+            )
+          )
+        )
+      )
+    ).flat();
 
-  return [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/company/about`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/company/gallery`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/company/certifications`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/services`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    ...servicesCategoriesEntries,
-    ...servicesByCategoryEntries,
-    {
-      url: `${BASE_URL}/products`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    ...productsCategoriesEntries,
-    ...productsByCategoryEntries,
-    {
-      url: `${BASE_URL}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-  ];
+    return [
+      ...staticPages,
+      ...servicesCategoriesEntries,
+      ...servicesByCategoryEntries,
+      ...productsCategoriesEntries,
+      ...productsByCategoryEntries,
+    ];
+  } catch (error) {
+    console.error("Error generating sitemap:", error);
+    // Return static pages if dynamic content fails
+    return staticPages;
+  }
 }
