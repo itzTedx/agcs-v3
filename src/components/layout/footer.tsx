@@ -43,7 +43,7 @@ export const Footer = () => {
         </div>
 
         <nav aria-label="Main website links">
-          <h6 className="mb-4 text-xl font-semibold">Site Navigation</h6>
+          <h6 className="mb-4 text-xl font-semibold">Quick Links</h6>
           <ul className="space-y-2">
             {NAVLINKS.filter((nav) => nav.title !== "Company").map((nav, i) => (
               <li key={`${nav.href}-${i}`}>
@@ -84,7 +84,11 @@ export const Footer = () => {
           </ul>
         </nav>
 
-        <div itemScope itemType="http://schema.org/Organization">
+        <div
+          itemScope
+          itemType="http://schema.org/Organization"
+          className="max-lg:col-span-full"
+        >
           <meta
             itemProp="name"
             content="Allied Gulf Construction Services W.L.L"
@@ -94,7 +98,7 @@ export const Footer = () => {
           <ul className="space-y-3">
             <li>
               <div
-                className="flex flex-col items-center justify-center space-x-2 md:flex-row lg:justify-start"
+                className="flex items-center space-x-2 lg:justify-start"
                 itemProp="address"
                 itemScope
                 itemType="http://schema.org/PostalAddress"
@@ -114,7 +118,7 @@ export const Footer = () => {
                 </Link>
               </div>
             </li>
-            <li className="flex flex-col items-center justify-center space-x-2 md:flex-row lg:justify-start">
+            <li className="flex items-center space-x-2 lg:justify-start">
               <IconPhone aria-hidden="true" />
               <div>
                 <Link
@@ -141,7 +145,7 @@ export const Footer = () => {
                 </Link>
               </div>
             </li>
-            <li className="flex flex-col items-center justify-center space-x-2 md:flex-row lg:justify-start">
+            <li className="flex items-center space-x-2 lg:justify-start">
               <IconMail aria-hidden="true" />
               <div>
                 <Link

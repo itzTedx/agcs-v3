@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Script from "next/script";
 import { memo } from "react";
 
 import {
@@ -64,13 +63,13 @@ const generateFAQSchema = (data: FAQSection[]) => {
 export const FAQs = memo(({ data }: { data: FAQSection[] }) => {
   return (
     <>
-      <Script
+      <script
         id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: generateFAQSchema(data) }}
       />
       <section className="container py-12" aria-labelledby="faq-title">
-        <div className="bg-primary relative rounded-lg p-9 md:p-12">
+        <div className="bg-primary relative rounded-lg p-9 lg:p-12">
           <h2 id="faq-title" className="text-3xl font-medium">
             Frequently Asked Questions
           </h2>
@@ -94,7 +93,7 @@ export const FAQs = memo(({ data }: { data: FAQSection[] }) => {
           />
         </div>
         <div
-          className="grid gap-4 md:grid-cols-2"
+          className="grid lg:grid-cols-2 lg:gap-4"
           role="region"
           aria-label="FAQ sections"
         >
