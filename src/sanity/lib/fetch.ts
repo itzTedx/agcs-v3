@@ -282,7 +282,6 @@ export async function getRecentlyViewedProducts(
   return data.sort((a: any, b: any) => ids.indexOf(a._id) - ids.indexOf(b._id));
 }
 
-
 export const getPosts = async (): Promise<POSTS_QUERYResult> => {
   const { data } = await sanityFetch({
     query: POSTS_QUERY,
@@ -291,7 +290,9 @@ export const getPosts = async (): Promise<POSTS_QUERYResult> => {
   return data;
 };
 
-export const getPostBySlug = async (slug: string): Promise<POST_QUERYResult> => {
+export const getPostBySlug = async (
+  slug: string
+): Promise<POST_QUERYResult> => {
   const { data } = await sanityFetch({
     query: POST_QUERY,
     params: { slug },

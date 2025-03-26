@@ -20,7 +20,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { contactSchema } from "./contact-schema";
 
 export function ContactForm() {
-  // 1. Define your form.
   const form = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -28,16 +27,13 @@ export function ContactForm() {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof contactSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
   }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
           <FormField
             control={form.control}
             name="name"
@@ -73,7 +69,7 @@ export function ContactForm() {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="col-span-2">
+              <FormItem className="md:col-span-2">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
@@ -90,7 +86,7 @@ export function ContactForm() {
             control={form.control}
             name="company"
             render={({ field }) => (
-              <FormItem className="col-span-2">
+              <FormItem className="md:col-span-2">
                 <FormLabel>Company</FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -104,7 +100,7 @@ export function ContactForm() {
           control={form.control}
           name="message"
           render={({ field }) => (
-            <FormItem className="col-span-2">
+            <FormItem className="md:col-span-2">
               <FormLabel>Message</FormLabel>
               <FormControl>
                 <Textarea

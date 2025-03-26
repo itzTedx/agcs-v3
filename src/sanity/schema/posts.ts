@@ -45,7 +45,7 @@ export default defineType({
       type: "text",
       group: "content",
     }),
-   
+
     defineField({
       name: "image",
       title: "Image",
@@ -90,7 +90,7 @@ export default defineType({
     defineField({
       name: "meta_keywords",
       title: "Meta Keywords",
-      description: 'Separate Keywords using comma',
+      description: "Separate Keywords using comma",
       type: "text",
       group: "seo",
     }),
@@ -112,9 +112,8 @@ export default defineType({
   preview: {
     select: {
       title: "title",
-    
+
       media: "image",
     },
-   
   },
 });

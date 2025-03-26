@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { IconArrowRight } from "@tabler/icons-react";
 
+import { AuroraText } from "@/components/animations/aurora-text";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -47,7 +48,9 @@ export const About = () => {
           />
         </div>
         <article className="prose dark:prose-invert">
-          <h2 className="text-3xl font-bold text-sky-700">About us</h2>
+          <h2 className="text-3xl font-bold text-sky-700">
+            <AuroraText>About us</AuroraText>
+          </h2>
           <p className="text-balance">
             <span className="font-bold">
               Allied Gulf Construction Services W.L.L,

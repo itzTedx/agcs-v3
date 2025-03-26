@@ -16,7 +16,6 @@ export function getCurrentTime(): string {
   return `${strHours}:${minutes} ${ampm}`;
 }
 
-
 export const formatDate = (date: string): string => {
   const dateObj = new Date(date);
   const options: Intl.DateTimeFormatOptions = {

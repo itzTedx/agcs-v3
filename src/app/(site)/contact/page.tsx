@@ -115,13 +115,13 @@ export default function ContactPage() {
           }
         `}
       </Script>
-      <main className="flex flex-col" role="main">
+      <div className="flex flex-col">
         <header
           role="banner"
           className="bg-navbar border-muted-foreground/15 relative border-b"
         >
           <FlickeringGrid
-            className="absolute inset-0 z-0 size-full opacity-25 [mask-image:radial-gradient(720px_circle_at_center,transparent,white)]"
+            className="absolute inset-0 z-0 size-full opacity-25 [mask-image:radial-gradient(14rem_circle_at_center,transparent,white)] md:[mask-image:radial-gradient(720px_circle_at_center,transparent,white)]"
             squareSize={4}
             gridGap={6}
             color="#0284c7"
@@ -182,7 +182,7 @@ export default function ContactPage() {
             </CardContent>
           </Card>
         </section>
-      </main>
+      </div>
     </>
   );
 }

@@ -41,7 +41,7 @@ export const Cta = () => {
         />
         <h4
           id="cta-heading"
-          className="max-w-[12em] pb-1 text-4xl font-bold md:max-w-[100%]"
+          className="max-w-[12em] pb-1 text-2xl font-bold md:max-w-[100%] md:text-4xl"
           itemProp="name"
         >
           Have any Questions on Mind?

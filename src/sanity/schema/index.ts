@@ -13,8 +13,8 @@ import servicesCategory from "./services-category";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
-     // shared objects
-     blockContent,
+    // shared objects
+    blockContent,
     // documents
     services,
     servicesCategory,
@@ -24,6 +24,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     projects,
     projectsCarousel,
     gallery,
-    posts
+    posts,
   ],
 };

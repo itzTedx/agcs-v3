@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { memo } from "react";
 
 import { IconLocation, IconMail, IconPhone } from "@tabler/icons-react";
 
@@ -6,6 +7,153 @@ import { NAVLINKS } from "@/data/navbar";
 
 import { SocialLinks } from "../global/social-links";
 import { Button } from "../ui/button";
+
+const ContactInfo = memo(() => (
+  <div
+    itemScope
+    itemType="http://schema.org/Organization"
+    className="max-lg:col-span-full"
+  >
+    <meta itemProp="name" content="Allied Gulf Construction Services W.L.L" />
+    <meta itemProp="url" content="https://alliedgulf.me" />
+    <h6 className="mb-4 text-xl font-semibold">Contact</h6>
+    <ul className="space-y-3">
+      <li>
+        <div
+          className="flex items-center space-x-2 lg:justify-start"
+          itemProp="address"
+          itemScope
+          itemType="http://schema.org/PostalAddress"
+        >
+          <IconLocation aria-hidden="true" />
+          <Link
+            href="https://goo.gl/maps/djSrXwAjCSwqGefi7"
+            passHref
+            className="cursor-pointer text-left transition duration-300 hover:text-sky-500"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit our office location in Manama, Kingdom of Bahrain on Google Maps"
+          >
+            <span itemProp="postOfficeBoxNumber">P.O. Box: 21341</span>,{" "}
+            <span itemProp="addressLocality">Manama</span>, <br />
+            <span itemProp="addressCountry">Kingdom Of Bahrain</span>
+          </Link>
+        </div>
+      </li>
+      <li className="flex items-center space-x-2 lg:justify-start">
+        <IconPhone aria-hidden="true" />
+        <div itemScope itemType="http://schema.org/ContactPoint">
+          <meta itemProp="contactType" content="customer service" />
+          <Link
+            href="tel:+97317791317"
+            className="cursor-pointer transition duration-300 hover:text-sky-500"
+            itemProp="telephone"
+            aria-label="Call our main office at +973 1779 1317"
+          >
+            +973 - 1779 1317
+          </Link>
+          <br />
+          <Link
+            href="tel:+97338184631"
+            className="cursor-pointer transition duration-300 hover:text-sky-500"
+            itemProp="telephone"
+            aria-label="Call our mobile number at +973 3818 4631"
+          >
+            +973 - 3818 4631
+          </Link>
+          <br />
+          <Link
+            href="tel:+97334685656"
+            className="cursor-pointer transition duration-300 hover:text-sky-500"
+            itemProp="telephone"
+            aria-label="Call our alternative number at +973 3468 5656"
+          >
+            +973 - 3468 5656
+          </Link>
+        </div>
+      </li>
+      <li className="flex items-center space-x-2 lg:justify-start">
+        <IconMail aria-hidden="true" />
+        <div>
+          <Link
+            href="mailto:trade@alliedgulf.me"
+            className="cursor-pointer transition duration-300 hover:text-sky-500"
+            itemProp="email"
+            aria-label="Send email to our trade department"
+          >
+            trade@alliedgulf.me
+          </Link>
+          <br />
+          <Link
+            href="mailto:sales@alliedgulf.me"
+            className="cursor-pointer transition duration-300 hover:text-sky-500"
+            itemProp="email"
+            aria-label="Send email to our sales department"
+          >
+            sales@alliedgulf.me
+          </Link>
+        </div>
+      </li>
+    </ul>
+  </div>
+));
+ContactInfo.displayName = "ContactInfo";
+
+const QuickLinks = memo(() => (
+  <nav aria-label="Main website links">
+    <h6 className="mb-4 text-xl font-semibold">Quick Links</h6>
+    <ul className="space-y-2">
+      {NAVLINKS.filter((nav) => nav.title !== "Company").map((nav, i) => (
+        <li key={`${nav.href}-${i}`}>
+          <Link
+            href={nav.href}
+            className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+          >
+            {nav.title}
+          </Link>
+        </li>
+      ))}
+      <li>
+        <Link
+          href="/posts"
+          className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+        >
+          Blogs
+        </Link>
+      </li>
+    </ul>
+  </nav>
+));
+QuickLinks.displayName = "QuickLinks";
+
+const CompanyLinks = memo(() => (
+  <nav aria-label="Company information links">
+    <h6 className="mb-4 text-xl font-semibold">Company</h6>
+    <ul className="space-y-2">
+      {NAVLINKS.map((nav) =>
+        nav.submenus?.map((sub) => (
+          <li key={sub.href}>
+            <Link
+              href={sub.href}
+              className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+            >
+              {sub.title}
+            </Link>
+          </li>
+        ))
+      )}
+      <li>
+        <Link
+          href="/company/faqs"
+          className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+        >
+          FAQs
+        </Link>
+      </li>
+    </ul>
+  </nav>
+));
+CompanyLinks.displayName = "CompanyLinks";
 
 export const Footer = () => {
   const year = new Date().getFullYear();
@@ -42,139 +190,9 @@ export const Footer = () => {
           </section>
         </div>
 
-        <nav aria-label="Main website links">
-          <h6 className="mb-4 text-xl font-semibold">Quick Links</h6>
-          <ul className="space-y-2">
-            {NAVLINKS.filter((nav) => nav.title !== "Company").map((nav, i) => (
-              <li key={`${nav.href}-${i}`}>
-                <Link
-                  href={nav.href}
-                  className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
-                >
-                  {nav.title}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                href="/posts"
-                className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
-              >
-                Blogs
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <nav aria-label="Company information links">
-          <h6 className="mb-4 text-xl font-semibold">Company</h6>
-          <ul className="space-y-2">
-            {NAVLINKS.map((nav) =>
-              nav.submenus?.map((sub) => (
-                <li key={sub.href}>
-                  <Link
-                    href={sub.href}
-                    className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
-                  >
-                    {sub.title}
-                  </Link>
-                </li>
-              ))
-            )}
-            <li>
-              <Link
-                href="/company/faqs"
-                className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
-              >
-                FAQs
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div
-          itemScope
-          itemType="http://schema.org/Organization"
-          className="max-lg:col-span-full"
-        >
-          <meta
-            itemProp="name"
-            content="Allied Gulf Construction Services W.L.L"
-          />
-          <h6 className="mb-4 text-xl font-semibold">Contact</h6>
-
-          <ul className="space-y-3">
-            <li>
-              <div
-                className="flex items-center space-x-2 lg:justify-start"
-                itemProp="address"
-                itemScope
-                itemType="http://schema.org/PostalAddress"
-              >
-                <IconLocation aria-hidden="true" />
-                <Link
-                  href="https://goo.gl/maps/djSrXwAjCSwqGefi7"
-                  passHref
-                  className="cursor-pointer text-left transition duration-300 hover:text-sky-500"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Visit our location on Google Maps"
-                >
-                  <span itemProp="postOfficeBoxNumber">P.O. Box: 21341</span>,{" "}
-                  <span itemProp="addressLocality">Manama</span>, <br />
-                  <span itemProp="addressCountry">Kingdom Of Bahrain</span>
-                </Link>
-              </div>
-            </li>
-            <li className="flex items-center space-x-2 lg:justify-start">
-              <IconPhone aria-hidden="true" />
-              <div>
-                <Link
-                  href="tel:+97317791317"
-                  className="cursor-pointer transition duration-300 hover:text-sky-500"
-                  itemProp="telephone"
-                  aria-label="Call our main office"
-                >
-                  +973 - 1779 1317
-                </Link>
-                <br />
-                <Link
-                  href="tel:+97338184631"
-                  className="cursor-pointer transition duration-300 hover:text-sky-500"
-                >
-                  +973 - 3818 4631
-                </Link>
-                <br />
-                <Link
-                  href="tel:+97334685656"
-                  className="cursor-pointer transition duration-300 hover:text-sky-500"
-                >
-                  +973 - 3468 5656
-                </Link>
-              </div>
-            </li>
-            <li className="flex items-center space-x-2 lg:justify-start">
-              <IconMail aria-hidden="true" />
-              <div>
-                <Link
-                  href="mailto:trade@alliedgulf.me"
-                  className="cursor-pointer transition duration-300 hover:text-sky-500"
-                  itemProp="email"
-                  aria-label="Email our trade department"
-                >
-                  trade@alliedgulf.me
-                </Link>
-                <br />
-                <Link
-                  href="mailto:sales@alliedgulf.me"
-                  className="cursor-pointer transition duration-300 hover:text-sky-500"
-                >
-                  sales@alliedgulf.me
-                </Link>
-              </div>
-            </li>
-          </ul>
-        </div>
+        <QuickLinks />
+        <CompanyLinks />
+        <ContactInfo />
 
         <div className="col-span-full mt-8 flex flex-wrap items-center justify-between gap-4">
           <p className="text-sm">
