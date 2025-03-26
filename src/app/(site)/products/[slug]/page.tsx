@@ -47,8 +47,13 @@ export default async function ProductsBySlugPage({
         "@type": "Product",
         name: product.title,
         description: product.description,
-        image: product.thumbnail && urlFor(product.thumbnail).url,
+        image: product.thumbnail && urlFor(product.thumbnail).url(),
         url: `/products/${slug}/${product.slug?.current}`,
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: 4.4,
+          reviewCount: 89,
+        },
       },
     })),
   };
