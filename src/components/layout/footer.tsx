@@ -55,6 +55,14 @@ export const Footer = () => {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/posts"
+                className="rounded-sm transition-colors hover:text-sky-200 focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:outline-none"
+              >
+                Blogs
+              </Link>
+            </li>
           </ul>
         </nav>
 

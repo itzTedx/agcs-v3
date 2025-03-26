@@ -9,6 +9,7 @@ import {
   HOME_PRODUCTS_QUERYResult,
   HOME_PROJECTS_QUERYResult,
   HOME_SERVICES_QUERYResult,
+  POSTS_QUERYResult,
   PRODUCTS_BY_CATEGORY_QUERYResult,
   PRODUCTS_CATEGORIES_QUERYResult,
   PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult,
@@ -23,6 +24,7 @@ import {
 } from "../../../sanity.types";
 import { CERTIFICASTES_QUERY } from "../queries/certifications";
 import { GALLERY_QUERY } from "../queries/gallery";
+import { POSTS_QUERY } from "../queries/posts";
 import {
   HOME_PRODUCTS_QUERY,
   PRODUCTS_BY_CATEGORY_QUERY,
@@ -278,3 +280,12 @@ export async function getRecentlyViewedProducts(
 
   return data.sort((a: any, b: any) => ids.indexOf(a._id) - ids.indexOf(b._id));
 }
+
+
+export const getPosts = async (): Promise<POSTS_QUERYResult> => {
+  const { data } = await sanityFetch({
+    query: POSTS_QUERY,
+  });
+
+  return data;
+};

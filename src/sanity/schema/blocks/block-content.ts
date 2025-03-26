@@ -1,4 +1,3 @@
-import { SquarePlay } from "lucide-react";
 import { defineArrayMember, defineType } from "sanity";
 
 export default defineType({
@@ -58,50 +57,6 @@ export default defineType({
         },
       ],
     }),
-    defineArrayMember({
-      name: "youtube",
-      type: "object",
-      title: "YouTube",
-      icon: SquarePlay,
-      fields: [
-        {
-          name: "videoId",
-          title: "Video ID",
-          type: "string",
-          description: "YouTube Video ID",
-        },
-      ],
-      preview: {
-        select: {
-          title: "videoId",
-        },
-      },
-    }),
-    defineArrayMember({
-      name: "code",
-      type: "code",
-      options: {
-        withFilename: true,
-        language: "typescript",
-        languageAlternatives: [
-          { title: "TypeScript", value: "typescript" },
-          { title: "JavaScript", value: "javascript" },
-          { title: "JSX", value: "jsx" },
-          { title: "TSX", value: "tsx" },
-          { title: "HTML", value: "html" },
-          { title: "CSS", value: "css" },
-          { title: "SCSS", value: "scss" },
-          { title: "JSON", value: "json" },
-          { title: "Python", value: "python" },
-          { title: "PHP", value: "php" },
-          { title: "Ruby", value: "ruby" },
-          { title: "Shell", value: "shell" },
-          { title: "Markdown", value: "markdown" },
-          { title: "YAML", value: "yaml" },
-          { title: "GraphQL", value: "graphql" },
-          { title: "SQL", value: "sql" },
-        ],
-      },
-    }),
+    
   ],
 });

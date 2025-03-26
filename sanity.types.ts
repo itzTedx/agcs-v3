@@ -49,6 +49,84 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Posts = {
+  _id: string;
+  _type: "posts";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  excerpt?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "servicesCategory";
+  }>;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  meta_title?: string;
+  meta_description?: string;
+  meta_keywords?: string;
+  noindex?: boolean;
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type Gallery = {
   _id: string;
   _type: "gallery";
@@ -358,6 +436,40 @@ export type SanityFileAsset = {
   source?: SanityAssetSourceData;
 };
 
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }
+>;
+
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
   top?: number;
@@ -435,6 +547,7 @@ export type AllSanitySchemaTypes =
   | SanityImagePalette
   | SanityImageDimensions
   | Geopoint
+  | Posts
   | Gallery
   | ProjectsCarousel
   | Projects
@@ -444,6 +557,7 @@ export type AllSanitySchemaTypes =
   | Services
   | ServicesCategory
   | SanityFileAsset
+  | BlockContent
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
@@ -491,6 +605,11 @@ export type GALLERY_QUERYResult = Array<{
   } | null;
   title: string | null;
 }>;
+
+// Source: ./src/sanity/queries/posts.ts
+// Variable: POSTS_QUERY
+// Query: *[_type == "post" && defined(slug)] | order(_createdAt desc){    title,    slug,    excerpt,    image{      asset->{        _id,        url,        mimeType,        metadata {          lqip,          dimensions {            width,            height          }        }      },      alt    },}
+export type POSTS_QUERYResult = Array<never>;
 
 // Source: ./src/sanity/queries/products.ts
 // Variable: HOME_PRODUCTS_QUERY
@@ -563,7 +682,7 @@ export type PRODUCT_QUERYResult = {
   }> | null;
 } | null;
 // Variable: PRODUCTS_CATEGORIES_QUERY
-// Query: *[_type == "productsCategory"]{    _id,    slug,    image,    description,    category,    _updatedAt  }
+// Query: *[_type == "productsCategory"]{    _id,    slug,    image,    description,    category,    _updatedAt,  }
 export type PRODUCTS_CATEGORIES_QUERYResult = Array<{
   _id: string;
   slug: Slug | null;
@@ -756,7 +875,7 @@ export type PROJECTS_CAROUSEL_QUERYResult = Array<{
 
 // Source: ./src/sanity/queries/services.ts
 // Variable: HOME_SERVICES_QUERY
-// Query: *[_type == "servicesCategory"] | order(orderRank)[0..8] {    _id,    image,    category,    description,    file,    slug,    thumbnail,    _createdAt  }
+// Query: *[_type == "servicesCategory"] | order(orderRank)[0..8] {    _id,    image,    category,    description,    file,    slug,    thumbnail,    _updatedAt  }
 export type HOME_SERVICES_QUERYResult = Array<{
   _id: string;
   image: {
@@ -783,10 +902,10 @@ export type HOME_SERVICES_QUERYResult = Array<{
   } | null;
   slug: Slug | null;
   thumbnail: null;
-  _createdAt: string;
+  _updatedAt: string;
 }>;
 // Variable: SERVICES_CATEOGORIES_QUERY
-// Query: *[_type == "servicesCategory"] | order(orderRank) {    _id,    image,    category,    description,    file,    slug,    thumbnail,    _createdAt  }
+// Query: *[_type == "servicesCategory"] | order(orderRank) {    _id,    image,    category,    description,    file,    slug,    thumbnail,    _updatedAt  }
 export type SERVICES_CATEOGORIES_QUERYResult = Array<{
   _id: string;
   image: {
@@ -813,7 +932,7 @@ export type SERVICES_CATEOGORIES_QUERYResult = Array<{
   } | null;
   slug: Slug | null;
   thumbnail: null;
-  _createdAt: string;
+  _updatedAt: string;
 }>;
 // Variable: SERVICES_BY_CATEOGORY_QUERY
 // Query: *[_type == "services" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){    _id,    servicesTitle,    servicesDescription,    category,    servicesImage,    file,    servicesSlug,    metaTagTitle,    metaTagKeyword,    thumbnail  }
@@ -926,9 +1045,10 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "certifications"] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    "certificate": certificate.asset->url,\n  }': CERTIFICASTES_QUERYResult;
     '*[_type == "gallery"] |  order(orderRank)  {\n    _id,\n    image,\n    title\n  }': GALLERY_QUERYResult;
+    '*[_type == "post" && defined(slug)] | order(_createdAt desc){\n    title,\n    slug,\n    excerpt,\n    image{\n      asset->{\n        _id,\n        url,\n        mimeType,\n        metadata {\n          lqip,\n          dimensions {\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n}': POSTS_QUERYResult;
     '*[_type == "productsCategory"] | order(_createdAt asc)[0..8] {\n    _id,\n    image,\n    category,\n    slug,\n  }': HOME_PRODUCTS_QUERYResult;
     '*[_type == "products" && slug.current == $slug][0] {\n    _id,\n    title,\n    description,\n    image,\n    slug,\n    metaTagTitle,\n    metaTagKeywords,\n    thumbnail,\n    body\n  }': PRODUCT_QUERYResult;
-    '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n    _updatedAt\n  }': PRODUCTS_CATEGORIES_QUERYResult;
+    '*[_type == "productsCategory"]{\n    _id,\n    slug,\n    image,\n    description,\n    category,\n    _updatedAt,\n  }': PRODUCTS_CATEGORIES_QUERYResult;
     "*[_type == \"products\" && category._ref in *[_type=='productsCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    title,\n    slug,\n    thumbnail,\n    description\n}": PRODUCTS_BY_CATEGORY_QUERYResult;
     '*[_type == "productsCategory" && slug.current == $slug][0]{\n    _id,\n    category,\n    description,\n    "brochure": file.asset->url,\n  }': PRODUCTS_CATEGORY_BY_CATEGORY_QUERYResult;
     '*[_type == "products" && _id in $ids]': RECENTLY_VIEWED_PRODUCTS_QUERYResult;
@@ -936,8 +1056,8 @@ declare module "@sanity/client" {
     '*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': FEATURED_PROJECTS_QUERYResult;
     '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;
     '*[_type == "projectsCarousel"] | order(orderRank) {\n    _id,\n    image,\n    title,\n  }': PROJECTS_CAROUSEL_QUERYResult;
-    '*[_type == "servicesCategory"] | order(orderRank)[0..8] {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _createdAt\n  }': HOME_SERVICES_QUERYResult;
-    '*[_type == "servicesCategory"] | order(orderRank) {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _createdAt\n  }': SERVICES_CATEOGORIES_QUERYResult;
+    '*[_type == "servicesCategory"] | order(orderRank)[0..8] {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _updatedAt\n  }': HOME_SERVICES_QUERYResult;
+    '*[_type == "servicesCategory"] | order(orderRank) {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _updatedAt\n  }': SERVICES_CATEOGORIES_QUERYResult;
     "*[_type == \"services\" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail\n  }": SERVICES_BY_CATEOGORY_QUERYResult;
     '*[_type == "servicesCategory" && slug.current == $slug][0]{\n     _id,\n    category,\n    description,\n    slug,\n  }': SERVICES_CATEGORY_BY_CATEGORY_QUERYResult;
     '*[_type == "services" && servicesSlug.current == $slug][0] {\n   _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail,\n    relatedProducts[]->{\n        _id,\n        title,\n        slug,\n        thumbnail,\n      }\n    }': SERVICE_QUERYResult;

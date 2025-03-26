@@ -91,4 +91,15 @@ export const structure: StructureResolver = (S, context) =>
         S,
         context,
       }),
+      S.divider(),
+      S.listItem()
+      .title("Posts")
+      .schemaType("posts")
+      .child(
+        S.documentTypeList("posts")
+          .title("Post")
+          .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
+      ),
     ]);
+
+
