@@ -283,11 +283,16 @@ export async function getRecentlyViewedProducts(
 }
 
 export const getPosts = async (): Promise<POSTS_QUERYResult> => {
-  const { data } = await sanityFetch({
-    query: POSTS_QUERY,
-  });
-
-  return data;
+  return unstable_cache(
+    async () => {
+      const { data } = await sanityFetch({
+        query: POSTS_QUERY,
+      });
+      return data;
+    },
+    ["posts"],
+    cacheOptions
+  )();
 };
 
 export const getPostBySlug = async (
