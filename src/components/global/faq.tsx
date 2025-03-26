@@ -15,16 +15,10 @@ const FAQItem = memo(
   ({ question, answer }: { question: string; answer: string }) => (
     <AccordionItem value={question}>
       <AccordionTrigger className="font-normal md:text-lg">
-        <span itemProp="name">{question}</span>
+        {question}
       </AccordionTrigger>
       <AccordionContent className="font-normal md:text-base">
-        <div
-          itemProp="acceptedAnswer"
-          itemScope
-          itemType="https://schema.org/Answer"
-        >
-          <div itemProp="text">{answer}</div>
-        </div>
+        {answer}
       </AccordionContent>
     </AccordionItem>
   ),
@@ -79,12 +73,7 @@ export const FAQs = memo(
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: faqSchema }}
         />
-        <section
-          className="container py-12"
-          aria-labelledby="faq-title"
-          itemScope
-          itemType="https://schema.org/FAQPage"
-        >
+        <section className="container py-12" aria-labelledby="faq-title">
           <div className="bg-primary relative rounded-lg p-9 lg:p-12">
             <h2 id="faq-title" className="text-xl font-medium md:text-3xl">
               Frequently Asked Questions
