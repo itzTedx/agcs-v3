@@ -11,6 +11,7 @@ interface PRODUCTS_TYPES {
   _id: string;
   title: string | null;
   thumbnail: string;
+  category: string;
   slug?: {
     current: string;
   };
@@ -23,6 +24,7 @@ export const RelatedProducts = ({
   products: PRODUCTS_TYPES[];
   category: string;
 }) => {
+  console.log(products);
   if (products.length > 4)
     return (
       <Carousel className="w-full">
@@ -48,7 +50,7 @@ export const RelatedProducts = ({
     );
 
   return (
-    <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+    <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
       {products.map((product) => (
         <Card
           key={product._id}
@@ -56,7 +58,7 @@ export const RelatedProducts = ({
           title={product.title}
           alt={product.title}
           image={product.thumbnail}
-          link={`/products/${category}/${product.slug?.current}`}
+          link={`/products/${product.category}/${product.slug?.current}`}
         />
       ))}
     </div>

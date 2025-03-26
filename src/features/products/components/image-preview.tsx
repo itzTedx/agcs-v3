@@ -174,6 +174,10 @@ export const ImagePreview = ({
       <Carousel
         setApi={setMainApi}
         className="shrink-0 grow"
+        opts={{
+          align: "start",
+          loop: true,
+        }}
         plugins={[
           Autoplay({
             delay: autoplayDelay || 3000,

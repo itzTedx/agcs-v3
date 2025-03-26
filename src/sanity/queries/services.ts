@@ -58,5 +58,8 @@ export const SERVICE_QUERY = groq`*[_type == "services" && servicesSlug.current 
         title,
         slug,
         thumbnail,
+        category->{
+          slug
+        }
       }
     }`;

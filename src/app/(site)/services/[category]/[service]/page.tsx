@@ -53,11 +53,6 @@ export default async function ServicePage({
     category: categoryQuery,
   };
 
-  const text = {
-    title: "Services we providing",
-    subtext: "in Middle East",
-  };
-
   return (
     <div>
       <script
@@ -120,6 +115,7 @@ export default async function ServicePage({
             category={categoryQuery}
             products={service.relatedProducts.map((product) => ({
               ...product,
+              category: product.category?.slug?.current || "",
               thumbnail: product.thumbnail?.asset?._ref || "",
               slug: product.slug
                 ? { current: product.slug.current || "" }

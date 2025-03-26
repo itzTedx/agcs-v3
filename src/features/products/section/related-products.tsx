@@ -10,6 +10,11 @@ import { getProductsBySlug } from "@/sanity/lib/fetch";
 
 export async function RelatedProducts({ slug }: { slug: string }) {
   const relatedProducts = await getProductsBySlug(slug);
+
+  console.log("Related: ", relatedProducts);
+  console.log("Slug: ", slug);
+
+  if (!relatedProducts) return null;
   return (
     <section className="container py-12">
       <h2 className="pb-3 text-2xl text-sky-800">Products related to this</h2>
