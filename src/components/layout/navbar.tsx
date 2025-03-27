@@ -3,7 +3,13 @@ import Link from "next/link";
 import React from "react";
 
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { IconMenu3, IconStar } from "@tabler/icons-react";
+import {
+  IconArticle,
+  IconBubbleText,
+  IconMenu3,
+  IconPhone,
+  IconStar,
+} from "@tabler/icons-react";
 
 import { Logo } from "@/assets/logo";
 import {
@@ -30,8 +36,13 @@ import { cn } from "@/lib/utils";
 import { getCategories, getServicesCategories } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
+import {
+  PRODUCTS_CATEGORIES_QUERYResult,
+  SERVICES_CATEOGORIES_QUERYResult,
+} from "../../../sanity.types";
 import { ThemeToggle } from "../theme-toggle";
 import { Button } from "../ui/button";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface LogoTextProps {
   className?: string;
@@ -51,76 +62,30 @@ export const LogoText = React.memo(({ className }: LogoTextProps) => (
 
 LogoText.displayName = "LogoText";
 
-export async function Navbar() {
-  const filteredNavLinks = React.useMemo(
-    () => NAVLINKS.filter((nav) => nav.title !== "Contact"),
-    []
-  );
+const filteredNavLinks = NAVLINKS.filter((nav) => nav.title !== "Contact");
 
-  const [services, products] = await Promise.all([
-    getServicesCategories(),
-    getCategories(),
-  ]);
+const MobileNav = React.memo(
+  ({
+    services,
+    products,
+  }: {
+    services: SERVICES_CATEOGORIES_QUERYResult;
+    products: PRODUCTS_CATEGORIES_QUERYResult;
+  }) => {
+    return (
+      <NavigationMenuList className="flex-col items-start gap-2">
+        {filteredNavLinks.map(({ Icon, ...nav }, i) =>
+          nav.submenus ? (
+            <div key={`${nav.href}-${i}`} className="w-full py-2">
+              <p className="text-muted-foreground/80 px-6 pb-2 text-xs font-light">
+                {nav.title}
+              </p>
 
-  return (
-    <NavigationMenu className="bg-navbar/80 sticky top-0 z-50 w-full max-w-full items-center border-b shadow-2xs backdrop-blur-lg">
-      <div className="container flex w-full max-w-7xl items-center gap-4 py-2 md:justify-between">
-        <Drawer>
-          <DrawerTrigger className="sm:hidden" aria-label="Open menu">
-            <IconMenu3 className="size-4" />
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader className="flex-row items-center gap-3">
-              <Logo className="h-16 w-auto shrink-0" aria-hidden="true" />
-              <div>
-                <DrawerTitle>
-                  <LogoText />
-                </DrawerTitle>
-                <DrawerDescription className="text-xs font-light">
-                  For top construction solutions and materials, count on us!
-                  We&apos;ve got what you need.
-                </DrawerDescription>
-              </div>
-            </DrawerHeader>
-
-            <NavigationMenuList className="flex-col items-start gap-2">
-              {filteredNavLinks.map((nav, i) =>
-                nav.submenus ? (
-                  <div key={`${nav.href}-${i}`} className="w-full py-2">
-                    <p className="text-muted-foreground/80 px-6 pb-2 text-xs font-light">
-                      {nav.title}
-                    </p>
-
-                    <ul className="ml-1 w-full space-y-2">
-                      {nav.submenus.map((sub, index) => (
-                        <NavigationMenuItem
-                          className="w-full"
-                          key={`${sub.href}-${index}-menu-sub`}
-                        >
-                          <DrawerClose asChild>
-                            <NavigationMenuLink
-                              className={cn(
-                                navigationMenuTriggerStyle(),
-                                "px-6"
-                              )}
-                              asChild
-                            >
-                              <Link
-                                href={sub.href}
-                                className="px-6 max-sm:!w-full max-sm:items-start"
-                              >
-                                {sub.title}
-                              </Link>
-                            </NavigationMenuLink>
-                          </DrawerClose>
-                        </NavigationMenuItem>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
+              <ul className="ml-1 w-full space-y-2">
+                {nav.submenus.map(({ Icon, ...sub }, index) => (
                   <NavigationMenuItem
                     className="w-full"
-                    key={`${nav.href}-${i}-menu`}
+                    key={`${sub.href}-${index}-menu-sub`}
                   >
                     <DrawerClose asChild>
                       <NavigationMenuLink
@@ -128,22 +93,191 @@ export async function Navbar() {
                         asChild
                       >
                         <Link
-                          href={nav.href}
-                          className="px-6 max-sm:!w-full max-sm:items-start"
+                          href={sub.href}
+                          className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
                         >
-                          {nav.title}
+                          {Icon && (
+                            <Icon className="text-muted-foreground/80 mr-2 size-4 shrink-0 stroke-1" />
+                          )}
+                          {sub.title}
                         </Link>
                       </NavigationMenuLink>
                     </DrawerClose>
                   </NavigationMenuItem>
-                )
-              )}
-            </NavigationMenuList>
+                ))}
+              </ul>
+            </div>
+          ) : nav.title === "Services" ? (
+            <div key={`${nav.href}-${i}`} className="w-full py-2">
+              <p className="text-muted-foreground/80 px-6 pb-2 text-xs font-light">
+                {nav.title}
+              </p>
+
+              <ul className="ml-1 w-full space-y-2">
+                {services.map((sub, index) => (
+                  <NavigationMenuItem
+                    className="w-full"
+                    key={`${sub.slug?.current}-${index}-menu-sub`}
+                  >
+                    <DrawerClose asChild>
+                      <NavigationMenuLink
+                        className={cn(navigationMenuTriggerStyle(), "px-6")}
+                        asChild
+                      >
+                        <Link
+                          href={sub.slug?.current!}
+                          className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
+                        >
+                          {Icon && (
+                            <Icon className="text-muted-foreground/80 mr-2 size-4 shrink-0 stroke-1" />
+                          )}
+                          {sub.category}
+                        </Link>
+                      </NavigationMenuLink>
+                    </DrawerClose>
+                  </NavigationMenuItem>
+                ))}
+              </ul>
+            </div>
+          ) : nav.title === "Products" ? (
+            <div key={`${nav.href}-${i}`} className="w-full py-2">
+              <p className="text-muted-foreground/80 px-6 pb-2 text-xs font-light">
+                {nav.title}
+              </p>
+
+              <ul className="ml-1 w-full space-y-2">
+                {products.map((sub, index) => (
+                  <NavigationMenuItem
+                    className="w-full"
+                    key={`${sub.slug?.current}-${index}-menu-sub`}
+                  >
+                    <DrawerClose asChild>
+                      <NavigationMenuLink
+                        className={cn(navigationMenuTriggerStyle(), "px-6")}
+                        asChild
+                      >
+                        <Link
+                          href={sub.slug?.current!}
+                          className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
+                        >
+                          {Icon && (
+                            <Icon className="text-muted-foreground/80 mr-2 size-4 shrink-0 stroke-1" />
+                          )}
+                          {sub.category}
+                        </Link>
+                      </NavigationMenuLink>
+                    </DrawerClose>
+                  </NavigationMenuItem>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <NavigationMenuItem
+              className="w-full"
+              key={`${nav.href}-${i}-menu`}
+            >
+              <DrawerClose asChild>
+                <NavigationMenuLink
+                  className={cn(navigationMenuTriggerStyle(), "px-6")}
+                  asChild
+                >
+                  <Link
+                    href={nav.href}
+                    className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
+                  >
+                    {Icon && (
+                      <Icon className="text-muted-foreground/80 mr-2 size-4 shrink-0 stroke-1" />
+                    )}
+                    {nav.title}
+                  </Link>
+                </NavigationMenuLink>
+              </DrawerClose>
+            </NavigationMenuItem>
+          )
+        )}
+        <NavigationMenuItem className="w-full">
+          <DrawerClose asChild>
+            <NavigationMenuLink
+              className={cn(navigationMenuTriggerStyle(), "px-6")}
+              asChild
+            >
+              <Link
+                href={"/posts"}
+                className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
+              >
+                <IconArticle className="text-muted-foreground/80 mr-2 size-4 shrink-0 stroke-1" />
+                Blog
+              </Link>
+            </NavigationMenuLink>
+          </DrawerClose>
+        </NavigationMenuItem>
+        <NavigationMenuItem className="w-full">
+          <DrawerClose asChild>
+            <NavigationMenuLink
+              className={cn(navigationMenuTriggerStyle(), "px-6")}
+              asChild
+            >
+              <Link
+                href={"/faqs"}
+                className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
+              >
+                <IconBubbleText className="text-muted-foreground/80 mr-2 size-4 shrink-0 stroke-1" />
+                FAQs
+              </Link>
+            </NavigationMenuLink>
+          </DrawerClose>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    );
+  }
+);
+MobileNav.displayName = "MobileNav";
+
+export async function Navbar() {
+  const [services, products] = await Promise.all([
+    getServicesCategories(),
+    getCategories(),
+  ]);
+
+  return (
+    <NavigationMenu
+      className="bg-navbar/80 sticky top-0 z-50 w-full max-w-full items-center border-b shadow-2xs backdrop-blur-lg"
+      aria-label="Main navigation"
+    >
+      <div className="container flex w-full max-w-7xl items-center gap-4 py-2 md:justify-between">
+        <Drawer>
+          <DrawerTrigger className="sm:hidden" aria-label="Open menu">
+            <IconMenu3 className="size-4" />
+          </DrawerTrigger>
+          <DrawerContent className="bg-card/75 max-h-[80svh] backdrop-blur-xl">
+            <DrawerHeader className="flex-row items-center gap-3">
+              <Logo
+                className="h-12 w-auto shrink-0 md:h-16"
+                aria-hidden="true"
+              />
+              <div>
+                <DrawerTitle>
+                  <LogoText />
+                </DrawerTitle>
+                <DrawerDescription className="text-xs font-light text-balance">
+                  For top construction solutions and materials, count on us!
+                  We&apos;ve got what you need.
+                </DrawerDescription>
+              </div>
+              <ThemeToggle />
+            </DrawerHeader>
+
+            <ScrollArea className="h-[60svh]">
+              <MobileNav services={services} products={products} />
+            </ScrollArea>
 
             <DrawerFooter>
               <DrawerClose asChild>
                 <Button asChild>
-                  <Link href="/contact">Contact</Link>
+                  <Link href="/contact">
+                    <IconPhone />
+                    Contact
+                  </Link>
                 </Button>
               </DrawerClose>
             </DrawerFooter>
@@ -291,8 +425,9 @@ export async function Navbar() {
 }
 
 interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
-  image?: SanityImageSource | null; // Replace `any` with the appropriate type for `image` if known
+  image?: SanityImageSource | null;
   title: string;
+  children?: React.ReactNode;
 }
 
 const ListItem = React.memo(
@@ -323,6 +458,7 @@ const ListItem = React.memo(
                 />
               )}
               <div className="from-background/50 absolute -bottom-1 left-0 z-40 h-1/2 w-full bg-gradient-to-t to-transparent" />
+              {children}
             </Link>
           </NavigationMenuLink>
         </li>
