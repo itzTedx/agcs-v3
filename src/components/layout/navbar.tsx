@@ -397,7 +397,7 @@ export async function Navbar() {
                         image={sub.image}
                       >
                         <span className="sr-only">
-                          {sub.description?.slice(0, 40)}...
+                          {sub.description?.slice(0, 60)}...
                         </span>
                       </ListItem>
                     ))}
