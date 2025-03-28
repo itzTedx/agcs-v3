@@ -396,7 +396,9 @@ export async function Navbar() {
                         className="group relative overflow-hidden"
                         image={sub.image}
                       >
-                        {sub.description}
+                        <span className="sr-only">
+                          {sub.description?.slice(0, 40)}...
+                        </span>
                       </ListItem>
                     ))}
                     <ListItem
