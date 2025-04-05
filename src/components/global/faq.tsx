@@ -13,13 +13,15 @@ import { FlickeringGrid } from "../animations/flickering-grid";
 
 const FAQItem = memo(
   ({ question, answer }: { question: string; answer: string }) => (
-    <AccordionItem value={question}>
-      <AccordionTrigger className="font-normal md:text-lg">
-        {question}
-      </AccordionTrigger>
-      <AccordionContent className="font-normal md:text-base">
-        {answer}
-      </AccordionContent>
+    <AccordionItem value={question} asChild>
+      <details>
+        <AccordionTrigger className="font-normal md:text-lg" asChild>
+          <summary>{question}</summary>
+        </AccordionTrigger>
+        <AccordionContent className="font-normal md:text-base">
+          {answer}
+        </AccordionContent>
+      </details>
     </AccordionItem>
   ),
   (prev, next) => prev.question === next.question && prev.answer === next.answer
