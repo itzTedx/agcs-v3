@@ -14,18 +14,20 @@ import {
   useVelocity,
 } from "motion/react";
 
-interface ParallaxProps {
-  image: string;
-  baseVelocity: number;
+interface ParallaxImage {
+  src: string;
   alt: string;
   priority?: boolean;
 }
 
+interface ParallaxProps {
+  images: ParallaxImage[];
+  baseVelocity: number;
+}
+
 export const ParallaxLogo = memo(function ParallaxLogo({
-  image,
-  alt,
+  images,
   baseVelocity = 100,
-  priority = false,
 }: ParallaxProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
@@ -34,39 +36,39 @@ export const ParallaxLogo = memo(function ParallaxLogo({
     damping: 50,
     stiffness: 400,
   });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
-    clamp: false,
-  });
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5]);
 
   const x = useTransform(baseX, (v) => `${wrap(0, -100, v)}%`);
-  const directionFactor = useRef<number>(1);
+  const directionFactor = useRef(1);
 
-  useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
+  useAnimationFrame((_, delta) => {
+    const velocity = velocityFactor.get();
+    directionFactor.current = velocity < 0 ? -1 : 1;
+    const moveBy =
+      directionFactor.current *
+      baseVelocity *
+      (delta / 1000) *
+      (1 + Math.abs(velocity));
     baseX.set(baseX.get() + moveBy);
   });
 
+  const repeatedImages = Array.from({ length: 6 }, () => images).flat();
+
   return (
     <div className="w-full">
-      <motion.div className="flex" style={{ x }} translate="no">
-        {[...Array(4)].map((_, index) => (
-          <Image
-            key={index}
-            src={image}
-            height={81}
-            width={1077}
-            alt={alt}
-            title={alt}
-            className="h-full w-full object-contain"
-            loading={priority ? "eager" : "lazy"}
-            priority={priority}
-          />
+      <motion.div className="flex gap-8" style={{ x }} translate="no">
+        {repeatedImages.map((image, index) => (
+          <div key={index} className="relative size-28 shrink-0">
+            <Image
+              src={image.src}
+              fill
+              alt={image.alt}
+              title={image.alt}
+              className="h-full w-full overflow-hidden rounded-md object-contain"
+              loading={image.priority ? "eager" : "lazy"}
+              priority={image.priority}
+            />
+          </div>
         ))}
       </motion.div>
     </div>
