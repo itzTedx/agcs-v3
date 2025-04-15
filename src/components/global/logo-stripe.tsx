@@ -50,7 +50,7 @@ export const LogoStrip = memo(function LogoStrip() {
         We collaborate with leading brands to provide high-quality products
         throughout the Kingdom of Bahrain.
       </p>
-      <div className="pointer-events-none flex flex-col items-center gap-6 py-5">
+      <div className="pointer-events-none flex flex-col items-center gap-3 py-5 md:gap-6">
         <ParallaxLogo baseVelocity={-4} images={constructionPartners} />
         <ParallaxLogo baseVelocity={4} images={industrialPartners} />
         <ParallaxLogo baseVelocity={-4} images={materialPartners} />

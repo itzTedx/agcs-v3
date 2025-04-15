@@ -58,7 +58,7 @@ export const ParallaxLogo = memo(function ParallaxLogo({
     <div className="w-full">
       <motion.div className="flex gap-8" style={{ x }} translate="no">
         {repeatedImages.map((image, index) => (
-          <div key={index} className="relative size-28 shrink-0">
+          <div key={index} className="relative size-16 shrink-0 md:size-28">
             <Image
               src={image.src}
               fill
