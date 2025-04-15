@@ -2,6 +2,8 @@ import { type SchemaTypeDefinition } from "sanity";
 
 import blockContent from "./blocks/block-content";
 import certifications from "./certifications";
+import faqs from "./faqs/faqs";
+import helpArticles from "./faqs/help-articles";
 import gallery from "./gallery";
 import posts from "./posts";
 import products from "./products";
@@ -25,5 +27,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     projectsCarousel,
     gallery,
     posts,
+    faqs,
+    helpArticles,
   ],
 };

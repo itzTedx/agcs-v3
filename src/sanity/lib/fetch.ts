@@ -59,7 +59,6 @@ export const getHomeServices = async (): Promise<HOME_SERVICES_QUERYResult> => {
     async () => {
       const { data } = await sanityFetch({
         query: HOME_SERVICES_QUERY,
-        
       });
       return data;
     },

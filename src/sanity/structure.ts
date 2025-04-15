@@ -100,4 +100,12 @@ export const structure: StructureResolver = (S, context) =>
             .title("Post")
             .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
         ),
+      S.listItem()
+        .title("Faqs")
+        .schemaType("helpArticle")
+        .child(
+          S.documentTypeList("helpArticle")
+            .title("Frequently Asked Quetions")
+            .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
+        ),
     ]);

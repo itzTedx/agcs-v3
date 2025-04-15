@@ -1,11 +1,18 @@
-import { IconCertificate, IconLibraryPhoto, IconPackage, IconPhone, IconSparkles, IconUsersGroup } from "@tabler/icons-react";
+import {
+  IconCertificate,
+  IconLibraryPhoto,
+  IconPackage,
+  IconPhone,
+  IconSparkles,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 import { Home, Wrench } from "lucide-react";
 
 export const NAVLINKS = [
   {
     title: "Home",
     href: "/",
-    Icon: Home
+    Icon: Home,
   },
   {
     title: "Company",
@@ -21,36 +28,35 @@ export const NAVLINKS = [
         subtitle: "Explore our projects and achievements",
         title: "Gallery",
         href: "/company/gallery",
-        Icon: IconLibraryPhoto
+        Icon: IconLibraryPhoto,
       },
       {
         subtitle: "Discover our",
         title: "Certifications",
         href: "/company/certifications",
-        Icon: IconCertificate
+        Icon: IconCertificate,
       },
     ],
   },
   {
     title: "Services",
     href: "/services",
-    Icon: Wrench
-   
+    Icon: Wrench,
   },
   {
     title: "Products",
     href: "/products",
-    Icon: IconPackage
+    Icon: IconPackage,
   },
   {
     title: "Projects",
     href: "/projects",
-    Icon: IconSparkles
+    Icon: IconSparkles,
   },
 
   {
     title: "Contact",
     href: "/contact",
-    Icon: IconPhone
+    Icon: IconPhone,
   },
 ];
