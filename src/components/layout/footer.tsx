@@ -12,7 +12,7 @@ const ContactInfo = memo(() => (
   <div
     itemScope
     itemType="http://schema.org/Organization"
-    className="max-lg:col-span-full"
+    className="col-span-2 max-lg:col-span-full"
   >
     <meta itemProp="name" content="Allied Gulf Construction Services W.L.L" />
     <meta itemProp="url" content="https://alliedgulf.me" />
@@ -32,11 +32,18 @@ const ContactInfo = memo(() => (
             className="cursor-pointer text-left transition duration-300 hover:text-sky-500"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Visit our office location in Manama, Kingdom of Bahrain on Google Maps"
+            aria-label="Visit Allied Gulf Construction Services W.L.L office location in Manama, Kingdom of Bahrain on Google Maps"
+            itemProp="url"
           >
+            <span itemProp="name">ALLIED GULF CONSTRUCTION SERVICES W.L.L</span>
+            <br />
+            <span itemProp="streetAddress">
+              Flat: 61, Building: 317, Road: 39, Block: 337, Umm Al Hassam
+            </span>
+            <br />
             <span itemProp="postOfficeBoxNumber">P.O. Box: 21341</span>,{" "}
-            <span itemProp="addressLocality">Manama</span>, <br />
-            <span itemProp="addressCountry">Kingdom Of Bahrain</span>
+            <span itemProp="addressLocality">Manama</span>,{" "}
+            <span itemProp="addressCountry">Kingdom of Bahrain</span>
           </Link>
         </div>
       </li>
@@ -165,7 +172,7 @@ export const Footer = () => {
       itemScope
       itemType="http://schema.org/WPFooter"
     >
-      <div className="container grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-12 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-6 px-4 md:grid-cols-4 md:gap-12 md:px-16 lg:grid-cols-6">
         <div className="col-span-2">
           <section aria-label="About Allied Gulf Construction Services">
             <h5 className="mb-4 text-2xl font-bold text-white">
