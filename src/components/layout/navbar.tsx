@@ -125,7 +125,7 @@ const MobileNav = React.memo(
                         asChild
                       >
                         <Link
-                          href={sub.slug?.current!}
+                          href={`/services/${sub.slug?.current ?? "/"}`}
                           className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
                         >
                           {Icon && (
@@ -157,7 +157,7 @@ const MobileNav = React.memo(
                         asChild
                       >
                         <Link
-                          href={sub.slug?.current!}
+                          href={`/products/${sub.slug?.current ?? "/"}`}
                           className="flex-row justify-start px-6 max-sm:!w-full max-sm:items-center"
                         >
                           {Icon && (
@@ -354,7 +354,7 @@ export async function Navbar() {
 
                     {services.map((sub) => (
                       <ListItem
-                        href={`/services/${sub.slug?.current!}`}
+                        href={`/services/${sub.slug?.current ?? "/"}`}
                         title={sub.category!}
                         key={sub._id}
                         className="group relative z-50 overflow-hidden"
@@ -390,7 +390,7 @@ export async function Navbar() {
 
                     {products.slice(0, 8).map((sub) => (
                       <ListItem
-                        href={`/products/${sub.slug?.current!}`}
+                        href={`/products/${sub.slug?.current ?? "/"}`}
                         title={sub.category!}
                         key={sub._id}
                         className="group relative overflow-hidden"
