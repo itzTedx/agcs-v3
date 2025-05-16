@@ -48,7 +48,7 @@ export const LogoStrip = memo(function LogoStrip() {
       </h4>
       <p className="text-sm font-light">
         We collaborate with leading brands to provide high-quality products
-        throughout the Kingdom of Bahrain.
+        throughout Middle East.
       </p>
       <div className="pointer-events-none flex flex-col items-center gap-3 py-5 md:gap-6">
         <ParallaxLogo baseVelocity={-4} images={constructionPartners} />

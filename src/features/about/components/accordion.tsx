@@ -14,14 +14,17 @@ import { AccordionData } from "../sections/vision-mission";
 
 export function Accordion({ data }: AccordionData) {
   const [activeItem, setActiveItem] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    if (isHovering) return; // Don't auto-cycle while hovering
+
     const timer = setTimeout(() => {
       setActiveItem((prev) => (prev + 1) % data.length);
-    }, 3000); // Change item every 3 seconds
+    }, 3000);
 
     return () => clearTimeout(timer);
-  }, [activeItem, data.length]);
+  }, [activeItem, data.length, isHovering]);
 
   return (
     <ShadcnAccor
@@ -31,7 +34,18 @@ export function Accordion({ data }: AccordionData) {
       value={data[activeItem].id}
     >
       {data.map((item) => (
-        <AccordionItem key={item.id} value={item.id} className={`group`}>
+        <AccordionItem
+          key={item.id}
+          value={item.id}
+          className={`group`}
+          onMouseEnter={() => {
+            setIsHovering(true);
+            setActiveItem(data.findIndex((d) => d.id === item.id));
+          }}
+          onMouseLeave={() => {
+            setIsHovering(false);
+          }}
+        >
           <AccordionTrigger
             className={cn(
               "bg-popover [&[data-state=open]]:bg-primary overflow-hidden border px-4 text-base",

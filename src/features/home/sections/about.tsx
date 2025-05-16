@@ -53,27 +53,39 @@ export const About = () => {
           </h2>
           <p className="text-balance">
             <span className="font-bold">
-              Allied Gulf Construction Services W.L.L,
+              Gulf Construction Solutions W.L.L,
             </span>{" "}
-            founded in the Kingdom of Bahrain, has grown to become one of the
-            leading Civil & Mechanical contracting services companies handling
-            various prestigious projects and is ranked as a leading General
-            Construction service provider across the Middle East. We specialize
-            in complex and prestigious construction and infrastructure projects.
+            established as the Saudi branch of our successful operations, marks
+            a significant expansion of our legacy in the Kingdom of Saudi
+            Arabia. Building on the strength and reputation of our founding
+            company in Bahrain, we bring a proven track record in{" "}
+            <span className="font-bold">
+              Civil & Mechanical contracting services,
+            </span>{" "}
+            now tailored to meet the growing demands of Saudi Arabia&apos;s
+            ambitious development landscape.
           </p>
           <p className="">
-            Our portfolio includes construction services for some of the
-            region's most iconic landmarks, from
+            As a trusted name in the construction sector across the Middle East,
+            we specialize in{" "}
+            <span className="font-bold">
+              complex and prestigious construction and infrastructure projects,
+            </span>{" "}
+            delivering excellence with precision and innovation.
           </p>
+          <p>Our Saudi portfolio is expanding to include:</p>
           <ul className="capitalize">
-            <li>super high-rise luxury developments,</li>
-            <li>vital infrastructure </li>
-            <li>oil & gas projects,</li>
-            <li>five-star hotels,</li>
-            <li>hospitals,</li>
-            <li>intricately sophisticated smart buildings</li>
+            <li>Super high-rise luxury developments</li>
+            <li>Strategic infrastructure projects</li>
+            <li>Oil & gas sector developments</li>
+            <li>Five-star hospitality properties</li>
+            <li>World-class health care facilities</li>
+            <li>Smart buildings with advanced engineering systems</li>
           </ul>
-          <p>We also provide construction services for:</p>
+          <p>
+            We poised to contribute to the Kingdom&apos;s Vision 2030 by
+            delivering quality-driven, future-ready construction solutions.
+          </p>
           <div className="flex flex-wrap gap-3 capitalize">
             {services.map((s) => (
               <Badge key={s}>{s}</Badge>

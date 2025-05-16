@@ -52,19 +52,19 @@ const accordionData = [
     id: "item-1",
     title: "Esteemed by our Employees",
     content:
-      "Employees will be proud to work at Allied Gulf Construction Services W.L.L since we provide opportunities for growth succession and rewards based on achievements.",
+      "Employees will be proud to work at Gulf Construction Solutions W.L.L since we provide opportunities for growth succession and rewards based on achievements.",
   },
   {
     id: "item-2",
     title: "Valued by our Clients and Partners",
     content:
-      "Our Clients and Partners will value working with Allied Gulf Construction Services W.L.L since we deliver all our projects on a timely basis and with the highest quality standards specified.",
+      "Our Clients and Partners will value working with Gulf Construction Solutions W.L.L since we deliver all our projects on a timely basis and with the highest quality standards specified.",
   },
   {
     id: "item-3",
     title: "Respected by our Community",
     content:
-      "We strive to protect the environment and the community in all of our business dealings. We aim for the Community to regard Allied Gulf Construction as a responsible member of society that fosters the sound management of resources and protection of the environment.",
+      "We strive to protect the environment and the community in all of our business dealings. We aim for the Community to regard Gulf Construction Solutions W.L.L as a responsible member of society that fosters the sound management of resources and protection of the environment.",
   },
 ];
 
@@ -130,33 +130,33 @@ export default function AboutPage() {
           <div className="space-y-3">
             <Heading id="quality-safety-heading">Quality & Safety</Heading>
             <p className="text-lg font-light">
-              It is the Company's policy to strictly maintain the quality
+              It is the Company&apos;s policy to strictly maintain the quality
               management system on all our projects notwithstanding the project
               value, which can be either big or small. Quality is the utmost
               criterion from strict compliance of project management.
             </p>
             <p className="text-lg font-light">
-              At Allied Gulf, we are committed to delivering superior quality
-              products and services promptly to our clients. It is the basis of
-              our success. We have implemented a Quality Management System
-              according to the standards set forth by ISO 9001:2015 that is
-              rigorously implemented across all company locations and is
-              executed by all employees, from senior managers to labourers. Our
-              System is regularly subjected to management review to ensure that
-              all our levels of quality match or exceed our customers'
-              expectations.
+              At Gulf Construction Solutions W.L.L, we are committed to
+              delivering superior quality products and services promptly to our
+              clients. It is the basis of our success. We have implemented a
+              Quality Management System according to the standards set forth by
+              ISO 9001:2015 that is rigorously implemented across all company
+              locations and is executed by all employees, from senior managers
+              to labourer. Our System is regularly subjected to management
+              review to ensure that all our levels of quality match or exceed
+              our customer&apos;s expectations.
             </p>
 
             <p className="text-lg font-light">
-              We have a Safety Management System in place with a 'Zero
-              Accident'Philosophy which engages all employees and subcontractors
-              to actively improve HSE Performance on our projects. In addition,
-              we are fully committed to providing all employees with the
-              adequate training to supplement their skill set and ensure that
-              they are capable of completing all their tasks efficiently and
-              safely. We actively train all levels of managers and employees and
-              frequently recommend new training programs for them to supplement
-              their skills.
+              We have a Safety Management System in place with a &apos;Zero
+              Accident&apos; Philosophy which engages all employees and
+              subcontractors to actively improve HSE Performance on our
+              projects. In addition, we are fully committed to providing all
+              employees with the adequate training to supplement their skill set
+              and ensure that they are capable of completing all their tasks
+              efficiently and safely. We actively train all levels of managers
+              and employees and frequently recommend new training programs for
+              them to supplement their skills.
             </p>
           </div>
         </section>
@@ -169,11 +169,11 @@ export default function AboutPage() {
             Social Responsibility
           </Heading>
           <p className="text-lg font-light">
-            At Allied Gulf Construction Services W.L.L , we are committed to our
-            vision to act responsibly in how we do business and to give back to
-            our community. Throughout our business years in the Middle East, we
-            have sponsored and encouraged a wide range of businesses such as
-            local charities and events, Middle Eastern Councils, Universities,
+            At Gulf Construction Solutions W.L.L, we are committed to our vision
+            to act responsibly in how we do business and to give back to our
+            community. Throughout our business years in the Middle East, we have
+            sponsored and encouraged a wide range of businesses such as local
+            charities and events, Middle Eastern Councils, Universities,
             Schools, and individual men and women.
           </p>
           <p className="text-lg font-light">
@@ -188,8 +188,8 @@ export default function AboutPage() {
           </p>
 
           <p className="text-lg font-light">
-            Being sustainable is more important than it’s ever been, and to have
-            a sustainable business is to have a resilient business. We are
+            Being sustainable is more important than it&apos;s ever been, and to
+            have a sustainable business is to have a resilient business. We are
             committed in preventing environmental and social harm, as well as
             replenishing our natural systems & renewable resources and having a
             positive impact on the communities and environments in which we
@@ -215,8 +215,8 @@ export default function AboutPage() {
           </p>
 
           <p className="text-lg font-light">
-            We reflect the four principles – Economic, Environment, Social and
-            Cultural – the highest sustainability standards that includes :
+            We reflect the four principles - Economic, Environment, Social and
+            Cultural - the highest sustainability standards that includes:
           </p>
 
           <ul>
@@ -248,7 +248,7 @@ export default function AboutPage() {
               <h4>We Believe</h4>
               <p className="text-lg font-light">
                 The key element behind our success is a continuous commitment to
-                fulfill the client's needs.
+                fulfill the client&apos;s needs.
               </p>
             </li>
             <li className="">
@@ -292,7 +292,7 @@ export default function AboutPage() {
             <li>
               <h4 className="inline">Scheduling</h4> - coordinates with
               operations and field technicians to confirm the project stays on
-              the contractor's timeline
+              the contractor&apos;s timeline
             </li>
             <li>
               <h4 className="inline">Problem-solving</h4> - handles any issues
@@ -329,14 +329,14 @@ export default function AboutPage() {
         >
           <Heading id="estimating-heading">Project Estimating</Heading>
           <p className="text-lg font-light">
-            An accurate estimate is our goal. Our estimators review each plan's
-            requirements, analyze construction details, and manages the quantity
-            take-offs to find the labor and materials costs for each project. We
-            then use our industry knowledge to guide you through potential
-            options, whether it's the most effective materials or finding ways
-            to modify your plan to reduce project costs. We stay in open
-            communication with our clients on any clarifications, strategies, or
-            revisions.
+            An accurate estimate is our goal. Our estimators review each
+            plan&apos;s requirements, analyze construction details, and manages
+            the quantity take-offs to find the labor and materials costs for
+            each project. We then use our industry knowledge to guide you
+            through potential options, whether it&apos;s the most effective
+            materials or finding ways to modify your plan to reduce project
+            costs. We stay in open communication with our clients on any
+            clarifications, strategies, or revisions.
           </p>
         </section>
       </article>

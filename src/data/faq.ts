@@ -13,35 +13,37 @@ export const HOME_FAQS: FAQSection[] = [
     section: "Company Information",
     items: [
       {
-        question: "What is Allied Gulf Construction Services W.L.L.?",
+        question: "What is Gulf Construction Solutions W.L.L.?",
         answer:
-          "Allied Gulf Construction Services W.L.L. is a leading provider of high-quality construction materials and building solutions in Bahrain, specializing in products such as expansion joints, movement joints, wall protection systems, skylights, tile trims, and more.",
+          "Gulf Construction Solutions W.L.L. is a leading provider of high-quality construction materials and building solutions in Bahrain, specializing in products such as expansion joints, movement joints, wall protection systems, skylights, tile trims, and more.",
       },
       {
-        question: "Where is Allied Gulf Construction Services W.L.L. located?",
+        question: "Where is Gulf Construction Solutions W.L.L. located?",
         answer:
-          "Allied Gulf is based in Bahrain and serves clients across the Middle East, offering innovative construction materials for various industries, including commercial, residential, and industrial sectors.",
+          "Gulf Construction Solutions is based in Bahrain and serves clients across the Middle East, offering innovative construction materials for various industries, including commercial, residential, and industrial sectors.",
       },
       {
-        question: "What industries does Allied Gulf serve?",
+        question: "What industries does Gulf Construction Solutions serve?",
         answer:
           "The company provides products and solutions for construction, commercial buildings, hospitals, schools, industrial sites, airports, and residential properties.",
       },
       {
         question:
-          "Does Allied Gulf provide custom solutions for construction projects?",
+          "Does Gulf Construction Solutions provide custom solutions for construction projects?",
         answer:
-          "Yes, Allied Gulf offers customized construction materials and solutions tailored to meet specific project requirements, ensuring durability, aesthetics, and compliance with industry standards.",
+          "Yes, Gulf Construction Solutions offers customized construction materials and solutions tailored to meet specific project requirements, ensuring durability, aesthetics, and compliance with industry standards.",
       },
       {
-        question: "How can I contact Allied Gulf for product inquiries?",
+        question:
+          "How can I contact Gulf Construction Solutions for product inquiries?",
         answer:
-          "You can reach Allied Gulf through their official website, via email, or by calling their customer service hotline.",
+          "You can reach Gulf Construction Solutions through their official website, via email, or by calling their customer service hotline.",
       },
       {
-        question: "Does Allied Gulf offer installation services?",
+        question:
+          "Does Gulf Construction Solutions offer installation services?",
         answer:
-          "While Allied Gulf primarily supplies construction materials, they can guide customers on installation and recommend trusted installation partners if needed.",
+          "While Gulf Construction Solutions primarily supplies construction materials, they can guide customers on installation and recommend trusted installation partners if needed.",
       },
     ],
   },
@@ -144,27 +146,29 @@ export const FAQS: FAQSection[] = [
     section: "Company Information",
     items: [
       {
-        question: "What is Allied Gulf Construction Services W.L.L.?",
+        question: "What is Gulf Construction Solutions W.L.L.?",
         answer:
-          "Allied Gulf Construction Services W.L.L. is a leading provider of high-quality construction services and materials across the Middle East, specializing in civil, mechanical, and infrastructure projects.",
+          "Gulf Construction Solutions W.L.L. is a leading provider of high-quality construction services and materials across the Middle East, specializing in civil, mechanical, and infrastructure projects.",
       },
       {
-        question: "Where is Allied Gulf Construction Services W.L.L. located?",
+        question: "Where is Gulf Construction Solutions W.L.L. located?",
         answer:
-          "Allied Gulf is based in the Kingdom of Bahrain, providing construction solutions across the Middle East region.",
+          "Gulf Construction Solutions is based in the Kingdom of Bahrain, providing construction Solutions across the Middle East region.",
       },
       {
-        question: "What industries does Allied Gulf serve?",
+        question: "What industries does Gulf Construction Solutions serve?",
         answer:
-          "We serve various industries including commercial, residential, oil & gas, infrastructure, and industrial sectors with a focus on sustainable and high-quality construction solutions.",
+          "We serve various industries including commercial, residential, oil & gas, infrastructure, and industrial sectors with a focus on sustainable and high-quality construction Solutions.",
       },
       {
-        question: "Does Allied Gulf offer turnkey construction services?",
+        question:
+          "Does Gulf Construction Solutions offer turnkey construction services?",
         answer:
           "Yes, we offer end-to-end turnkey solutions, including design, project management, construction execution, and material supply.",
       },
       {
-        question: "Does Allied Gulf collaborate with international suppliers?",
+        question:
+          "Does Gulf Construction Solutions collaborate with international suppliers?",
         answer:
           "Yes, we partner with international suppliers to source high-quality construction materials and innovative solutions.",
       },
@@ -175,7 +179,7 @@ export const FAQS: FAQSection[] = [
     items: [
       {
         question:
-          "What types of construction services does Allied Gulf provide?",
+          "What types of construction services does Gulf Construction Solutions provide?",
         answer:
           "We specialize in civil and mechanical contracting, interior fit-outs, MEP works, flooring, coatings, insulation, and smart building solutions.",
       },
@@ -185,18 +189,20 @@ export const FAQS: FAQSection[] = [
           "Key factors include planning, budgeting, risk management, quality assurance, resource allocation, and adherence to safety standards.",
       },
       {
-        question: "Does Allied Gulf handle infrastructure projects?",
+        question:
+          "Does Gulf Construction Solutions handle infrastructure projects?",
         answer:
           "Yes, we handle vital infrastructure projects such as roads, bridges, pipelines, and utility networks across the Middle East.",
       },
       {
-        question: "How does Allied Gulf ensure timely project completion?",
+        question:
+          "How does Gulf Construction Solutions ensure timely project completion?",
         answer:
           "We use advanced project management tools, experienced teams, and streamlined workflows to ensure on-time and high-quality project delivery.",
       },
       {
         question:
-          "How does Allied Gulf ensure the quality of its construction materials?",
+          "How does Gulf Construction Solutions ensure the quality of its construction materials?",
         answer:
           "We follow strict quality control measures and source materials from reputable manufacturers, ensuring compliance with international standards.",
       },
@@ -276,7 +282,8 @@ export const FAQS: FAQSection[] = [
     section: "Portable Cabins & Modular Solutions",
     items: [
       {
-        question: "What types of portable cabins does Allied Gulf offer?",
+        question:
+          "What types of portable cabins does Gulf Construction Solutions offer?",
         answer:
           "We provide modular cabins for offices, housing, site accommodation, and container conversions customized to client needs.",
       },
@@ -296,7 +303,8 @@ export const FAQS: FAQSection[] = [
     section: "Safety & Compliance",
     items: [
       {
-        question: "What safety measures does Allied Gulf follow?",
+        question:
+          "What safety measures does Gulf Construction Solutions follow?",
         answer:
           "We adhere to strict safety standards, including ISO 9001:2015 compliance, zero-accident policies, and regular employee training programs.",
       },
@@ -308,7 +316,7 @@ export const FAQS: FAQSection[] = [
       },
       {
         question:
-          "Does Allied Gulf provide sustainable construction solutions?",
+          "Does Gulf Construction Solutions provide sustainable construction Solutions?",
         answer:
           "Yes, we focus on eco-friendly building practices, including waste reduction, energy-efficient materials, and green technology implementation.",
       },
@@ -318,7 +326,8 @@ export const FAQS: FAQSection[] = [
     section: "Installation & Technical Support",
     items: [
       {
-        question: "Does Allied Gulf provide installation services?",
+        question:
+          "Does Gulf Construction Solutions provide installation services?",
         answer:
           "Yes, we offer professional installation services for all our products, including movement joints, wall protection, and skylights.",
       },
@@ -333,23 +342,26 @@ export const FAQS: FAQSection[] = [
     section: "Client Support & Services",
     items: [
       {
-        question: "How can I contact Allied Gulf for a project inquiry?",
+        question:
+          "How can I contact Gulf Construction Solutions for a project inquiry?",
         answer:
           "You can contact us via phone at +973-1779 1317 or email at trade@alliedgulf.me for project inquiries and consultations.",
       },
       {
-        question: "Does Allied Gulf offer customized construction solutions?",
+        question:
+          "Does Gulf Construction Solutions offer customized construction Solutions?",
         answer:
           "Yes, we offer tailor-made solutions to meet specific project requirements, including design, materials, and construction methodologies.",
       },
       {
-        question: "What is the process of working with Allied Gulf?",
+        question:
+          "What is the process of working with Gulf Construction Solutions?",
         answer:
           "Our process includes initial consultation, project planning, design approvals, material procurement, construction execution, and final quality checks.",
       },
       {
         question:
-          "Does Allied Gulf provide maintenance services for installed systems?",
+          "Does Gulf Construction Solutions provide maintenance services for installed systems?",
         answer:
           "Yes, we offer ongoing maintenance services for our products, including expansion joints, wall guards, and portable cabins.",
       },
@@ -364,12 +376,14 @@ export const FAQS: FAQSection[] = [
     section: "After-Sales & Warranty Services",
     items: [
       {
-        question: "Do Allied Gulf products come with a warranty?",
+        question:
+          "Do Gulf Construction Solutions products come with a warranty?",
         answer:
           "Yes, all our products come with a warranty to ensure quality and long-term performance.",
       },
       {
-        question: "What after-sales support does Allied Gulf provide?",
+        question:
+          "What after-sales support does Gulf Construction Solutions provide?",
         answer:
           "We offer ongoing support, maintenance, and replacement services for all our construction materials and architectural products.",
       },

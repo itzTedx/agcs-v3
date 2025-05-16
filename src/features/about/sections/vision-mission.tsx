@@ -20,7 +20,7 @@ export function VisionMission({ data }: AccordionData) {
       <div className="space-y-3 md:col-span-2">
         <Heading id="mission-heading">Mission</Heading>
         <p className="text-lg font-light">
-          ALLIED GULF CONSTRUCTION SERVICES W.L.L strives to bring growth to the
+          Gulf Construction Solutions W.L.L strives to bring growth to the
           community, using value engineering, effective construction practices
           and hard dedicated work to deliver on commitments.
         </p>

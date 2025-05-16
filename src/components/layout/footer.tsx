@@ -174,9 +174,9 @@ export const Footer = () => {
     >
       <div className="grid grid-cols-2 gap-6 px-4 md:grid-cols-4 md:gap-12 md:px-16 lg:grid-cols-6">
         <div className="col-span-2">
-          <section aria-label="About Allied Gulf Construction Services">
+          <section aria-label="About Gulf construction solutions wll">
             <h5 className="mb-4 text-2xl font-bold text-white">
-              Allied Gulf Construction Services W.L.L
+              Gulf Construction Solutions W.L.L
             </h5>
             <p
               className="text-lg font-light text-balance"
@@ -184,7 +184,7 @@ export const Footer = () => {
             >
               For the best construction solution services and specialty
               materials, look no further than us! We have everything you need to
-              get the job done right, and we're always here to help.
+              get the job done right, and we&apos;re always here to help.
             </p>
           </section>
 

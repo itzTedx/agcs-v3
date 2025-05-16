@@ -103,10 +103,17 @@ export default async function ProjectsPage() {
         </section>
 
         <section className="container py-12" aria-label="All Projects">
-          <h2 className="mb-3 text-4xl font-light">
+          <h2 className="text-4xl font-light">
             Our Successful{" "}
             <span className="text-primary font-normal">Projects</span>
           </h2>
+          <p
+            className="text-muted-foreground mb-3 uppercase"
+            role="doc-subtitle"
+          >
+            In kingdom of bahrain
+          </p>
+
           <div className="relative grid grid-cols-1 gap-6 md:grid-cols-2">
             {projects.map((project) => (
               <div key={project._id} className="relative">
