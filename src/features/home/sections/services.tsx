@@ -31,13 +31,15 @@ export const Services = async () => {
         <Suspense fallback={<ServicesSkeleton />}>
           {services.map((service) => (
             <div key={service._id}>
-              <div className="grid grid-cols-2 items-center justify-center gap-3 pb-4">
+              <div className="grid grid-cols-1 items-center justify-center gap-1 pb-4 md:grid-cols-2 md:gap-3">
                 <h3 className="text-primary-foreground text-3xl font-medium">
-                  {service.category}
+                  <Link href={`/services/${service.slug?.current}/`}>
+                    {service.category}
+                  </Link>
                 </h3>
                 <p className="text-sm font-light">{service.description}</p>
               </div>
-              <div className="grid grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {service.relatedServices.map((item) => (
                   <Card
                     key={item._id}

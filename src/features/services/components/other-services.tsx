@@ -56,7 +56,7 @@ export const OtherServices = ({
                 title={product.title}
                 alt={product.title}
                 image={product.thumbnail}
-                link={`/products/${category}/${product.slug?.current}`}
+                link={`/services/${category}/${product.slug?.current}`}
               />
             </CarouselItem>
           ))}
@@ -75,7 +75,7 @@ export const OtherServices = ({
           title={product.title}
           alt={product.title}
           image={product.thumbnail}
-          link={`/products/${product.category}/${product.slug?.current}`}
+          link={`/services/${product.category}/${product.slug?.current}`}
         />
       ))}
     </div>
