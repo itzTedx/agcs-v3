@@ -39,7 +39,7 @@ export async function generateMetadata({
       description: description,
     },
     alternates: {
-      canonical: `https://alliedgulfconstruction.com/services/${query}`,
+      canonical: `https://alliedgulf.me/services/${query}`,
     },
   };
 }
@@ -50,8 +50,6 @@ export async function generateStaticParams() {
     category: category.slug?.current,
   }));
 }
-
-export const revalidate = 1800; // Revalidate every half hour
 
 export default async function ServicesByCategoryPage({
   params,

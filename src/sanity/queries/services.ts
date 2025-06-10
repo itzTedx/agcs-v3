@@ -1,15 +1,19 @@
 import { groq } from "next-sanity";
 
 export const HOME_SERVICES_QUERY = groq`*[_type == "servicesCategory"] | order(orderRank)[0..8] {
+  _id,
+  category,
+  description,
+  slug,
+  thumbnail,
+  _updatedAt,
+  "relatedServices": *[_type == "services" && category._ref == ^._id][0..5] {
     _id,
-    image,
-    category,
-    description,
-    file,
-    slug,
-    thumbnail,
-    _updatedAt
-  }`;
+    servicesTitle,
+    servicesSlug,
+    thumbnail
+  }
+}`;
 
 export const SERVICES_CATEOGORIES_QUERY = groq`*[_type == "servicesCategory"] | order(orderRank) {
     _id,
@@ -52,6 +56,7 @@ export const SERVICE_QUERY = groq`*[_type == "services" && servicesSlug.current 
     servicesSlug,
     metaTagTitle,
     metaTagKeyword,
+    metaTagDescription,
     thumbnail,
     relatedProducts[]->{
         _id,

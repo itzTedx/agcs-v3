@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { IconArrowLeft } from "@tabler/icons-react";
+import { PortableText } from "next-sanity";
 
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { ImagePreview } from "@/features/products/components/image-preview";
@@ -42,6 +43,7 @@ export default async function ServicePage({
   const { category: categoryQuery, service: query } = await params;
 
   const service = await getServiceBySlug(query);
+  console.log("services from sanity: ", service);
 
   if (!service) return notFound();
 
@@ -103,15 +105,21 @@ export default async function ServicePage({
               </h1>
             </header>
             <section className="service-description">
-              <p className="pt-3 text-lg font-light">
+              <article className="prose dark:prose-invert py-6">
+                {service.servicesDescription && (
+                  <PortableText value={service.servicesDescription} />
+                )}
+              </article>
+              {/* <p className="pt-3 text-lg font-light">
                 {service?.servicesDescription}
-              </p>
+              </p> */}
             </section>
           </article>
         </div>
       </div>
+      {/* <pre className="text-wrap">{JSON.stringify(service, null, 2)}</pre> */}
       {service.relatedProducts && service.relatedProducts.length !== 0 && (
-        <section className="container">
+        <section className="container pt-12">
           <h3 className="pb-3 text-2xl text-sky-800">
             Related Products for {service?.servicesTitle}
           </h3>
@@ -138,23 +146,31 @@ export async function generateMetadata({
 }: {
   params: { category: string; service: string };
 }): Promise<Metadata> {
-  const { category: categoryQuery, service: serviceQuery } = params;
+  const { category: categoryQuery, service: serviceQuery } = await params;
   const service = await getServiceBySlug(serviceQuery);
 
   if (!service) return { title: "Service Not Found" };
 
   return {
-    title: `${service.servicesTitle} | AGCS Services`,
-    description: service.servicesDescription,
+    title: service.metaTagTitle
+      ? `${service.metaTagTitle} - Allied Gulf`
+      : `${service.servicesTitle} | AGCS Services`,
+    description: service.metaTagDescription,
     keywords: [
       `${service.servicesTitle}`,
-      "AGCS services",
+      "allied gulf",
+      "bahrain",
       categoryQuery,
-      service.metaTagKeyword!,
+      ...(service.metaTagKeyword
+        ? service.metaTagKeyword
+            .split(/[,\n]+/)
+            .map((keyword) => keyword.trim())
+            .filter(Boolean)
+        : []),
     ],
     openGraph: {
       title: service.servicesTitle!,
-      description: service.servicesDescription!,
+      description: service.metaTagDescription!,
       type: "article",
       publishedTime: new Date().toISOString(),
       authors: ["AGCS"],
@@ -162,7 +178,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: service.servicesTitle!,
-      description: service.servicesDescription!,
+      description: service.metaTagDescription!,
     },
   };
 }

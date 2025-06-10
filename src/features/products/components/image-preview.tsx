@@ -29,10 +29,15 @@ export const ImagePreview = ({
   alt,
   autoplayDelay,
 }: ImagePreviewProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const [mainApi, setMainApi] = useState<CarouselApi>();
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!mainApi || !thumbnailApi) {
@@ -151,42 +156,46 @@ export const ImagePreview = ({
 
   return (
     <div className="sticky top-20 col-span-3 flex h-fit flex-col-reverse gap-4 md:flex-row">
-      <Carousel
-        setApi={setThumbnailApi}
-        opts={{
-          align: "start",
-        }}
-        orientation={isDesktop ? "vertical" : "horizontal"}
-        className="my-2 h-28 md:h-fit md:w-20"
-      >
-        <CarouselContent className="max-md:-ml-4 md:-mt-2 md:h-[34rem]">
-          {thumbnailImages}
-        </CarouselContent>
+      {isMounted && (
+        <>
+          <Carousel
+            setApi={setThumbnailApi}
+            opts={{
+              align: "start",
+            }}
+            orientation={isDesktop ? "vertical" : "horizontal"}
+            className="my-2 h-28 md:h-fit md:w-20"
+          >
+            <CarouselContent className="-ml-4 flex max-md:-ml-4 md:-mt-2 md:h-[34rem]">
+              {thumbnailImages}
+            </CarouselContent>
 
-        {data && data.length > 6 && (
-          <CarouselPrevious className="max-md:-left-3 md:-top-3 md:size-6" />
-        )}
-        {data && data.length > 6 && (
-          <CarouselNext className="max-md:-right-3 md:-bottom-3 md:size-6" />
-        )}
-      </Carousel>
+            {data && data.length > 6 && (
+              <CarouselPrevious className="max-md:-left-3 md:-top-3 md:size-6" />
+            )}
+            {data && data.length > 6 && (
+              <CarouselNext className="max-md:-right-3 md:-bottom-3 md:size-6" />
+            )}
+          </Carousel>
 
-      <Carousel
-        setApi={setMainApi}
-        className="shrink-0 grow"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        plugins={[
-          Autoplay({
-            delay: autoplayDelay || 3000,
-            stopOnMouseEnter: true,
-          }),
-        ]}
-      >
-        <CarouselContent className="-ml-4">{mainImage}</CarouselContent>
-      </Carousel>
+          <Carousel
+            setApi={setMainApi}
+            className="shrink-0 grow"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: autoplayDelay || 3000,
+                stopOnMouseEnter: true,
+              }),
+            ]}
+          >
+            <CarouselContent className="-ml-4">{mainImage}</CarouselContent>
+          </Carousel>
+        </>
+      )}
     </div>
   );
 };

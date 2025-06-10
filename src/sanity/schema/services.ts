@@ -29,10 +29,21 @@ export default defineType({
     defineField({
       name: "servicesDescription",
       title: "Description",
-      type: "text",
+      type: "array",
       group: "content",
-      validation: (Rule) => Rule.required(),
+      of: [
+        {
+          type: "block",
+        },
+      ],
     }),
+    // defineField({
+    //   name: "servicesDescription",
+    //   title: "Description",
+    //   type: "text",
+    //   group: "content",
+    //   validation: (Rule) => Rule.required(),
+    // }),
     defineField({
       name: "servicesSlug",
       title: "Generate Url",
@@ -113,8 +124,16 @@ export default defineType({
       group: "seo",
       name: "metaTagTitle",
       title: "Title for SEO",
+      description: "Recommended length: 50-60 characters.",
       type: "string",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      group: "seo",
+      name: "metaTagDescription",
+      title: "Meta Description for SEO",
+      description: "Recommended length: 150-160 characters",
+      type: "text",
     }),
     defineField({
       group: "seo",

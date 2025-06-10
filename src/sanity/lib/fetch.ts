@@ -61,9 +61,9 @@ export const getHomeServices = async (): Promise<HOME_SERVICES_QUERYResult> => {
         query: HOME_SERVICES_QUERY,
       });
       return data;
-    },
-    ["home-services_categories"],
-    cacheOptions
+    }
+    // ["home-services_categories"],
+    // cacheOptions
   )();
 };
 

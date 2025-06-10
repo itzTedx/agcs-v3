@@ -23,22 +23,31 @@ const ServicesSkeleton = () => {
 
 export const Services = async () => {
   const services = await getHomeServices();
+  console.log("services from sanity", services);
   return (
     <section aria-labelledby="services-title">
       <Header id="services-title">Services</Header>
-      <div className="container grid grid-cols-1 gap-4 py-12 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="container grid gap-4 py-12 sm:gap-12">
         <Suspense fallback={<ServicesSkeleton />}>
           {services.map((service) => (
-            <div
-              className="max-lg:last-of-type:hidden max-sm:last-of-type:block"
-              key={service._id}
-            >
-              <Card
-                title={service.category}
-                image={service.image}
-                alt={`${service.category} Services - Allied gulf construction services`}
-                link={`/services/${service.slug?.current}`}
-              />
+            <div key={service._id}>
+              <div className="grid grid-cols-2 items-center justify-center gap-3 pb-4">
+                <h3 className="text-primary-foreground text-3xl font-medium">
+                  {service.category}
+                </h3>
+                <p className="text-sm font-light">{service.description}</p>
+              </div>
+              <div className="grid grid-cols-3 gap-4 sm:gap-6">
+                {service.relatedServices.map((item) => (
+                  <Card
+                    key={item._id}
+                    title={item.servicesTitle}
+                    image={item.thumbnail}
+                    alt={`${service.category} Services - Allied gulf construction services`}
+                    link={`/services/${service.slug?.current}/${item.servicesSlug?.current}`}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </Suspense>
