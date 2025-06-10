@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 
 import { Card } from "@/components/global/card";
+import { Cta } from "@/components/global/cta";
 import Header from "@/components/global/header";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { getServicesCategories } from "@/sanity/lib/fetch";
@@ -29,6 +30,8 @@ export const metadata: Metadata = {
       "Expert construction and engineering services in Bahrain and Middle East",
   },
 };
+
+export const revalidate = 1800; // Revalidate every half hour
 
 export default async function ServicesPage() {
   const text = {
@@ -95,6 +98,7 @@ export default async function ServicesPage() {
           </Suspense>
         </section>
       </article>
+      <Cta />
     </main>
   );
 }

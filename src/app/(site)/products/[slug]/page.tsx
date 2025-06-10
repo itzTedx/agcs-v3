@@ -17,6 +17,8 @@ import {
 } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
+export const revalidate = 1800; // Revalidate every half hour
+
 export default async function ProductsBySlugPage({
   params,
 }: {
@@ -72,7 +74,7 @@ export default async function ProductsBySlugPage({
             segments={[
               { title: "Products", href: "/services" },
               {
-                title: category?.category!,
+                title: category?.category || "Products",
               },
             ]}
           />

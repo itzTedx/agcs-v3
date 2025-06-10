@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Card } from "@/components/global/card";
+import { Cta } from "@/components/global/cta";
 import Header from "@/components/global/header";
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import {
@@ -50,6 +51,8 @@ export async function generateStaticParams() {
   }));
 }
 
+export const revalidate = 1800; // Revalidate every half hour
+
 export default async function ServicesByCategoryPage({
   params,
 }: {
@@ -94,7 +97,7 @@ export default async function ServicesByCategoryPage({
             segments={[
               { title: "Services", href: "/services" },
               {
-                title: category?.category!,
+                title: category?.category || "Services",
               },
             ]}
           />
@@ -117,6 +120,7 @@ export default async function ServicesByCategoryPage({
             />
           ))}
         </section>
+        <Cta />
       </main>
     </>
   );

@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 1800; // Revalidate every half hour
+
 export default async function ProductsPage() {
   const text = {
     title: "Get the best products at",

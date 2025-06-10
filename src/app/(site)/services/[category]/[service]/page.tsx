@@ -13,21 +13,26 @@ import { urlFor } from "@/sanity/lib/image";
 export async function generateStaticParams() {
   const categories = await getServicesCategories();
 
-  return categories.map(async (category) => {
-    const service = await getServiceBySlug(category.slug?.current!);
+  return categories
+    .filter(
+      (category): category is typeof category & { slug: { current: string } } =>
+        Boolean(category.slug?.current)
+    )
+    .map(async (category) => {
+      const service = await getServiceBySlug(category.slug.current);
 
-    return service
-      ? [
-          {
-            slug: category.slug?.current,
-            service: service.servicesSlug?.current,
-          },
-        ]
-      : [];
-  });
+      return service
+        ? [
+            {
+              slug: category.slug?.current,
+              service: service.servicesSlug?.current,
+            },
+          ]
+        : [];
+    });
 }
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 1800; // Revalidate every half hour
 
 export default async function ServicePage({
   params,

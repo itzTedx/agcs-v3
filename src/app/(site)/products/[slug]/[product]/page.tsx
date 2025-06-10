@@ -28,6 +28,8 @@ const PortableText = dynamic(() =>
   import("@portabletext/react").then((mod) => mod.PortableText)
 );
 
+export const revalidate = 1800; // Revalidate every half hour
+
 export default async function ProductPage({
   params,
 }: {
@@ -183,12 +185,17 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const categories = await getCategories();
 
-  return categories.map(async (category) => {
-    const products = await getProductsBySlug(category.slug?.current!);
+  return categories
+    .filter(
+      (category): category is typeof category & { slug: { current: string } } =>
+        Boolean(category.slug?.current)
+    )
+    .map(async (category) => {
+      const products = await getProductsBySlug(category.slug.current);
 
-    return products.map((product) => ({
-      slug: category.slug?.current,
-      product: product.slug?.current,
-    }));
-  });
+      return products.map((product) => ({
+        slug: category.slug?.current,
+        product: product.slug?.current,
+      }));
+    });
 }
