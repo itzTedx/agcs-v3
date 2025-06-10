@@ -53,44 +53,65 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch all services for each category in parallel
     const servicesByCategoryEntries = (
       await Promise.all(
-        servicesCategoriesQuery.map((s) =>
-          getServicesByCategory(s.slug?.current!).then((services) =>
-            services.map((c) =>
-              createSitemapEntry(
-                `/services/${s.slug?.current}/${c.servicesSlug?.current}`,
-                0.8,
-                s._updatedAt
-              )
+        servicesCategoriesQuery
+          .filter((s): s is typeof s & { slug: { current: string } } =>
+            Boolean(s.slug?.current)
+          )
+          .map((s) =>
+            getServicesByCategory(s.slug.current).then((services) =>
+              services
+                .filter(
+                  (c): c is typeof c & { servicesSlug: { current: string } } =>
+                    Boolean(c.servicesSlug?.current)
+                )
+                .map((c) =>
+                  createSitemapEntry(
+                    `/services/${s.slug.current}/${c.servicesSlug.current}`,
+                    0.8,
+                    s._updatedAt
+                  )
+                )
             )
           )
-        )
       )
     ).flat();
 
     // Process products data
-    const productsCategoriesEntries = productsCategoriesQuery.map((s) =>
-      createSitemapEntry(
-        `/products/${s.slug?.current}`,
-        0.8,
-        s._updatedAt,
-        "weekly"
+    const productsCategoriesEntries = productsCategoriesQuery
+      .filter((s): s is typeof s & { slug: { current: string } } =>
+        Boolean(s.slug?.current)
       )
-    );
+      .map((s) =>
+        createSitemapEntry(
+          `/products/${s.slug.current}`,
+          0.8,
+          s._updatedAt,
+          "weekly"
+        )
+      );
 
     // Fetch all products for each category in parallel
     const productsByCategoryEntries = (
       await Promise.all(
-        productsCategoriesQuery.map((s) =>
-          getProductsBySlug(s.slug?.current!).then((products) =>
-            products.map((c) =>
-              createSitemapEntry(
-                `/products/${s.slug?.current}/${c.slug?.current}`,
-                0.8,
-                s._updatedAt
-              )
+        productsCategoriesQuery
+          .filter((s): s is typeof s & { slug: { current: string } } =>
+            Boolean(s.slug?.current)
+          )
+          .map((s) =>
+            getProductsBySlug(s.slug.current).then((products) =>
+              products
+                .filter((c): c is typeof c & { slug: { current: string } } =>
+                  Boolean(c.slug?.current)
+                )
+                .map((c) =>
+                  createSitemapEntry(
+                    `/products/${s.slug.current}/${c.slug.current}`,
+                    0.8,
+                    s._updatedAt
+                  )
+                )
             )
           )
-        )
       )
     ).flat();
 

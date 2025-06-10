@@ -194,9 +194,9 @@ export const getCategories =
           query: PRODUCTS_CATEGORIES_QUERY,
         });
         return data;
-      },
-      ["product-categories"],
-      cacheOptions
+      }
+      // ["product-categories"],
+      // cacheOptions
     )();
   };
 
@@ -210,9 +210,9 @@ export const getAllProducts = async (
         params: { slug },
       });
       return data;
-    },
-    ["all-products"],
-    cacheOptions
+    }
+    // ["products"],
+    // cacheOptions
   )();
 };
 
@@ -227,7 +227,7 @@ export const getProductsBySlug = async (
       });
       return data;
     },
-    ["products-by-slug", slug],
+    ["products", slug],
     cacheOptions
   )();
 };
@@ -279,6 +279,7 @@ export async function getRecentlyViewedProducts(
     params: { ids },
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return data.sort((a: any, b: any) => ids.indexOf(a._id) - ids.indexOf(b._id));
 }
 
