@@ -66,5 +66,11 @@ export const SERVICE_QUERY = groq`*[_type == "services" && servicesSlug.current 
         category->{
           slug
         }
-      }
+      },
+    "relatedServices": *[_type == "services" && category._ref == ^.category._ref && _id != ^._id][0..7] {
+      _id,
+      servicesTitle,
+      servicesSlug,
+      thumbnail
+    }
     }`;

@@ -7,6 +7,7 @@ import { PortableText } from "next-sanity";
 
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { ImagePreview } from "@/features/products/components/image-preview";
+import { OtherServices } from "@/features/services/components/other-services";
 import { RelatedProducts } from "@/features/services/components/related-products";
 import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
@@ -43,7 +44,6 @@ export default async function ServicePage({
   const { category: categoryQuery, service: query } = await params;
 
   const service = await getServiceBySlug(query);
-  console.log("services from sanity: ", service);
 
   if (!service) return notFound();
 
@@ -137,6 +137,34 @@ export default async function ServicePage({
           />
         </section>
       )}
+      <section className="container pt-12">
+        <h3 className="pb-3 text-2xl text-sky-800">
+          Other services related to{" "}
+          <span className="text-primary font-medium">
+            {categoryQuery
+              .replace(/-/g, " ")
+              .replace(/\b\w/g, (char) => char.toUpperCase())}
+          </span>
+        </h3>
+
+        <OtherServices
+          category={categoryQuery}
+          products={
+            service.relatedServices?.map((service) => ({
+              _id: service._id,
+              title: service.servicesTitle || "",
+              servicesTitle: service.servicesTitle,
+              servicesSlug: service.servicesSlug,
+              category: categoryQuery,
+              slug: service.servicesSlug || { _type: "slug", current: "" },
+              thumbnail: service.thumbnail || {
+                _type: "image",
+                asset: { _ref: "", _type: "reference" },
+              },
+            })) || []
+          }
+        />
+      </section>
     </div>
   );
 }

@@ -15,7 +15,7 @@ const FAQItem = memo(
   ({ question, answer }: { question: string; answer: string }) => (
     <AccordionItem value={question}>
       <AccordionTrigger className="font-normal md:text-lg">
-        <summary>{question}</summary>
+        <summary className="list-none">{question}</summary>
       </AccordionTrigger>
       <AccordionContent className="font-normal md:text-base">
         {answer}
@@ -78,7 +78,7 @@ export const FAQs = memo(
             Frequently Asked Questions
           </h2>
           <p className="relative z-10 pt-1 font-light md:text-lg">
-            Everything you need to know. Can't find an answer?{" "}
+            Everything you need to know. Can&apos;t find an answer?{" "}
             <Link
               href="/contact"
               className="underline transition-colors hover:text-sky-200"
