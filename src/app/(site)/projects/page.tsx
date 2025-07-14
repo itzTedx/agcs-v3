@@ -141,22 +141,21 @@ export default async function ProjectsPage() {
                       </DialogClose>
 
                       {project.image && (
-                        <div className="relative aspect-[16/9] overflow-hidden rounded-lg border bg-white">
+                        <div className="relative rounded-lg border bg-white">
                           <Image
-                            src={urlFor(project.image)
-                              .width(800)
-                              .height(450)
-                              .quality(85)
-                              .url()}
+                            src={urlFor(project.image).url()}
                             alt={project.title ?? "Project Image"}
                             title={project.title ?? "Project"}
-                            fill
+                            width={
+                              project.image.asset?.metadata?.dimensions
+                                ?.width ?? 450
+                            }
+                            height={
+                              project.image.asset?.metadata?.dimensions
+                                ?.height ?? 350
+                            }
                             priority={true}
-                            style={{
-                              objectFit: "cover",
-                            }}
                             sizes="(min-width: 1024px) 800px, (min-width: 640px) 600px, 100vw"
-                            loading="eager"
                           />
                         </div>
                       )}

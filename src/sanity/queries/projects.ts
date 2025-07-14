@@ -18,7 +18,21 @@ export const FEATURED_PROJECTS_QUERY = groq`*[_type == "projects" && isFeatured 
 export const PROJECTS_QUERY = groq`*[_type == "projects"] | order(orderRank) {
     _id,
     title,
-    image,
+    image{
+    asset->{
+      _id,
+      url,
+      mimeType,
+      metadata {
+        lqip,
+        dimensions {
+          width,
+          height
+        }
+      }
+    },
+    alt
+  },
     description,
     tags,
   }`;

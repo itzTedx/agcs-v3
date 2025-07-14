@@ -982,20 +982,24 @@ export type FEATURED_PROJECTS_QUERYResult = Array<{
   tags: Array<string> | null;
 }>;
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "projects"] | order(orderRank) {    _id,    title,    image,    description,    tags,  }
+// Query: *[_type == "projects"] | order(orderRank) {    _id,    title,    image{    asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    },    alt  },    description,    tags,  }
 export type PROJECTS_QUERYResult = Array<{
   _id: string;
   title: string | null;
   image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
+    asset: {
+      _id: string;
+      url: string | null;
+      mimeType: string | null;
+      metadata: {
+        lqip: string | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
+    alt: null;
   } | null;
   description: string | null;
   tags: Array<string> | null;
@@ -1142,7 +1146,7 @@ export type SERVICES_CATEGORY_BY_CATEGORY_QUERYResult = {
   slug: Slug | null;
 } | null;
 // Variable: SERVICE_QUERY
-// Query: *[_type == "services" && servicesSlug.current == $slug][0] {   _id,    servicesTitle,    servicesDescription,    category,    servicesImage,    file,    servicesSlug,    metaTagTitle,    metaTagKeyword,    metaTagDescription,    thumbnail,    relatedProducts[]->{        _id,        title,        slug,        thumbnail,        category->{          slug        }      },    "relatedServices": *[_type == "services" && category._ref == ^.category._ref && _id != ^._id][0..3] {      _id,      servicesTitle,      servicesSlug,      thumbnail    }    }
+// Query: *[_type == "services" && servicesSlug.current == $slug][0] {   _id,    servicesTitle,    servicesDescription,    category,    servicesImage,    file,    servicesSlug,    metaTagTitle,    metaTagKeyword,    metaTagDescription,    thumbnail,    relatedProducts[]->{        _id,        title,        slug,        thumbnail,        category->{          slug        }      },    "relatedServices": *[_type == "services" && category._ref == ^.category._ref && _id != ^._id][0..7] {      _id,      servicesTitle,      servicesSlug,      thumbnail    }    }
 export type SERVICE_QUERYResult = {
   _id: string;
   servicesTitle: string | null;
@@ -1250,12 +1254,12 @@ declare module "@sanity/client" {
     '*[_type == "products" && _id in $ids]': RECENTLY_VIEWED_PRODUCTS_QUERYResult;
     '*[_type == "projects"] | order(_createdAt asc)[0..3] {\n    _id,\n    title,\n    image,\n    description,\n  }': HOME_PROJECTS_QUERYResult;
     '*[_type == "projects" && isFeatured == true] | order(_createdAt asc) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': FEATURED_PROJECTS_QUERYResult;
-    '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image,\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;
+    '*[_type == "projects"] | order(orderRank) {\n    _id,\n    title,\n    image{\n    asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    },\n    alt\n  },\n    description,\n    tags,\n  }': PROJECTS_QUERYResult;
     '*[_type == "projectsCarousel"] | order(orderRank) {\n    _id,\n    image,\n    title,\n  }': PROJECTS_CAROUSEL_QUERYResult;
     '*[_type == "servicesCategory"] | order(orderRank)[0..8] {\n  _id,\n  category,\n  description,\n  slug,\n  thumbnail,\n  _updatedAt,\n  "relatedServices": *[_type == "services" && category._ref == ^._id][0..5] {\n    _id,\n    servicesTitle,\n    servicesSlug,\n    thumbnail\n  }\n}': HOME_SERVICES_QUERYResult;
     '*[_type == "servicesCategory"] | order(orderRank) {\n    _id,\n    image,\n    category,\n    description,\n    file,\n    slug,\n    thumbnail,\n    _updatedAt\n  }': SERVICES_CATEOGORIES_QUERYResult;
     "*[_type == \"services\" && category._ref in *[_type=='servicesCategory' && slug.current == $slug]._id] | order(_createdAt asc){\n    _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    thumbnail\n  }": SERVICES_BY_CATEOGORY_QUERYResult;
     '*[_type == "servicesCategory" && slug.current == $slug][0]{\n     _id,\n    category,\n    description,\n    slug,\n  }': SERVICES_CATEGORY_BY_CATEGORY_QUERYResult;
-    '*[_type == "services" && servicesSlug.current == $slug][0] {\n   _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    metaTagDescription,\n    thumbnail,\n    relatedProducts[]->{\n        _id,\n        title,\n        slug,\n        thumbnail,\n        category->{\n          slug\n        }\n      },\n    "relatedServices": *[_type == "services" && category._ref == ^.category._ref && _id != ^._id][0..3] {\n      _id,\n      servicesTitle,\n      servicesSlug,\n      thumbnail\n    }\n    }': SERVICE_QUERYResult;
+    '*[_type == "services" && servicesSlug.current == $slug][0] {\n   _id,\n    servicesTitle,\n    servicesDescription,\n    category,\n    servicesImage,\n    file,\n    servicesSlug,\n    metaTagTitle,\n    metaTagKeyword,\n    metaTagDescription,\n    thumbnail,\n    relatedProducts[]->{\n        _id,\n        title,\n        slug,\n        thumbnail,\n        category->{\n          slug\n        }\n      },\n    "relatedServices": *[_type == "services" && category._ref == ^.category._ref && _id != ^._id][0..7] {\n      _id,\n      servicesTitle,\n      servicesSlug,\n      thumbnail\n    }\n    }': SERVICE_QUERYResult;
   }
 }

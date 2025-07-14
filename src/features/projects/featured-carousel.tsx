@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import Autoplay from "embla-carousel-autoplay";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,6 +30,7 @@ export function FeaturedCarousel({
         Autoplay({
           delay: 2000,
         }),
+        WheelGesturesPlugin(),
       ]}
     >
       <CarouselContent>
@@ -56,10 +58,8 @@ export function FeaturedCarousel({
               </Card>
               <div>
                 <Badge>Top Projects in Bahrain</Badge>
-                <h2 className="py-3 text-2xl md:text-6xl">{project.title}</h2>
-                <p className="text-lg font-light capitalize">
-                  {project.description}
-                </p>
+                <h2 className="py-3 text-2xl md:text-4xl">{project.title}</h2>
+                <p className="text-base font-light">{project.description}</p>
                 <div className="flex flex-wrap gap-2 py-4">
                   {project.tags?.map((tag) => <Badge key={tag}>{tag}</Badge>)}
                 </div>
