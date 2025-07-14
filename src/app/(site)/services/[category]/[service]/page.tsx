@@ -110,9 +110,6 @@ export default async function ServicePage({
                   <PortableText value={service.servicesDescription} />
                 )}
               </article>
-              {/* <p className="pt-3 text-lg font-light">
-                {service?.servicesDescription}
-              </p> */}
             </section>
           </article>
         </div>

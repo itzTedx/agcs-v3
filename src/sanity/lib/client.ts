@@ -7,7 +7,9 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  useCdn: true, // Enable CDN for better caching
+  perspective: "published", // Only fetch published content
+  stega: false, // Disable stega for better performance
 });
 
 export async function sanityFetch<const QueryString extends string>({

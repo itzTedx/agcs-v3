@@ -10,6 +10,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { metadata as siteMetadata } from "@/data/site-config";
+import { SanityLive } from "@/sanity/lib/live";
 import "@/styles/globals.css";
 
 const FloatingWhatsapp = dynamic(
@@ -78,6 +79,7 @@ export default function RootLayout({
             <BreakpointIndicator />
           </div>
         </ThemeProvider>
+        <SanityLive />
       </body>
     </html>
   );
