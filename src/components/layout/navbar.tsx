@@ -358,7 +358,7 @@ export async function Navbar() {
                       >
                         <NavigationMenuLink asChild>
                           <Link
-                            href={sub.slug?.current ?? "/"}
+                            href={`/services/${sub.slug?.current ?? "/"}`}
                             className={cn(
                               "hover:bg-accent bg-popover hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex h-full flex-col items-start justify-end rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
                             )}
