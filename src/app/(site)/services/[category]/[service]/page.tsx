@@ -46,6 +46,7 @@ export default async function ServicePage({
   const service = await getServiceBySlug(query);
 
   if (!service) return notFound();
+  console.log("service data: ", service);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -81,12 +82,14 @@ export default async function ServicePage({
           ]}
         />
         <div className="grid gap-6 pb-12 md:grid-cols-5">
-          <figure className="md:col-span-3">
-            <ImagePreview
-              data={service?.servicesImage}
-              alt={service?.servicesTitle}
-            />
-          </figure>
+          {service.servicesImage && (
+            <figure className="md:col-span-3">
+              <ImagePreview
+                data={service.servicesImage}
+                alt={service.servicesTitle}
+              />
+            </figure>
+          )}
 
           <article className="md:col-span-2 md:px-6">
             <nav>

@@ -72,7 +72,7 @@ export default async function ProductsBySlugPage({
         <main className="relative container">
           <Breadcrumb
             segments={[
-              { title: "Products", href: "/services" },
+              { title: "Products", href: "/products" },
               {
                 title: category?.category || "Products",
               },

@@ -37,13 +37,7 @@ export default defineType({
         },
       ],
     }),
-    // defineField({
-    //   name: "servicesDescription",
-    //   title: "Description",
-    //   type: "text",
-    //   group: "content",
-    //   validation: (Rule) => Rule.required(),
-    // }),
+
     defineField({
       name: "servicesSlug",
       title: "Generate Url",
@@ -71,17 +65,18 @@ export default defineType({
       type: "reference",
       to: [{ type: "servicesCategory" }],
     }),
+
     defineField({
       name: "servicesImage",
-      title: "Image",
+      title: "Images",
       type: "array",
       of: [
         {
           type: "image",
           options: {
             hotspot: true,
-            metadata: ["blurhash", "lqip", "palette", "image"],
           },
+          validation: (Rule) => Rule.required(),
           fields: [
             {
               name: "alt",
@@ -91,28 +86,21 @@ export default defineType({
           ],
         },
       ],
-      description: "Recommended size width:534px, height: 262px",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "relatedProducts",
       title: "Related Products",
+      description: "Products Related to this service",
       type: "array",
       group: "settings",
       of: [{ type: "reference", to: { type: "products" } }],
     }),
-    // defineField({
-    //   group: "settings",
-    //   title: "Related Products",
-    //   name: "relatedProducts",
-    //   type: "array",
-    //   of: [{ type: "reference", to: {type: "products"} }]
-    // }),
 
     defineField({
       group: "content",
       name: "servicesFile",
-      title: "Brouchure",
+      title: "Brochure",
       description: "PDF file only accepted",
       type: "file",
       options: {

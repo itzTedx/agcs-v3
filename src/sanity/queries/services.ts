@@ -48,10 +48,10 @@ export const SERVICES_CATEGORY_BY_CATEGORY_QUERY = groq`*[_type == "servicesCate
 
 export const SERVICE_QUERY = groq`*[_type == "services" && servicesSlug.current == $slug][0] {
    _id,
+   servicesImage,
     servicesTitle,
     servicesDescription,
     category,
-    servicesImage,
     file,
     servicesSlug,
     metaTagTitle,

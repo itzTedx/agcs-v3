@@ -34,6 +34,7 @@ export const ImagePreview = ({
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  console.log("image preview data", data);
 
   useEffect(() => {
     setIsMounted(true);

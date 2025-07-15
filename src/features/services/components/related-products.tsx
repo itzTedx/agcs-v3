@@ -24,7 +24,6 @@ export const RelatedProducts = ({
   products: PRODUCTS_TYPES[];
   category: string;
 }) => {
-  console.log(products);
   if (products.length > 4)
     return (
       <Carousel className="w-full">

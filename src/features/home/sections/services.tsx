@@ -23,7 +23,6 @@ const ServicesSkeleton = () => {
 
 export const Services = async () => {
   const services = await getHomeServices();
-  console.log("services from sanity", services);
   return (
     <section aria-labelledby="services-title">
       <Header id="services-title">Services</Header>
