@@ -8,7 +8,7 @@ import {
   getServicesCategories,
 } from "@/sanity/lib/fetch";
 
-const BASE_URL = "https://www.alliedgulf.me";
+const BASE_URL = "https://www.gcs.sa";
 
 const createSitemapEntry = (
   path: string,
