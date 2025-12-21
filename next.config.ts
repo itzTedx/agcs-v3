@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
  
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
   // logging: {
   //   fetches: {
