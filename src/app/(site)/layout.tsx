@@ -51,6 +51,11 @@ export default function RootLayout({
         />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="apple-mobile-web-app-title" content="AGCS" />
+        <script
+          defer
+          src="http://allied-gulf-umami-7e436f-194-238-19-160.traefik.me/script.js"
+          data-website-id="4afab4dc-5b7c-43ef-8e37-6a03d7b676f1"
+        ></script>
       </head>
       <body className={`${roboto.className} antialiased`}>
         <ThemeProvider
