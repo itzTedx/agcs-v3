@@ -25,11 +25,11 @@ export async function generateStaticParams() {
 
       return service
         ? [
-            {
-              slug: category.slug?.current,
-              service: service.servicesSlug?.current,
-            },
-          ]
+          {
+            slug: category.slug?.current,
+            service: service.servicesSlug?.current,
+          },
+        ]
         : [];
     });
 }
@@ -46,7 +46,6 @@ export default async function ServicePage({
   const service = await getServiceBySlug(query);
 
   if (!service) return notFound();
-  console.log("service data: ", service);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -191,9 +190,9 @@ export async function generateMetadata({
       categoryQuery,
       ...(service.metaTagKeyword
         ? service.metaTagKeyword
-            .split(/[,\n]+/)
-            .map((keyword) => keyword.trim())
-            .filter(Boolean)
+          .split(/[,\n]+/)
+          .map((keyword) => keyword.trim())
+          .filter(Boolean)
         : []),
     ],
     openGraph: {
