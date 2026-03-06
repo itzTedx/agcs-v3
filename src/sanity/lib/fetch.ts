@@ -4,3 +4,4 @@ export * from "./fetch/fetchPosts";
 export * from "./fetch/fetchProducts";
 export * from "./fetch/fetchProjects";
 export * from "./fetch/fetchServices";
+export * from "./fetch/fetchStatic";
