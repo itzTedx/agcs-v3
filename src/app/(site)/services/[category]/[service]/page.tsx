@@ -1,199 +1,209 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import Script from "next/script"
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import Script from "next/script";
 
-import { IconArrowLeft } from "@tabler/icons-react"
-import { PortableText } from "next-sanity"
+import { IconArrowLeft } from "@tabler/icons-react";
+import { PortableText } from "next-sanity";
 
-import Breadcrumb from "@/features/products/components/breadcrumb"
-import { ImagePreview } from "@/features/products/components/image-preview"
-import { OtherServices } from "@/features/services/components/other-services"
-import { RelatedProducts } from "@/features/services/components/related-products"
-import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch"
-import { urlFor } from "@/sanity/lib/image"
+import Breadcrumb from "@/features/products/components/breadcrumb";
+import { ImagePreview } from "@/features/products/components/image-preview";
+import { OtherServices } from "@/features/services/components/other-services";
+import { RelatedProducts } from "@/features/services/components/related-products";
+import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch";
+import { urlFor } from "@/sanity/lib/image";
 
 export async function generateStaticParams() {
-  const categories = await getServicesCategories()
+	const categories = await getServicesCategories();
 
-  return categories
-    .filter((category): category is typeof category & { slug: { current: string } } =>
-      Boolean(category.slug?.current),
-    )
-    .map(async (category) => {
-      const service = await getServiceBySlug(category.slug.current)
+	return categories
+		.filter(
+			(category): category is typeof category & { slug: { current: string } } =>
+				Boolean(category.slug?.current)
+		)
+		.map(async (category) => {
+			const service = await getServiceBySlug(category.slug.current);
 
-      return service
-        ? [
-            {
-              slug: category.slug?.current,
-              service: service.servicesSlug?.current,
-            },
-          ]
-        : []
-    })
+			return service
+				? [
+						{
+							slug: category.slug?.current,
+							service: service.servicesSlug?.current,
+						},
+					]
+				: [];
+		});
 }
 
-export const revalidate = 1800 // Revalidate every half hour
+export const revalidate = 1800; // Revalidate every half hour
 
 export default async function ServicePage({
-  params,
+	params,
 }: {
-  params: Promise<{ category: string; service: string }>
+	params: Promise<{ category: string; service: string }>;
 }) {
-  const { category: categoryQuery, service: query } = await params
+	const { category: categoryQuery, service: query } = await params;
 
-  const service = await getServiceBySlug(query)
+	const service = await getServiceBySlug(query);
 
-  if (!service) return notFound()
+	if (!service) return notFound();
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.servicesTitle,
-    description: service.servicesDescription,
-    provider: {
-      "@type": "Organization",
-      name: "AGCS",
-    },
-    image: service.servicesImage && urlFor(service?.servicesImage).url,
-    category: categoryQuery,
-  }
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@type": "Service",
+		name: service.servicesTitle,
+		description: service.servicesDescription,
+		provider: {
+			"@type": "Organization",
+			name: "AGCS",
+		},
+		image: service.servicesImage && urlFor(service?.servicesImage).url,
+		category: categoryQuery,
+	};
 
-  return (
-    <div>
-      <Script type="application/ld+json">{JSON.stringify(jsonLd)}</Script>
+	return (
+		<div>
+			<Script type="application/ld+json">{JSON.stringify(jsonLd)}</Script>
 
-      <div className="container">
-        <Breadcrumb
-          segments={[
-            { title: "Services", href: "/services" },
-            {
-              title: categoryQuery
-                .replace(/-/g, " ")
-                .replace(/\b\w/g, (char) => char.toUpperCase()),
-              href: `/services/${categoryQuery}`,
-            },
-            { title: service.servicesTitle ?? "Service" },
-          ]}
-        />
-        <div className="grid gap-6 pb-12 md:grid-cols-5">
-          {service.servicesImage && (
-            <figure className="md:col-span-3">
-              <ImagePreview alt={service.servicesTitle} data={service.servicesImage} />
-            </figure>
-          )}
+			<div className="container">
+				<Breadcrumb
+					segments={[
+						{ title: "Services", href: "/services" },
+						{
+							title: categoryQuery
+								.replace(/-/g, " ")
+								.replace(/\b\w/g, (char) => char.toUpperCase()),
+							href: `/services/${categoryQuery}`,
+						},
+						{ title: service.servicesTitle ?? "Service" },
+					]}
+				/>
+				<div className="grid gap-6 pb-12 md:grid-cols-5">
+					{service.servicesImage && (
+						<figure className="md:col-span-3">
+							<ImagePreview
+								alt={service.servicesTitle}
+								data={service.servicesImage}
+							/>
+						</figure>
+					)}
 
-          <article className="md:col-span-2 md:px-6">
-            <nav>
-              <Link
-                aria-label={`Back to ${categoryQuery} services`}
-                className="hidden items-center gap-1 text-sm md:flex"
-                href={`/services/${categoryQuery}`}
-              >
-                <IconArrowLeft className="size-4" />
-                Back to services
-              </Link>
-            </nav>
-            <header>
-              <h1 className="text-4xl font-bold md:pt-4">{service?.servicesTitle}</h1>
-            </header>
-            <section className="service-description">
-              <article className="prose dark:prose-invert py-6">
-                {service.servicesDescription && (
-                  <PortableText value={service.servicesDescription} />
-                )}
-              </article>
-            </section>
-          </article>
-        </div>
-      </div>
-      {/* <pre className="text-wrap">{JSON.stringify(service, null, 2)}</pre> */}
-      {service.relatedProducts && service.relatedProducts.length !== 0 && (
-        <section className="container pt-12">
-          <h3 className="pb-3 text-2xl text-sky-800">
-            Related Products for {service?.servicesTitle}
-          </h3>
+					<article className="md:col-span-2 md:px-6">
+						<nav>
+							<Link
+								aria-label={`Back to ${categoryQuery} services`}
+								className="hidden items-center gap-1 text-sm md:flex"
+								href={`/services/${categoryQuery}`}
+							>
+								<IconArrowLeft className="size-4" />
+								Back to services
+							</Link>
+						</nav>
+						<header>
+							<h1 className="font-bold text-4xl md:pt-4">
+								{service?.servicesTitle}
+							</h1>
+						</header>
+						<section className="service-description">
+							<article className="prose dark:prose-invert py-6">
+								{service.servicesDescription && (
+									<PortableText value={service.servicesDescription} />
+								)}
+							</article>
+						</section>
+					</article>
+				</div>
+			</div>
+			{/* <pre className="text-wrap">{JSON.stringify(service, null, 2)}</pre> */}
+			{service.relatedProducts && service.relatedProducts.length !== 0 && (
+				<section className="container pt-12">
+					<h3 className="pb-3 text-2xl text-sky-800">
+						Related Products for {service?.servicesTitle}
+					</h3>
 
-          <RelatedProducts
-            category={categoryQuery}
-            products={service.relatedProducts.map((product) => ({
-              ...product,
-              category: product.category?.slug?.current || "",
-              thumbnail: product.thumbnail?.asset?._ref || "",
-              slug: product.slug ? { current: product.slug.current || "" } : undefined,
-            }))}
-          />
-        </section>
-      )}
-      <section className="container pt-12">
-        <h3 className="pb-3 text-2xl text-sky-800">
-          Other services related to{" "}
-          <span className="text-primary font-medium">
-            {categoryQuery.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())}
-          </span>
-        </h3>
+					<RelatedProducts
+						category={categoryQuery}
+						products={service.relatedProducts.map((product) => ({
+							...product,
+							category: product.category?.slug?.current || "",
+							thumbnail: product.thumbnail?.asset?._ref || "",
+							slug: product.slug
+								? { current: product.slug.current || "" }
+								: undefined,
+						}))}
+					/>
+				</section>
+			)}
+			<section className="container pt-12">
+				<h3 className="pb-3 text-2xl text-sky-800">
+					Other services related to{" "}
+					<span className="font-medium text-primary">
+						{categoryQuery
+							.replace(/-/g, " ")
+							.replace(/\b\w/g, (char) => char.toUpperCase())}
+					</span>
+				</h3>
 
-        <OtherServices
-          category={categoryQuery}
-          products={
-            service.relatedServices?.map((service) => ({
-              _id: service._id,
-              title: service.servicesTitle || "",
-              servicesTitle: service.servicesTitle,
-              servicesSlug: service.servicesSlug,
-              category: categoryQuery,
-              slug: service.servicesSlug || { _type: "slug", current: "" },
-              thumbnail: service.thumbnail || {
-                _type: "image",
-                asset: { _ref: "", _type: "reference" },
-              },
-            })) || []
-          }
-        />
-      </section>
-    </div>
-  )
+				<OtherServices
+					category={categoryQuery}
+					products={
+						service.relatedServices?.map((service) => ({
+							_id: service._id,
+							title: service.servicesTitle || "",
+							servicesTitle: service.servicesTitle,
+							servicesSlug: service.servicesSlug,
+							category: categoryQuery,
+							slug: service.servicesSlug || { _type: "slug", current: "" },
+							thumbnail: service.thumbnail || {
+								_type: "image",
+								asset: { _ref: "", _type: "reference" },
+							},
+						})) || []
+					}
+				/>
+			</section>
+		</div>
+	);
 }
 
 export async function generateMetadata({
-  params,
+	params,
 }: {
-  params: { category: string; service: string }
+	params: { category: string; service: string };
 }): Promise<Metadata> {
-  const { category: categoryQuery, service: serviceQuery } = await params
-  const service = await getServiceBySlug(serviceQuery)
+	const { category: categoryQuery, service: serviceQuery } = await params;
+	const service = await getServiceBySlug(serviceQuery);
 
-  if (!service) return { title: "Service Not Found" }
+	if (!service) return { title: "Service Not Found" };
 
-  return {
-    title: service.metaTagTitle
-      ? `${service.metaTagTitle} - Allied Gulf`
-      : `${service.servicesTitle} | AGCS Services`,
-    description: service.metaTagDescription,
-    keywords: [
-      `${service.servicesTitle}`,
-      "allied gulf",
-      "bahrain",
-      categoryQuery,
-      ...(service.metaTagKeyword
-        ? service.metaTagKeyword
-            .split(/[,\n]+/)
-            .map((keyword) => keyword.trim())
-            .filter(Boolean)
-        : []),
-    ],
-    openGraph: {
-      title: service.servicesTitle ?? "Service",
-      description: service.metaTagDescription ?? "Service description",
-      type: "article",
-      publishedTime: new Date().toISOString(),
-      authors: ["AGCS"],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: service.servicesTitle ?? "Service",
-      description: service.metaTagDescription ?? "Service description",
-    },
-  }
+	return {
+		title: service.metaTagTitle
+			? `${service.metaTagTitle} - Allied Gulf`
+			: `${service.servicesTitle} | AGCS Services`,
+		description: service.metaTagDescription,
+		keywords: [
+			`${service.servicesTitle}`,
+			"allied gulf",
+			"bahrain",
+			categoryQuery,
+			...(service.metaTagKeyword
+				? service.metaTagKeyword
+						.split(/[,\n]+/)
+						.map((keyword) => keyword.trim())
+						.filter(Boolean)
+				: []),
+		],
+		openGraph: {
+			title: service.servicesTitle ?? "Service",
+			description: service.metaTagDescription ?? "Service description",
+			type: "article",
+			publishedTime: new Date().toISOString(),
+			authors: ["AGCS"],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: service.servicesTitle ?? "Service",
+			description: service.metaTagDescription ?? "Service description",
+		},
+	};
 }

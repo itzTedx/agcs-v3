@@ -6,18 +6,18 @@ import { sanityFetch } from "../live";
 import { getCacheOptions } from "./utils";
 
 export const getCertifications = unstable_cache(
-  async (): Promise<CERTIFICASTES_QUERYResult> => {
-    try {
-      const { data } = await sanityFetch({
-        query: CERTIFICASTES_QUERY,
-        tags: ["sanity-content", "certificates"],
-      });
-      return data;
-    } catch (error) {
-      console.error("Error fetching certifications:", error);
-      throw new Error("Failed to fetch certifications");
-    }
-  },
-  ["certificates"],
-  getCacheOptions("certificates")
+	async (): Promise<CERTIFICASTES_QUERYResult> => {
+		try {
+			const { data } = await sanityFetch({
+				query: CERTIFICASTES_QUERY,
+				tags: ["sanity-content", "certificates"],
+			});
+			return data;
+		} catch (error) {
+			console.error("Error fetching certifications:", error);
+			throw new Error("Failed to fetch certifications");
+		}
+	},
+	["certificates"],
+	getCacheOptions("certificates")
 );

@@ -3,12 +3,12 @@ import { createClient } from "next-sanity";
 import { apiVersion, dataset, projectId } from "../env";
 
 export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true, // Enable CDN for better caching
-  perspective: "published", // Only fetch published content
-  stega: false, // Disable stega for better performance
+	projectId,
+	dataset,
+	apiVersion,
+	useCdn: true, // Enable CDN for better caching
+	perspective: "published", // Only fetch published content
+	stega: false, // Disable stega for better performance
 });
 
 // export async function sanityFetch<const QueryString extends string>({

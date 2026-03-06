@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect } from "react";
+
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
@@ -9,50 +10,50 @@ import { urlFor } from "@/sanity/lib/image";
 import { GALLERY_QUERYResult } from "../../../sanity.types";
 
 export default function GalleryGrid({
-  galleries,
+	galleries,
 }: {
-  galleries: GALLERY_QUERYResult;
+	galleries: GALLERY_QUERYResult;
 }) {
-  // Enable view transitions
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "view-transition-name",
-      "gallery-grid"
-    );
-  }, []);
+	// Enable view transitions
+	useEffect(() => {
+		document.documentElement.style.setProperty(
+			"view-transition-name",
+			"gallery-grid"
+		);
+	}, []);
 
-  return (
-    <section
-      className="columns-2 gap-2 md:columns-3 md:gap-6"
-      aria-label="Achievement gallery"
-    >
-      {galleries.map(
-        (gallery, i) =>
-          gallery.image && (
-            <figure
-              key={gallery._id || i}
-              className={cn(
-                "relative mt-2 inline-block w-full overflow-hidden rounded-lg md:mt-6"
-              )}
-            >
-              <Image
-                src={urlFor(gallery.image).url()}
-                alt={gallery.image.alt ?? ""}
-                width={500}
-                height={360}
-                className="object-cover"
-                priority={i === 0}
-                loading={i === 0 ? "eager" : "lazy"}
-                aria-labelledby={`gallery-title-${i}`}
-              />
-              {gallery.title && (
-                <figcaption id={`gallery-title-${i}`} className="sr-only">
-                  {gallery.title}
-                </figcaption>
-              )}
-            </figure>
-          )
-      )}
-    </section>
-  );
+	return (
+		<section
+			aria-label="Achievement gallery"
+			className="columns-2 gap-2 md:columns-3 md:gap-6"
+		>
+			{galleries.map(
+				(gallery, i) =>
+					gallery.image && (
+						<figure
+							className={cn(
+								"relative mt-2 inline-block w-full overflow-hidden rounded-lg md:mt-6"
+							)}
+							key={gallery._id || i}
+						>
+							<Image
+								alt={gallery.image.alt ?? ""}
+								aria-labelledby={`gallery-title-${i}`}
+								className="object-cover"
+								height={360}
+								loading={i === 0 ? "eager" : "lazy"}
+								priority={i === 0}
+								src={urlFor(gallery.image).url()}
+								width={500}
+							/>
+							{gallery.title && (
+								<figcaption className="sr-only" id={`gallery-title-${i}`}>
+									{gallery.title}
+								</figcaption>
+							)}
+						</figure>
+					)
+			)}
+		</section>
+	);
 }

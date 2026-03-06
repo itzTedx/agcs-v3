@@ -14,20 +14,20 @@ import services from "./services";
 import servicesCategory from "./services-category";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [
-    // shared objects
-    blockContent,
-    // documents
-    services,
-    servicesCategory,
-    products,
-    productsCategory,
-    certifications,
-    projects,
-    projectsCarousel,
-    gallery,
-    posts,
-    faqs,
-    helpArticles,
-  ],
+	types: [
+		// shared objects
+		blockContent,
+		// documents
+		services,
+		servicesCategory,
+		products,
+		productsCategory,
+		certifications,
+		projects,
+		projectsCarousel,
+		gallery,
+		posts,
+		faqs,
+		helpArticles,
+	],
 };

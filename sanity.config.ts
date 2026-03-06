@@ -5,8 +5,8 @@
  */
 import { visionTool } from "@sanity/vision";
 import { defineConfig, isDev } from "sanity";
-import { media } from "sanity-plugin-media";
 import { structureTool } from "sanity/structure";
+import { media } from "sanity-plugin-media";
 
 import { Logo } from "@/assets/logo";
 
@@ -15,18 +15,18 @@ import { schema } from "./src/sanity/schema";
 import { structure } from "./src/sanity/structure";
 
 export default defineConfig({
-  basePath: "/studio",
-  title: "Allied Gulf Construction Services W.L.L",
-  icon: Logo,
-  projectId,
-  dataset,
-  // Add and edit the content schema in the './sanity/schemaTypes' folder
-  schema,
-  plugins: isDev
-    ? [
-        structureTool({ structure }),
-        media(),
-        visionTool({ defaultApiVersion: apiVersion }),
-      ]
-    : [structureTool({ structure }), media()],
+	basePath: "/studio",
+	title: "Allied Gulf Construction Services W.L.L",
+	icon: Logo,
+	projectId,
+	dataset,
+	// Add and edit the content schema in the './sanity/schemaTypes' folder
+	schema,
+	plugins: isDev
+		? [
+				structureTool({ structure }),
+				media(),
+				visionTool({ defaultApiVersion: apiVersion }),
+			]
+		: [structureTool({ structure }), media()],
 });

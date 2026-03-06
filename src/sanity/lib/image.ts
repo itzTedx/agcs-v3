@@ -7,15 +7,15 @@ import { dataset, projectId } from "../env";
 const builder = createImageUrlBuilder({ projectId, dataset });
 
 export const urlFor = (source: SanityImageSource) => {
-  const imageBuilder = builder.image(source);
+	const imageBuilder = builder.image(source);
 
-  // Check if it's an object with asset property that has mimeType
-  const sourceObj = source as { asset?: { mimeType?: string } };
-  const isSvg = sourceObj?.asset?.mimeType === "image/svg+xml";
+	// Check if it's an object with asset property that has mimeType
+	const sourceObj = source as { asset?: { mimeType?: string } };
+	const isSvg = sourceObj?.asset?.mimeType === "image/svg+xml";
 
-  if (isSvg) {
-    return imageBuilder;
-  }
+	if (isSvg) {
+		return imageBuilder;
+	}
 
-  return imageBuilder.format("webp").fit("crop");
+	return imageBuilder.format("webp").fit("crop");
 };

@@ -1,40 +1,43 @@
 {
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports.biome": "explicit",
-    "source.fixAll.biome": "explicit"
-  },
-  "editor.defaultFormatter": "biomejs.biome",
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
-  "tailwindCSS.experimental.configFile": "src/styles/globals.css",
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ],
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.biome": "explicit"
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"tailwindCSS.experimental.configFile": "src/styles/globals.css",
+	"tailwindCSS.experimental.classRegex": [
+		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+	],
 
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": [
-    "abaya",
-    "Abayas",
-    "colour",
-    "colours",
-    "delmaredigital",
-    "Khaleeji",
-    "nuqs",
-    "oklch",
-    "payloadcms",
-    "preorder",
-    "qamar",
-    "remixicon",
-    "sheikha",
-    "simplykfabayas",
-    "tabler",
-    "Tieable",
-    "turbopack"
-  ]
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"cSpell.words": [
+		"abaya",
+		"Abayas",
+		"AGCS",
+		"colour",
+		"colours",
+		"delmaredigital",
+		"Khaleeji",
+		"NAVLINKS",
+		"nuqs",
+		"oklch",
+		"payloadcms",
+		"portabletext",
+		"preorder",
+		"qamar",
+		"remixicon",
+		"sheikha",
+		"simplykfabayas",
+		"tabler",
+		"Tieable",
+		"turbopack"
+	]
 }

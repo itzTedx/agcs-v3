@@ -18,10 +18,10 @@ Modifications to this file are automatically discarded.
     <link rel="manifest" href="/static/manifest.webmanifest" />
     <title>Sanity Studio</title>
     <script>
-      (function () {
+      (() => {
         var _caughtErrors = [];
 
-        var errorChannel = (function () {
+        var errorChannel = (() => {
           var subscribers = [];
 
           function publish(msg) {
@@ -33,7 +33,7 @@ Modifications to this file are automatically discarded.
           function subscribe(subscriber) {
             subscribers.push(subscriber);
 
-            return function () {
+            return () => {
               var idx = subscribers.indexOf(subscriber);
 
               if (idx > -1) {
@@ -56,7 +56,7 @@ Modifications to this file are automatically discarded.
         }
 
         function _handleError(error, params) {
-          _nextTick(function () {
+          _nextTick(() => {
             // - If there are error channel subscribers, then we notify them (no console error).
             // - If there are no subscribers, then we log the error to the console and render the error overlay.
             if (errorChannel.subscribers.length) {
@@ -139,8 +139,8 @@ Modifications to this file are automatically discarded.
         // See: https://github.com/facebook/react/issues/10384
 
         // Error listener #1
-        window.onerror = function (event, source, lineno, colno, error) {
-          _nextTick(function () {
+        window.onerror = (event, source, lineno, colno, error) => {
+          _nextTick(() => {
             if (_caughtErrors.indexOf(error) !== -1) return;
 
             _caughtErrors.push(error);
@@ -152,7 +152,7 @@ Modifications to this file are automatically discarded.
               source,
             });
 
-            _nextTick(function () {
+            _nextTick(() => {
               var idx = _caughtErrors.indexOf(error);
 
               if (idx > -1) _caughtErrors.splice(idx, 1);
@@ -165,7 +165,7 @@ Modifications to this file are automatically discarded.
         };
 
         // Error listener #2
-        window.addEventListener("error", function (event) {
+        window.addEventListener("error", (event) => {
           if (_caughtErrors.indexOf(event.error) !== -1) return true;
 
           _caughtErrors.push(event.error);
@@ -176,8 +176,8 @@ Modifications to this file are automatically discarded.
             colno: event.colno,
           });
 
-          _nextTick(function () {
-            _nextTick(function () {
+          _nextTick(() => {
+            _nextTick(() => {
               var idx = _caughtErrors.indexOf(event.error);
 
               if (idx > -1) _caughtErrors.splice(idx, 1);

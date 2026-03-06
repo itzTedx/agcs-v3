@@ -3,39 +3,39 @@ import { IconLibraryPhoto } from "@tabler/icons-react";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: "gallery",
-  title: "Gallery",
-  type: "document",
-  icon: IconLibraryPhoto,
+	name: "gallery",
+	title: "Gallery",
+	type: "document",
+	icon: IconLibraryPhoto,
 
-  fields: [
-    defineField({
-      name: "image",
-      title: "Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: "alt",
-          type: "string",
-          title: "Alternative Text",
-        },
-      ],
-    }),
-    defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
-    }),
-    orderRankField({ type: "gallery" }),
-  ],
+	fields: [
+		defineField({
+			name: "image",
+			title: "Image",
+			type: "image",
+			options: {
+				hotspot: true,
+			},
+			fields: [
+				{
+					name: "alt",
+					type: "string",
+					title: "Alternative Text",
+				},
+			],
+		}),
+		defineField({
+			name: "title",
+			title: "Title",
+			type: "string",
+		}),
+		orderRankField({ type: "gallery" }),
+	],
 
-  preview: {
-    select: {
-      title: "title",
-      media: "image",
-    },
-  },
+	preview: {
+		select: {
+			title: "title",
+			media: "image",
+		},
+	},
 });

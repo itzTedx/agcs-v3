@@ -6,52 +6,53 @@ import Autoplay from "embla-carousel-autoplay";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
+	Carousel,
+	CarouselContent,
+	CarouselItem,
 } from "@/components/ui/carousel";
+
 import { urlFor } from "@/sanity/lib/image";
 
 import { PROJECTS_CAROUSEL_QUERYResult } from "../../../sanity.types";
 
 export function ProjectsCarousel({
-  data,
+	data,
 }: {
-  data: PROJECTS_CAROUSEL_QUERYResult;
+	data: PROJECTS_CAROUSEL_QUERYResult;
 }) {
-  return (
-    <Carousel
-      className="w-full"
-      plugins={[
-        Autoplay({
-          delay: 2000,
-        }),
-      ]}
-    >
-      <CarouselContent>
-        {data.map((project) => (
-          <CarouselItem key={project._id}>
-            <Card className="p-0">
-              <CardContent className="relative flex h-44 w-full items-center justify-center md:h-72">
-                {project.image && (
-                  <Image
-                    src={urlFor(project.image).url()}
-                    alt={project.title ?? "Projects Image"}
-                    title={project.title ?? "Projects"}
-                    fill
-                    style={{
-                      objectFit: "cover",
-                    }}
-                    sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-                    quality={100}
-                    priority
-                  />
-                )}
-              </CardContent>
-            </Card>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-    </Carousel>
-  );
+	return (
+		<Carousel
+			className="w-full"
+			plugins={[
+				Autoplay({
+					delay: 2000,
+				}),
+			]}
+		>
+			<CarouselContent>
+				{data.map((project) => (
+					<CarouselItem key={project._id}>
+						<Card className="p-0">
+							<CardContent className="relative flex h-44 w-full items-center justify-center md:h-72">
+								{project.image && (
+									<Image
+										alt={project.title ?? "Projects Image"}
+										fill
+										priority
+										quality={100}
+										sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+										src={urlFor(project.image).url()}
+										style={{
+											objectFit: "cover",
+										}}
+										title={project.title ?? "Projects"}
+									/>
+								)}
+							</CardContent>
+						</Card>
+					</CarouselItem>
+				))}
+			</CarouselContent>
+		</Carousel>
+	);
 }

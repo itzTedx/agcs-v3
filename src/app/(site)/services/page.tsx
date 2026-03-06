@@ -1,104 +1,102 @@
-import { Metadata } from "next";
 import { Suspense } from "react";
+
+import type { Metadata, Route } from "next";
+import Script from "next/script";
 
 import { Card } from "@/components/global/card";
 import { Cta } from "@/components/global/cta";
 import Header from "@/components/global/header";
+
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import { getServicesCategories } from "@/sanity/lib/fetch";
 
 export const metadata: Metadata = {
-  title:
-    "Construction & Engineering Services in Bahrain | Allied Gulf Construction",
-  description:
-    "Expert construction and engineering services in Bahrain and Middle East. Specialized in industrial, commercial, and residential projects with comprehensive lifecycle management.",
-  keywords:
-    "construction services Bahrain, engineering services Middle East, industrial construction, commercial construction, project lifecycle management",
-  openGraph: {
-    title:
-      "Professional Construction & Engineering Services | Allied Gulf Construction",
-    description:
-      "Leading construction and engineering services provider in Bahrain and Middle East. Expert project management from planning to completion.",
-    type: "website",
-    locale: "en_US",
-    siteName: "Allied Gulf Construction Services",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Construction & Engineering Services | AGCS",
-    description:
-      "Expert construction and engineering services in Bahrain and Middle East",
-  },
+	title:
+		"Construction & Engineering Services in Bahrain | Allied Gulf Construction",
+	description:
+		"Expert construction and engineering services in Bahrain and Middle East. Specialized in industrial, commercial, and residential projects with comprehensive lifecycle management.",
+	keywords:
+		"construction services Bahrain, engineering services Middle East, industrial construction, commercial construction, project lifecycle management",
+	openGraph: {
+		title:
+			"Professional Construction & Engineering Services | Allied Gulf Construction",
+		description:
+			"Leading construction and engineering services provider in Bahrain and Middle East. Expert project management from planning to completion.",
+		type: "website",
+		locale: "en_US",
+		siteName: "Allied Gulf Construction Services",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Construction & Engineering Services | AGCS",
+		description:
+			"Expert construction and engineering services in Bahrain and Middle East",
+	},
 };
 
 export const revalidate = 1800; // Revalidate every half hour
 
 export default async function ServicesPage() {
-  const text = {
-    title: "Services we providing",
-    subtext: "in Middle East",
-  };
+	const text = {
+		title: "Services we providing",
+		subtext: "in Middle East",
+	};
 
-  const services = await getServicesCategories();
+	const services = await getServicesCategories();
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: "Allied Gulf Construction Services",
-    description:
-      "Professional construction and engineering services in Bahrain and Middle East",
-    provider: {
-      "@type": "Organization",
-      name: "Allied Gulf Construction Services",
-      areaServed: ["Bahrain", "Middle East"],
-    },
-    serviceType: services.map((service) => service.category),
-  };
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@type": "Service",
+		name: "Allied Gulf Construction Services",
+		description:
+			"Professional construction and engineering services in Bahrain and Middle East",
+		provider: {
+			"@type": "Organization",
+			name: "Allied Gulf Construction Services",
+			areaServed: ["Bahrain", "Middle East"],
+		},
+		serviceType: services.map((service) => service.category),
+	};
 
-  return (
-    <main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Header text={text} />
-      <article className="container pb-12">
-        <Breadcrumb segments={[{ title: "Services" }]} />
-        <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
-          <div className="sm:col-span-2 md:col-span-3">
-            <p className="text-muted-foreground text-lg leading-relaxed font-light">
-              Our comprehensive construction and engineering services are
-              offered throughout the complete lifecycle of each project. With
-              extensive experience in the Middle East, we excel in managing
-              multiple developments simultaneously, from initial planning
-              through to final installation and completion.
-            </p>
-            <h2 className="mt-2 text-4xl font-light">
-              <span className="font-medium text-sky-600">Services</span>{" "}
-              Categories
-            </h2>
-          </div>
-          <Suspense
-            fallback={
-              <div aria-label="Loading services">Loading services...</div>
-            }
-          >
-            {services.map((service, i) => (
-              <Card
-                title={service.category}
-                alt={`${service.category} services category`}
-                image={service.image}
-                key={service._id}
-                link={`/services/${service.slug?.current}`}
-                date={service._updatedAt}
-                priority={i < 8}
-                description={service.description}
-              />
-            ))}
-          </Suspense>
-        </section>
-      </article>
-      <Cta />
-    </main>
-  );
+	return (
+		<>
+			<Script type="application/ld+json">{JSON.stringify(jsonLd)}</Script>
+			<main>
+				<Header text={text} />
+				<article className="container pb-12">
+					<Breadcrumb segments={[{ title: "Services" }]} />
+					<section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+						<div className="sm:col-span-2 md:col-span-3">
+							<p className="font-light text-lg text-muted-foreground leading-relaxed">
+								Our comprehensive construction and engineering services are
+								offered throughout the complete lifecycle of each project. With
+								extensive experience in the Middle East, we excel in managing
+								multiple developments simultaneously, from initial planning
+								through to final installation and completion.
+							</p>
+							<h2 className="mt-2 font-light text-4xl">
+								<span className="font-medium text-sky-600">Services</span>{" "}
+								Categories
+							</h2>
+						</div>
+						<Suspense fallback={<div>Loading services...</div>}>
+							{services.map((service, i) => (
+								<Card
+									alt={`${service.category} services category`}
+									date={service._updatedAt}
+									description={service.description}
+									image={service.image}
+									key={service._id}
+									link={`/services/${service.slug?.current}` as Route}
+									priority={i < 8}
+									title={service.category}
+								/>
+							))}
+						</Suspense>
+					</section>
+				</article>
+				<Cta />
+			</main>
+		</>
+	);
 }

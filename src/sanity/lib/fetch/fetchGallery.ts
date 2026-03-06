@@ -6,18 +6,18 @@ import { sanityFetch } from "../live";
 import { getCacheOptions } from "./utils";
 
 export const getGalleries = unstable_cache(
-  async (): Promise<GALLERY_QUERYResult> => {
-    try {
-      const { data } = await sanityFetch({
-        query: GALLERY_QUERY,
-        tags: ["sanity-content", "galleries"],
-      });
-      return data;
-    } catch (error) {
-      console.error("Error fetching galleries:", error);
-      throw new Error("Failed to fetch galleries");
-    }
-  },
-  ["all--galleries"],
-  getCacheOptions("galleries")
+	async (): Promise<GALLERY_QUERYResult> => {
+		try {
+			const { data } = await sanityFetch({
+				query: GALLERY_QUERY,
+				tags: ["sanity-content", "galleries"],
+			});
+			return data;
+		} catch (error) {
+			console.error("Error fetching galleries:", error);
+			throw new Error("Failed to fetch galleries");
+		}
+	},
+	["all--galleries"],
+	getCacheOptions("galleries")
 );
