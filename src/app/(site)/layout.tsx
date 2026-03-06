@@ -46,7 +46,7 @@ export default function RootLayout({
 				<script
 					data-domain="alliedgulf.me"
 					defer
-					src="http://analytics.alliedgulf.me/js/script.file-downloads.outbound-links.tagged-events.js"
+					src="https://analytics.alliedgulf.me/js/script.file-downloads.outbound-links.tagged-events.js"
 				/>
 			</head>
 			<body className={`${roboto.className} antialiased`}>
