@@ -1,10 +1,12 @@
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import { Suspense } from "react"
 
-import { SectionLoader } from "@/components/ui/section-loader";
-import { HOME_FAQS } from "@/data/faq";
-import { HomeSchema } from "@/features/home/schema/home-schema";
-import { Hero } from "@/features/home/sections/hero";
+import dynamic from "next/dynamic"
+
+import { SectionLoader } from "@/components/ui/section-loader"
+
+import { HOME_FAQS } from "@/data/faq"
+import { HomeSchema } from "@/features/home/schema/home-schema"
+import { Hero } from "@/features/home/sections/hero"
 
 // Dynamic imports
 const About = dynamic(
@@ -14,8 +16,8 @@ const About = dynamic(
     })),
   {
     loading: () => <SectionLoader height="400px" />,
-  }
-);
+  },
+)
 
 const Services = dynamic(
   () =>
@@ -24,8 +26,8 @@ const Services = dynamic(
     })),
   {
     loading: () => <SectionLoader height="600px" />,
-  }
-);
+  },
+)
 
 const Products = dynamic(
   () =>
@@ -34,8 +36,8 @@ const Products = dynamic(
     })),
   {
     loading: () => <SectionLoader height="600px" />,
-  }
-);
+  },
+)
 
 const Projects = dynamic(
   () =>
@@ -44,8 +46,8 @@ const Projects = dynamic(
     })),
   {
     loading: () => <SectionLoader height="400px" />,
-  }
-);
+  },
+)
 const FAQs = dynamic(
   () =>
     import("@/components/global/faq").then((mod) => ({
@@ -53,8 +55,8 @@ const FAQs = dynamic(
     })),
   {
     loading: () => <SectionLoader height="400px" />,
-  }
-);
+  },
+)
 
 const LogoStrip = dynamic(
   () =>
@@ -63,15 +65,12 @@ const LogoStrip = dynamic(
     })),
   {
     loading: () => <SectionLoader height="100px" />,
-  }
-);
+  },
+)
 
-const Cta = dynamic(
-  () => import("@/components/global/cta").then((mod) => ({ default: mod.Cta })),
-  {
-    loading: () => <SectionLoader height="200px" />,
-  }
-);
+const Cta = dynamic(() => import("@/components/global/cta").then((mod) => ({ default: mod.Cta })), {
+  loading: () => <SectionLoader height="200px" />,
+})
 
 export default function Home() {
   return (
@@ -102,5 +101,5 @@ export default function Home() {
       </Suspense>
       <HomeSchema />
     </div>
-  );
+  )
 }

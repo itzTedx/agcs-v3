@@ -1,51 +1,51 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import type { Metadata } from "next"
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import Script from "next/script"
 
-import { IconArrowLeft } from "@tabler/icons-react";
-import { PortableText } from "next-sanity";
+import { IconArrowLeft } from "@tabler/icons-react"
+import { PortableText } from "next-sanity"
 
-import Breadcrumb from "@/features/products/components/breadcrumb";
-import { ImagePreview } from "@/features/products/components/image-preview";
-import { OtherServices } from "@/features/services/components/other-services";
-import { RelatedProducts } from "@/features/services/components/related-products";
-import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch";
-import { urlFor } from "@/sanity/lib/image";
+import Breadcrumb from "@/features/products/components/breadcrumb"
+import { ImagePreview } from "@/features/products/components/image-preview"
+import { OtherServices } from "@/features/services/components/other-services"
+import { RelatedProducts } from "@/features/services/components/related-products"
+import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch"
+import { urlFor } from "@/sanity/lib/image"
 
 export async function generateStaticParams() {
-  const categories = await getServicesCategories();
+  const categories = await getServicesCategories()
 
   return categories
-    .filter(
-      (category): category is typeof category & { slug: { current: string } } =>
-        Boolean(category.slug?.current)
+    .filter((category): category is typeof category & { slug: { current: string } } =>
+      Boolean(category.slug?.current),
     )
     .map(async (category) => {
-      const service = await getServiceBySlug(category.slug.current);
+      const service = await getServiceBySlug(category.slug.current)
 
       return service
         ? [
-          {
-            slug: category.slug?.current,
-            service: service.servicesSlug?.current,
-          },
-        ]
-        : [];
-    });
+            {
+              slug: category.slug?.current,
+              service: service.servicesSlug?.current,
+            },
+          ]
+        : []
+    })
 }
 
-export const revalidate = 1800; // Revalidate every half hour
+export const revalidate = 1800 // Revalidate every half hour
 
 export default async function ServicePage({
   params,
 }: {
-  params: Promise<{ category: string; service: string }>;
+  params: Promise<{ category: string; service: string }>
 }) {
-  const { category: categoryQuery, service: query } = await params;
+  const { category: categoryQuery, service: query } = await params
 
-  const service = await getServiceBySlug(query);
+  const service = await getServiceBySlug(query)
 
-  if (!service) return notFound();
+  if (!service) return notFound()
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -58,14 +58,11 @@ export default async function ServicePage({
     },
     image: service.servicesImage && urlFor(service?.servicesImage).url,
     category: categoryQuery,
-  };
+  }
 
   return (
     <div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <Script type="application/ld+json">{JSON.stringify(jsonLd)}</Script>
 
       <div className="container">
         <Breadcrumb
@@ -77,34 +74,29 @@ export default async function ServicePage({
                 .replace(/\b\w/g, (char) => char.toUpperCase()),
               href: `/services/${categoryQuery}`,
             },
-            { title: service.servicesTitle! },
+            { title: service.servicesTitle ?? "Service" },
           ]}
         />
         <div className="grid gap-6 pb-12 md:grid-cols-5">
           {service.servicesImage && (
             <figure className="md:col-span-3">
-              <ImagePreview
-                data={service.servicesImage}
-                alt={service.servicesTitle}
-              />
+              <ImagePreview alt={service.servicesTitle} data={service.servicesImage} />
             </figure>
           )}
 
           <article className="md:col-span-2 md:px-6">
             <nav>
               <Link
-                href={`/services/${categoryQuery}`}
-                className="hidden items-center gap-1 text-sm md:flex"
                 aria-label={`Back to ${categoryQuery} services`}
+                className="hidden items-center gap-1 text-sm md:flex"
+                href={`/services/${categoryQuery}`}
               >
                 <IconArrowLeft className="size-4" />
                 Back to services
               </Link>
             </nav>
             <header>
-              <h1 className="text-4xl font-bold md:pt-4">
-                {service?.servicesTitle}
-              </h1>
+              <h1 className="text-4xl font-bold md:pt-4">{service?.servicesTitle}</h1>
             </header>
             <section className="service-description">
               <article className="prose dark:prose-invert py-6">
@@ -129,9 +121,7 @@ export default async function ServicePage({
               ...product,
               category: product.category?.slug?.current || "",
               thumbnail: product.thumbnail?.asset?._ref || "",
-              slug: product.slug
-                ? { current: product.slug.current || "" }
-                : undefined,
+              slug: product.slug ? { current: product.slug.current || "" } : undefined,
             }))}
           />
         </section>
@@ -140,9 +130,7 @@ export default async function ServicePage({
         <h3 className="pb-3 text-2xl text-sky-800">
           Other services related to{" "}
           <span className="text-primary font-medium">
-            {categoryQuery
-              .replace(/-/g, " ")
-              .replace(/\b\w/g, (char) => char.toUpperCase())}
+            {categoryQuery.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())}
           </span>
         </h3>
 
@@ -165,18 +153,18 @@ export default async function ServicePage({
         />
       </section>
     </div>
-  );
+  )
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { category: string; service: string };
+  params: { category: string; service: string }
 }): Promise<Metadata> {
-  const { category: categoryQuery, service: serviceQuery } = await params;
-  const service = await getServiceBySlug(serviceQuery);
+  const { category: categoryQuery, service: serviceQuery } = await params
+  const service = await getServiceBySlug(serviceQuery)
 
-  if (!service) return { title: "Service Not Found" };
+  if (!service) return { title: "Service Not Found" }
 
   return {
     title: service.metaTagTitle
@@ -190,22 +178,22 @@ export async function generateMetadata({
       categoryQuery,
       ...(service.metaTagKeyword
         ? service.metaTagKeyword
-          .split(/[,\n]+/)
-          .map((keyword) => keyword.trim())
-          .filter(Boolean)
+            .split(/[,\n]+/)
+            .map((keyword) => keyword.trim())
+            .filter(Boolean)
         : []),
     ],
     openGraph: {
-      title: service.servicesTitle!,
-      description: service.metaTagDescription!,
+      title: service.servicesTitle ?? "Service",
+      description: service.metaTagDescription ?? "Service description",
       type: "article",
       publishedTime: new Date().toISOString(),
       authors: ["AGCS"],
     },
     twitter: {
       card: "summary_large_image",
-      title: service.servicesTitle!,
-      description: service.metaTagDescription!,
+      title: service.servicesTitle ?? "Service",
+      description: service.metaTagDescription ?? "Service description",
     },
-  };
+  }
 }
