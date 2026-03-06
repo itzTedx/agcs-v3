@@ -17,6 +17,7 @@ import {
 	getCategories,
 	getProductCategoryBySlug,
 	getProductsBySlug,
+	getCategoriesStatic,
 } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -144,7 +145,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-	const categories = await getCategories();
+	const categories = await getCategoriesStatic();
 	return categories.map((category) => ({
 		slug: category.slug?.current,
 	}));

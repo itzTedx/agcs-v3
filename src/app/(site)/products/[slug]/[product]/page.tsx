@@ -18,6 +18,8 @@ import {
 	getCategories,
 	getProductBySlug,
 	getProductsBySlug,
+	getCategoriesStatic,
+	getProductsBySlugStatic,
 } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -185,19 +187,21 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-	const categories = await getCategories();
+	const categories = await getCategoriesStatic();
 
-	return categories
-		.filter(
-			(category): category is typeof category & { slug: { current: string } } =>
-				Boolean(category.slug?.current)
-		)
-		.map(async (category) => {
-			const products = await getProductsBySlug(category.slug.current);
+	return Promise.all(
+		categories
+			.filter(
+				(category): category is typeof category & { slug: { current: string } } =>
+					Boolean(category.slug?.current)
+			)
+			.map(async (category) => {
+				const products = await getProductsBySlugStatic(category.slug.current);
 
-			return products.map((product) => ({
-				slug: category.slug?.current,
-				product: product.slug?.current,
-			}));
-		});
+				return products.map((product) => ({
+					slug: category.slug?.current,
+					product: product.slug?.current,
+				}));
+			})
+	).then((arrays) => arrays.flat());
 }

@@ -10,29 +10,37 @@ import Breadcrumb from "@/features/products/components/breadcrumb";
 import { ImagePreview } from "@/features/products/components/image-preview";
 import { OtherServices } from "@/features/services/components/other-services";
 import { RelatedProducts } from "@/features/services/components/related-products";
-import { getServiceBySlug, getServicesCategories } from "@/sanity/lib/fetch";
+import {
+	getServiceBySlug,
+	getServiceBySlugStatic,
+	getServicesCategoriesStatic,
+} from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 
 export async function generateStaticParams() {
-	const categories = await getServicesCategories();
+	const categories = await getServicesCategoriesStatic();
 
-	return categories
-		.filter(
-			(category): category is typeof category & { slug: { current: string } } =>
-				Boolean(category.slug?.current)
-		)
-		.map(async (category) => {
-			const service = await getServiceBySlug(category.slug.current);
+	const results = await Promise.all(
+		categories
+			.filter(
+				(category): category is typeof category & { slug: { current: string } } =>
+					Boolean(category.slug?.current)
+			)
+			.map(async (category) => {
+				const service = await getServiceBySlugStatic(category.slug.current);
 
-			return service
-				? [
-						{
-							slug: category.slug?.current,
-							service: service.servicesSlug?.current,
-						},
-					]
-				: [];
-		});
+				return service
+					? [
+							{
+								slug: category.slug?.current,
+								service: service.servicesSlug?.current,
+							},
+						]
+					: [];
+			})
+	);
+
+	return results.flat();
 }
 
 export const revalidate = 1800; // Revalidate every half hour

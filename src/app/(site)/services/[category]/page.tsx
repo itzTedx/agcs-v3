@@ -8,9 +8,9 @@ import Header from "@/components/global/header";
 
 import Breadcrumb from "@/features/products/components/breadcrumb";
 import {
-	getCategories,
 	getServiceCategoryBySlug,
 	getServicesByCategory,
+	getServicesCategoriesStatic,
 } from "@/sanity/lib/fetch";
 
 export async function generateMetadata({
@@ -47,7 +47,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-	const categories = await getCategories();
+	const categories = await getServicesCategoriesStatic();
 	return categories.map((category) => ({
 		category: category.slug?.current,
 	}));
