@@ -56,6 +56,7 @@ export default function RootLayout({
           src="https://analytics.alliedgulf.me/script.js"
           data-website-id="4afab4dc-5b7c-43ef-8e37-6a03d7b676f1"
         ></script>
+        <script defer data-domain="alliedgulf.me" src="http://analytics-plausible-ef3fc6-194-238-19-160.traefik.me/js/script.file-downloads.outbound-links.tagged-events.js"></script>
       </head>
       <body className={`${roboto.className} antialiased`}>
         <ThemeProvider
