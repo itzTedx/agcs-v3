@@ -8,6 +8,7 @@ export const OpenPanelProvider = ({
 	return (
 		<>
 			<OpenPanelComponent
+				apiUrl="https://analytics.alliedgulf.me/api"
 				clientId="aa088aa5-1af9-40f1-b44e-fdacf6767b15"
 				// clientSecret="sec_acfb0b4417711f4ff804"
 				trackAttributes={true}

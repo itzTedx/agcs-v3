@@ -31,6 +31,7 @@ export async function RelatedProducts({ slug }: { slug: string }) {
 									alt={product.title!}
 									className="aspect-square"
 									image={product.thumbnail}
+									itemType="Product"
 									key={product._id}
 									link={`/products/${slug}/${product.slug?.current}` as Route}
 									priority={i < 3} // Prioritize loading first 3 images

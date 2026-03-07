@@ -20,6 +20,7 @@ const ProductCard = memo(
 			<Card
 				alt={product.category}
 				image={product.image}
+				itemType="Product"
 				link={`/products/${product.slug?.current}` as Route}
 				title={product.category}
 			/>

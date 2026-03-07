@@ -19,6 +19,8 @@ interface Props {
 	priority?: boolean;
 	description?: string | null;
 	date?: string;
+	/** Schema.org type for JSON-LD. Use "Product" for product/category cards. */
+	itemType?: "Article" | "Product";
 }
 
 export const Card = ({
@@ -30,21 +32,32 @@ export const Card = ({
 	priority,
 	description,
 	date,
+	itemType = "Article",
 }: Props) => {
-	const structuredData = {
-		"@context": "https://schema.org",
-		"@type": "Article",
-		headline: title,
-		image: image ? urlFor(image).url() : undefined,
-		description: description,
-		datePublished: date,
-	};
+	const isProduct = itemType === "Product";
+	const structuredData = isProduct
+		? {
+				"@context": "https://schema.org",
+				"@type": "Product",
+				name: title,
+				image: image ? urlFor(image).url() : undefined,
+				description: description ?? undefined,
+				...(link && link !== "#" && { url: link }),
+		  }
+		: {
+				"@context": "https://schema.org",
+				"@type": "Article",
+				headline: title,
+				image: image ? urlFor(image).url() : undefined,
+				description: description,
+				datePublished: date,
+		  };
 
 	return (
 		<CardUi className="p-0">
 			<Link href={link ?? "#"}>
 				<CardContent
-					aria-label={`Article: ${title}`}
+					aria-label={isProduct ? `Product: ${title}` : `Article: ${title}`}
 					className={cn("relative p-1.5")}
 				>
 					<Script type="application/ld+json">

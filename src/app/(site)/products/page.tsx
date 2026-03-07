@@ -70,6 +70,7 @@ export default async function ProductsPage() {
 							<Card
 								alt={`${product.category} - Construction Materials Category`}
 								image={product.image}
+								itemType="Product"
 								key={product._id}
 								link={`/products/${product.slug?.current}` as Route}
 								priority={i < 3}

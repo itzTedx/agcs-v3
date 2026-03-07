@@ -31,6 +31,7 @@ export const RelatedProducts = ({
 								alt={product.title}
 								className="aspect-square"
 								image={product.thumbnail}
+								itemType="Product"
 								link={`/products/${category}/${product.slug?.current}` as Route}
 								title={product.title ?? ""}
 							/>
@@ -49,6 +50,7 @@ export const RelatedProducts = ({
 					alt={product.title}
 					className="aspect-square"
 					image={product.thumbnail}
+					itemType="Product"
 					key={product._id}
 					link={
 						`/products/${product.category}/${product.slug?.current}` as Route

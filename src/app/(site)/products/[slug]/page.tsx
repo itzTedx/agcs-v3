@@ -100,6 +100,7 @@ export default async function ProductsBySlugPage({
 										alt={`${product.title} - Construction Product by AGCS`}
 										className="aspect-square"
 										image={product.thumbnail}
+										itemType="Product"
 										key={product._id}
 										link={`/products/${slug}/${product.slug?.current}` as Route}
 										priority={index < 3}
