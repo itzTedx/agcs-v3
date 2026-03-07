@@ -40,16 +40,6 @@ export default function RootLayout({
 		<html className="scroll-smooth" lang="en" suppressHydrationWarning>
 			<head>
 				<meta content="Alliedgulf" name="apple-mobile-web-app-title" />
-				{/* <script
-					data-website-id="4afab4dc-5b7c-43ef-8e37-6a03d7b676f1"
-					defer
-					src="https://analytics.alliedgulf.me/script.js"
-				/> */}
-				{/* <script
-					data-domain="alliedgulf.me"
-					defer
-					src="https://analytics.alliedgulf.me/js/script.file-downloads.outbound-links.tagged-events.js"
-				/> */}
 			</head>
 			<body className={`${roboto.className} antialiased`}>
 				<OpenPanelProvider>

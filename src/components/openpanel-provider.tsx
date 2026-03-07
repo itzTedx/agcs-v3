@@ -1,5 +1,3 @@
-"use client";
-
 import { OpenPanelComponent } from "@openpanel/nextjs";
 
 export const OpenPanelProvider = ({
@@ -10,8 +8,8 @@ export const OpenPanelProvider = ({
 	return (
 		<>
 			<OpenPanelComponent
-				clientId="1a99dd02-c759-4d91-a850-52c475f327e1"
-				clientSecret="sec_af5fe05e2539031c5cc7"
+				clientId="aa088aa5-1af9-40f1-b44e-fdacf6767b15"
+				// clientSecret="sec_acfb0b4417711f4ff804"
 				trackAttributes={true}
 				trackHashChanges={true}
 				trackOutgoingLinks={true}
